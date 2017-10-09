@@ -9,6 +9,8 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { AwsService } from './services/aws.service';
+import { GoogleSigninComponent } from './services/google-signin-components';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { AppRoutingModule } from './app-routing.module';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AwsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
