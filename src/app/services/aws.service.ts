@@ -3,11 +3,15 @@ import {Http, Headers, Response} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import * as AWS from 'aws-sdk';
-//import * as AWSCognito from 'amazon-cognito-identity-js';
+import * as AWS from "aws-sdk";
+import * as awsservice from "aws-sdk/lib/service";
+import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
+import * as AWSCognito from 'amazon-cognito-identity-js';
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser, CognitoIdentityServiceProvider } from 'amazon-cognito-identity-js';
+
 
 //declare let AWS: any;
-declare let AWSCognito: any;
+//declare let AWSCognito: any;
 declare let apigClientFactory: any;
 
 export interface Callback {
@@ -30,12 +34,12 @@ export class AwsService {
 
   googleId:string = 'XXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com';
   poolData = { 
-        UserPoolId : 'XXXXXXXXXXXXXXXXXXXXXXXXXXX', //CognitoUserPool
-        ClientId : 'XXXXXXXXXXXXXXXXXXXXXXXXXXX', //CognitoUserPoolClient 
+        UserPoolId : 'us-east-1_urqg2WODX', //CognitoUserPool
+        ClientId : '3eluj53lmpep2sok96t97nlt4l', //CognitoUserPoolClient 
         Paranoia : 7
     };
-  identityPool:string = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX'; //CognitoIdentityPool 
-  apiURL:string = 'XXXXXXXXXXXXXXXXXXXXXXXXXXX';  //ApiUrl
+  identityPool:string = 'us-east-1:bda549c7-2bbd-4b89-b77b-13f262a5ed53'; //CognitoIdentityPool 
+  apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demo';  //ApiUrl
   region:string = 'us-east-1'; //Region Matching CognitoUserPool region
 
  /*********************************************/
@@ -141,13 +145,13 @@ export class AwsService {
       Username : user,
       Password : password,
       };
-    let authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
-    let userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(this.poolData);
+    let authenticationDetails = new AWSCognito.AuthenticationDetails(authenticationData);
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     let userData = {
         Username : user,
         Pool : userPool
     };
-    let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+    let cognitoUser = new AWSCognito.CognitoUser(userData);
     
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
@@ -192,13 +196,13 @@ export class AwsService {
       Username : user,
       Password : password,
       };
-    let authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
-    let userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(this.poolData);
+    let authenticationDetails = new AWSCognito.AuthenticationDetails(authenticationData);
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     let userData = {
         Username : user,
         Pool : userPool
     };
-    let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+    let cognitoUser = new AWSCognito.CognitoUser(userData);
     let cognitoParams = {
       IdentityPoolId: this.identityPool,
       Logins: {}
