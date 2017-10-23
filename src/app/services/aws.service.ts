@@ -39,7 +39,7 @@ export class AwsService {
         Paranoia : 7
     };
   identityPool:string = 'us-east-1:bda549c7-2bbd-4b89-b77b-13f262a5ed53'; //CognitoIdentityPool 
-  apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demo';  //ApiUrl
+  apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demoxxxx';  //ApiUrl in the stage 
   region:string = 'us-east-1'; //Region Matching CognitoUserPool region
 
  /*********************************************/
@@ -160,7 +160,10 @@ export class AwsService {
         if (cognitoGetUser != null) {
           cognitoGetUser.getSession(function(err, result) {
             if (result) {
-              console.log ("Authenticated to Cognito User Pools!");               
+              console.log ("Authenticated to Cognito User Pools!"+result);               
+              let token = result.getIdToken().getJwtToken();
+              console.log("token is "+ token)
+              
             }
           });
         }
@@ -217,6 +220,7 @@ export class AwsService {
             if (result) {
               console.log ("Authenticated to Cognito User and Identity Pools!");  
               let token = result.getIdToken().getJwtToken();
+              console.log("token is "+ token)
               cognitoParams.Logins["cognito-idp."+region+".amazonaws.com/"+poolId] = token;
               AWS.config.credentials = new AWS.CognitoIdentityCredentials(cognitoParams);
         
