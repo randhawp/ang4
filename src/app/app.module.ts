@@ -10,6 +10,8 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AwsService } from './services/aws.service';
+import {AuthService} from './services/auth.service';
+import {AuthGuard} from './services/authguard.service';
 import { GoogleSigninComponent } from './services/google-signin-components';
 
 @NgModule({
@@ -25,7 +27,7 @@ import { GoogleSigninComponent } from './services/google-signin-components';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AwsService],
+  providers: [AwsService,AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
