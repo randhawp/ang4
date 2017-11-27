@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   logout() {
-   
+   console.log("logout called....")
     this.token = null;
   }
 
@@ -23,8 +23,23 @@ export class AuthService {
     return this.token;
   }
 
+  isLogged():boolean{
+    if (this.token != null){
+      return true;
+    }else{
+      return false;
+    }
+
+
+  }
+
   isAuthenticated() {
-    return this.token  != null;
+    const promise = new Promise(
+      (resolve,reject) => {
+        resolve(this.isLogged);
+        }   
+          );
+    return promise;
   }
   
   cognitoCallback(message:string, result:any) {
@@ -42,7 +57,7 @@ export class AuthService {
       // this.provider = "Cognito User Pools";
       // this.userDataFromUserPools();
 
-      this.router.navigate(['/main']);
+      this.router.navigate(['/mainapp/main']);
     }
   }
 }

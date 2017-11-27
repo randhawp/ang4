@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { MainComponent } from './components/main/main.component';
+import { MainComponent } from './components/mainapp/main/main.component';
+import { MenuComponent } from './components/mainapp/menu/menu.component';
+import { RecepitsComponent } from './components/mainapp/recepits/recepits.component';
+
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +22,9 @@ import { GoogleSigninComponent } from './services/google-signin-components';
     AppComponent,
     MainComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    MenuComponent,
+    RecepitsComponent
   ],
   imports: [
     BrowserModule,
