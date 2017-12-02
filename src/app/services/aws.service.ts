@@ -39,7 +39,7 @@ export class AwsService {
         Paranoia : 7
     };
   identityPool:string = 'us-east-1:bda549c7-2bbd-4b89-b77b-13f262a5ed53'; //CognitoIdentityPool 
-  apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demoxxxx';  //ApiUrl in the stage 
+  apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demoxxxxxx';  //ApiUrl in the stage 
   region:string = 'us-east-1'; //Region Matching CognitoUserPool region
 
  /*********************************************/
