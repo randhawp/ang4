@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import {SignupComponent} from './components/signup/signup.component'
 import {MenuComponent} from './components/mainapp/menu/menu.component';
 import {RecepitsComponent} from './components/mainapp/recepits/recepits.component';
 import { AuthGuard} from './services/authguard.service'
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
   ]},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
+  { path: 'signup', component: SignupComponent}
 ];
 
 @NgModule({

@@ -7,32 +7,29 @@ import {Router} from '@angular/router'
 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-@Injectable()
+export class SignupComponent implements OnInit {
 
-export class LoginComponent implements OnInit {
-
-  provider:string;
-  
   constructor(public auth:AuthService, private router:Router){
   }
-  
+
   ngOnInit() {
-    console.log("init login")
   }
-  
-  onLogin(form: NgForm){
+
+  onSignup(form: NgForm){
     //this.provider="cup"
     console.log(form.value.loginname)
     const loginname = form.value.loginname
     const password = form.value.password
-    //this.auth.loginUser(loginname,password)
-    this.auth.refreshSession()
+    const email = form.value.email
+    const phone = form.value.phone
+    console.log("username is" + loginname + "email is "+email+" phone is "+phone + "password id " +password)
+    this.auth.signupUser(loginname,email,phone, password)
+    
 
   }
-
 
 }

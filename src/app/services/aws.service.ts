@@ -7,8 +7,9 @@ import * as AWS from "aws-sdk";
 import * as awsservice from "aws-sdk/lib/service";
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
 import * as AWSCognito from 'amazon-cognito-identity-js';
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, CognitoIdentityServiceProvider } from 'amazon-cognito-identity-js';
-
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser, CognitoIdentityServiceProvider,
+  CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, CognitoUserSession } from 'amazon-cognito-identity-js';
+ 
 
 //declare let AWS: any;
 //declare let AWSCognito: any;
@@ -16,7 +17,7 @@ declare let apigClientFactory: any;
 
 export interface Callback {
   cognitoCallback(message: string, result: any):void;
-  //cognitoCallbackWithCreds(message: string, result: any, creds: any, data:any):void;
+  cognitoCallbackWithCreds(message: string, result: any, creds: any, data:any):void;
   //googleCallback(creds: any, profile: any);
   //googleCallbackWithData(data: any);
   //testCallback(result:any, err:any);
@@ -24,7 +25,7 @@ export interface Callback {
 
 @Injectable()
 export class AwsService {
-  token:any;
+  token:CognitoIdToken;
   googleCreds:any;
   googleProfile:any;
   googleData:any;
@@ -34,12 +35,16 @@ export class AwsService {
 
   googleId:string = 'XXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com';
   poolData = { 
-        UserPoolId : 'us-east-1_urqg2WODX', //CognitoUserPool
-        ClientId : '3eluj53lmpep2sok96t97nlt4l', //CognitoUserPoolClient 
+        //UserPoolId : 'us-east-1_urqg2WODX', //CognitoUserPool under auth provider cognito
+        //ClientId : '3eluj53lmpep2sok96t97nlt4l', //CognitoUserPoolClient 
+        UserPoolId : 'us-east-1_iuOaSqliV', //CognitoUserPool under auth provider cognito in federated id
+        ClientId : '7hpiatbq2vjg672g9f522tjhka', //CognitoUserPoolClient from pool
         Paranoia : 7
     };
-  identityPool:string = 'us-east-1:bda549c7-2bbd-4b89-b77b-13f262a5ed53'; //CognitoIdentityPool 
-  apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demoxxxxxx';  //ApiUrl in the stage 
+  //identityPool:string = 'us-east-1:bda549c7-2bbd-4b89-b77b-13f262a5ed53'; //CognitoIdentityPool 
+  //apiURL:string = 'https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/demoxxxxxx';  //ApiUrl in the stage 
+  identityPool:string = 'us-east-1:5d31c018-7e8a-4ace-a237-9b6cf92127aa'; //CognitoIdentityPool 
+  apiURL:string = 'https://tyyzqr1pd0.execute-api.us-east-1.amazonaws.com/alpha/';  //ApiUrl in the stage 
   region:string = 'us-east-1'; //Region Matching CognitoUserPool region
 
  /*********************************************/
@@ -140,6 +145,63 @@ export class AwsService {
       });
   }
 
+  registerUser(username,email, phone, password){
+    console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    var attributeList = [];
+    var rusername = "";
+    var dataEmail = {
+        Name : 'email',
+        Value : email
+    };
+    var dataPhoneNumber = {
+        Name : 'phone_number',
+        Value : phone
+    };
+    var attributeEmail = new AWSCognito.CognitoUserAttribute(dataEmail);
+    var attributePhoneNumber = new AWSCognito.CognitoUserAttribute(dataPhoneNumber);
+
+    attributeList.push(attributeEmail);
+    attributeList.push(attributePhoneNumber)
+
+    userPool.signUp(username, password, attributeList, null, function(err, result){
+      if (err) {
+          alert(err);
+          return;
+      }
+      rusername = String(result.user);
+      console.log('user name is ' + rusername);
+  });
+
+  }
+
+  refresh(){
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let cognitoUser = userPool.getCurrentUser();
+
+    if (cognitoUser != null) {
+      cognitoUser.getSession(function(err, session) {
+          if (err) {
+              alert(err);
+              let token:CognitoIdToken = session.getIdToken().getJwtToken();
+              console.log("refresh token is ...:"+ token)
+              return;
+          }
+          console.log('session validity: ' + session.isValid());
+           let token:CognitoIdToken = session.getIdToken().getJwtToken();
+              console.log("old token is ...:"+ token)
+             
+      });
+  }
+
+  }
+
+  getToken(){
+
+
+    return this.token.getJwtToken.toString()
+  }
+
   authenticateUserPool(user,password,callback){
     let authenticationData = {
       Username : user,
@@ -161,8 +223,10 @@ export class AwsService {
           cognitoGetUser.getSession(function(err, result) {
             if (result) {
               console.log ("Authenticated to Cognito User Pools!"+result);               
-              let token = result.getIdToken().getJwtToken();
-              console.log("token is "+ token)
+              let token:CognitoIdToken = result.getIdToken().getJwtToken();
+              console.log("token is ...:"+ token)
+              console.log(token.getExpiration)
+              
               
             }
           });
@@ -178,18 +242,18 @@ export class AwsService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', token);
-    return this._http.get(this.apiURL+"/cup", {headers: headers})
+    return this._http.get(this.apiURL+"/test", {headers: headers})
         .map(res => res.json().Items[0])
         .catch(this._serverError);
 
   }
 
-  postInfoApiUserPools(token):Observable<any>{
+  postInfoApiUserPools(token):Observable<any>{ 
     let headers = new Headers();
     let body = {};
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', token);
-    return this._http.post(this.apiURL+"/cup",JSON.stringify(body), {headers: headers})
+    return this._http.post(this.apiURL+"/test",JSON.stringify(body), {headers: headers})
             .map(res => res.json())
             .catch(this._serverError);
   }
@@ -221,6 +285,7 @@ export class AwsService {
               console.log ("Authenticated to Cognito User and Identity Pools!");  
               let token = result.getIdToken().getJwtToken();
               console.log("token is "+ token)
+              console.log(token.getCurrentUser)
               cognitoParams.Logins["cognito-idp."+region+".amazonaws.com/"+poolId] = token;
               AWS.config.credentials = new AWS.CognitoIdentityCredentials(cognitoParams);
         
