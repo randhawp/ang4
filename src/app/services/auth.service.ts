@@ -2,13 +2,15 @@ import { Router } from '@angular/router';
 import { AwsService } from './aws.service';
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-
+import { MessageService} from './message.service'
 
 @Injectable()
 export class AuthService {
   token: string;
-
-  constructor(public awsService:AwsService,private router: Router,private http: HttpClient) {}
+  message:string;
+  msg:string = "Hello";
+  
+  constructor(public awsService:AwsService,private router: Router,private http: HttpClient,private messageService: MessageService) {}
 
   loginUser(loginname: string, password: string) {
     console.log("calling")
@@ -25,12 +27,21 @@ export class AuthService {
   refreshSession(){
     console.log("refreshing sesion")
     this.awsService.refresh()
-     
+  }
   
- 
-
+  
+  forgotPassword(username){
+    this.awsService.forgotPassword(username,this)
+    console.log (">>> 1 ")
+    
+    
+    //setTimeout(this.wastetime(), 3000)
+  
   }
 
+  getVerificationMsgResult():string{
+    return this.message
+  }
   logout() {
    console.log("logout called....")
     this.token = null;
@@ -58,7 +69,27 @@ export class AuthService {
           );
     return promise;
   }
-  
+  forgotPasswordCallback(message:string, result:any){
+    if (message != null) { // error
+      //this.errorMessage = message;
+      
+      console.log("error >> "+message)
+     
+      this.message = message
+      console.log("1 "+this.msg)
+      console.log("2 "+this.message)
+      this.messageService.sendMessage(message);
+       
+    } else {
+
+      console.log("success  "+message)
+      this.message = message
+      this.messageService.sendMessage(message);
+      
+    }
+
+
+  }
   cognitoCallback(message:string, result:any) {
     if (message != null) { // error
       //this.errorMessage = message;

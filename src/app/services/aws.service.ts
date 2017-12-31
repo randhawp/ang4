@@ -18,6 +18,7 @@ declare let apigClientFactory: any;
 export interface Callback {
   cognitoCallback(message: string, result: any):void;
   cognitoCallbackWithCreds(message: string, result: any, creds: any, data:any):void;
+  forgotPasswordCallback(message:string, result:any):void
   //googleCallback(creds: any, profile: any);
   //googleCallbackWithData(data: any);
   //testCallback(result:any, err:any);
@@ -144,6 +145,37 @@ export class AwsService {
         console.log(response);
       });
   }
+
+  forgotPassword(user,callback){
+
+    let msg:string =""
+
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let userData = {
+        Username : user,
+        Pool : userPool
+    };
+    let cognitoUser = new AWSCognito.CognitoUser(userData);
+    
+    if (cognitoUser != null) {
+
+    cognitoUser.forgotPassword( {
+      onSuccess: function (result) {
+        console.log("verification code sent")
+       
+      },
+      onFailure: function(err) {
+         console.log("user not found")
+          console.log(err)
+         callback.forgotPasswordCallback(err, null);
+      }
+    });
+  
+
+  }
+   
+}
+
 
   registerUser(username,email, phone, password){
     console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)

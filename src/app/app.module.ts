@@ -17,6 +17,8 @@ import {AuthService} from './services/auth.service';
 import {AuthGuard} from './services/authguard.service';
 import { GoogleSigninComponent } from './services/google-signin-components';
 import { SignupComponent } from './components/signup/signup.component';
+import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
+import {MessageService} from './services/message.service'
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { SignupComponent } from './components/signup/signup.component';
     LogoutComponent,
     MenuComponent,
     RecepitsComponent,
-    SignupComponent
+    SignupComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { SignupComponent } from './components/signup/signup.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AwsService,AuthService,AuthGuard],
+  providers: [AwsService,AuthService,AuthGuard,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

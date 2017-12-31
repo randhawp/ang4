@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import {ForgotpasswordComponent} from './components/forgotpassword/forgotpassword.component';
 import {SignupComponent} from './components/signup/signup.component'
 import {MenuComponent} from './components/mainapp/menu/menu.component';
 import {RecepitsComponent} from './components/mainapp/recepits/recepits.component';
@@ -18,7 +19,8 @@ const appRoutes: Routes = [
   ]},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
-  { path: 'signup', component: SignupComponent}
+  { path: 'signup', component: SignupComponent},
+  { path: 'forgotpassword', component: ForgotpasswordComponent}
 ];
 
 @NgModule({
