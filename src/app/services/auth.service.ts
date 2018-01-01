@@ -81,10 +81,10 @@ export class AuthService {
       this.messageService.sendMessage(message);
        
     } else {
-
-      console.log("success  "+message)
-      this.message = message
-      this.messageService.sendMessage(message);
+      message="success"
+      console.log("success  "+ message)
+      this.message = result
+      this.messageService.sendMessage(result);
       
     }
 

@@ -161,13 +161,16 @@ export class AwsService {
 
     cognitoUser.forgotPassword( {
       onSuccess: function (result) {
-        console.log("verification code sent")
+        console.log("verification code sent" + result)
+        var r= "PASS,"+ result
+        callback.forgotPasswordCallback(null, r);
        
       },
       onFailure: function(err) {
          console.log("user not found")
           console.log(err)
-         callback.forgotPasswordCallback(err, null);
+          var e= "ERR,"+ err
+         callback.forgotPasswordCallback(e, null);
       }
     });
   

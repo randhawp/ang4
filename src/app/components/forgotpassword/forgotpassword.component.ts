@@ -20,12 +20,14 @@ import {  Input, Output, EventEmitter } from '@angular/core';
 export class ForgotpasswordComponent implements OnInit, OnDestroy  {
 
    message:string;
+   imessage:string
+   header:string;
    countDown;
    counter = 60;
    subscription: Subscription;
 
   constructor( public auth:AuthService, private router:Router,private messageService: MessageService) { 
-    this.subscription = this.messageService.getMessage().subscribe(message => { this.message = message; });
+    this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
   }
   
 
@@ -35,34 +37,50 @@ export class ForgotpasswordComponent implements OnInit, OnDestroy  {
     // unsubscribe to ensure no memory leaks
     this.subscription.unsubscribe();
   }
-  mywait(){
-
-  }
+  
   sleep(delay) {
     var start = new Date().getTime();
     while (new Date().getTime() < start + delay);
   }
+  
   myEvent(event){
     this.sleep(3000)
     console.log("called...."+event)
-    this.updateMsg()
+   
   }
   
   requestCode(form: NgForm){
-    //this.provider="cup"
     console.log(form.value.loginname)
     const loginname = form.value.loginname
-   
-    //this.auth.loginUser(loginname,password)
     this.auth.forgotPassword(loginname)
-    console.log (">>> 2 ")
-
   }
 
+  update(msgobj){
   
-  updateMsg(){
-    console.log("calling updateMg")
-    this.message = this.auth.getVerificationMsgResult()
+    const msg1 = JSON.stringify(msgobj)
+    var msg = JSON.parse(msg1)
+    
+    let  arr:string[] = msg.text.split(",")
+    var header:string = arr[0]
+    var fmsg:string = arr[1]
+
+    if (header == 'ERR') {
+
+      this.message = fmsg;
+    }
+    if (header == 'PASS') {
+      
+      this.router.navigate(['/mainapp/main']);    
+    }
+          
+    
+    //this.message = msg1; 
+   
+    console.log("do other things" + fmsg)
+    console.log("success" + header)
+    
   }
+  
+  
 
 }
