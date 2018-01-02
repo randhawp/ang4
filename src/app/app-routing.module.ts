@@ -12,7 +12,7 @@ import { RecepitsComponent } from './components/mainapp/recepits/recepits.compon
 import { AuthGuard } from './services/authguard.service'
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/logout', pathMatch: 'full' },
+  //{ path: '', redirectTo: '/logout', pathMatch: 'full' },
   { path: 'mainapp', canActivate:[AuthGuard],children: [
     { path: 'main', component: MainComponent },
     { path: 'menu', component: MenuComponent},

@@ -45,7 +45,8 @@ export class AuthService {
   }
   logout() {
    console.log("logout called....")
-    this.token = null;
+    this.awsService.logout()
+    this.router.navigate(['logout']);
   }
 
   getToken() {

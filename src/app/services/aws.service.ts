@@ -178,6 +178,19 @@ export class AwsService {
    }
    
   }
+  logout(){
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let userData = {
+        Username : this.user,
+        Pool : userPool
+    };
+    let cognitoUser = new AWSCognito.CognitoUser(userData);
+    if (cognitoUser != null) {
+      cognitoUser.signOut();
+    
+    }
+
+  }
 
   forgotPasswordValidate(code,newpassword,callback){
     let userPool = new AWSCognito.CognitoUserPool(this.poolData);

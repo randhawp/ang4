@@ -52,7 +52,7 @@ export class ForgotpasswordvalidatecodeComponent implements OnInit {
     }
     if (header == 'PASS') {
       
-      this.router.navigate(['forgotpasswordvalidate']);    
+     this.message = "Password reset"    
     }
           
     
