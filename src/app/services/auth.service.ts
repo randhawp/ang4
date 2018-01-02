@@ -32,12 +32,13 @@ export class AuthService {
   
   forgotPassword(username){
     this.awsService.forgotPassword(username,this)
-    console.log (">>> 1 ")
-    
-    
-    //setTimeout(this.wastetime(), 3000)
   
   }
+
+  forgotPasswordValidate(code,newpassword){
+    this.awsService.forgotPasswordValidate(code,newpassword,this);
+  }
+
 
   getVerificationMsgResult():string{
     return this.message
@@ -87,7 +88,27 @@ export class AuthService {
       this.messageService.sendMessage(result);
       
     }
+  }
 
+    forgotPasswordValidateCallback(message:string, result:any){
+      if (message != null) { // error
+        //this.errorMessage = message;
+        
+        console.log("error >> "+message)
+       
+        this.message = message
+        console.log("1 "+this.msg)
+        console.log("2 "+this.message)
+        this.messageService.sendMessage(message);
+         
+      } else {
+        message="success"
+        console.log("success  "+ message)
+        this.message = result
+        this.messageService.sendMessage(result);
+        
+      }
+  
 
   }
   cognitoCallback(message:string, result:any) {

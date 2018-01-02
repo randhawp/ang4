@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     console.log(form.value.loginname)
     const loginname = form.value.loginname
     const password = form.value.password
-    //this.auth.loginUser(loginname,password)
-    this.auth.refreshSession()
+    this.auth.loginUser(loginname,password)
+    //this.auth.refreshSession()
 
   }
 

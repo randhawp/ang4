@@ -19,6 +19,7 @@ export interface Callback {
   cognitoCallback(message: string, result: any):void;
   cognitoCallbackWithCreds(message: string, result: any, creds: any, data:any):void;
   forgotPasswordCallback(message:string, result:any):void
+  forgotPasswordValidateCallback(message:string, result:any):void
   //googleCallback(creds: any, profile: any);
   //googleCallbackWithData(data: any);
   //testCallback(result:any, err:any);
@@ -31,6 +32,7 @@ export class AwsService {
   googleProfile:any;
   googleData:any;
   userData:any;
+  user:any;
 
  /************ RESOURCE IDENTIFIERS *************/
 
@@ -149,7 +151,7 @@ export class AwsService {
   forgotPassword(user,callback){
 
     let msg:string =""
-
+    this.user = user;
     let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     let userData = {
         Username : user,
@@ -173,12 +175,30 @@ export class AwsService {
          callback.forgotPasswordCallback(e, null);
       }
     });
-  
+   }
+   
+  }
+
+  forgotPasswordValidate(code,newpassword,callback){
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let userData = {
+        Username : this.user,
+        Pool : userPool
+    };
+    let cognitoUser = new AWSCognito.CognitoUser(userData);
+
+    if (cognitoUser != null) {
+     
+        cognitoUser.confirmPassword(code, newpassword, { 
+          onFailure: function(err:Error) { console.log("fail") }, 
+          onSuccess: function() { console.log("pass")} 
+    });
 
   }
-   
+    
 }
 
+  
 
   registerUser(username,email, phone, password){
     console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)

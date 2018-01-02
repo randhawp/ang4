@@ -18,7 +18,8 @@ import {AuthGuard} from './services/authguard.service';
 import { GoogleSigninComponent } from './services/google-signin-components';
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
-import {MessageService} from './services/message.service'
+import {MessageService} from './services/message.service';
+import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MessageService} from './services/message.service'
     MenuComponent,
     RecepitsComponent,
     SignupComponent,
-    ForgotpasswordComponent
+    ForgotpasswordComponent,
+    ForgotpasswordvalidatecodeComponent
   ],
   imports: [
     BrowserModule,

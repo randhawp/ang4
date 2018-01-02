@@ -2,57 +2,39 @@ import { Component, OnInit, Injectable , OnDestroy} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Callback } from '../../services/aws.service';
-
 import {Router} from '@angular/router'
 import {Observable} from 'rxjs/Observable'
-import 'rxjs/add/observable/timer'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/take'
 import { Subscription } from 'rxjs/Subscription';
 import { MessageService} from '../../services/message.service'
 
-import {  Input, Output, EventEmitter } from '@angular/core';
 @Component({
-  selector: 'app-forgotpassword',
-  templateUrl: './forgotpassword.component.html',
-  styleUrls: ['./forgotpassword.component.css']
+  selector: 'app-forgotpasswordvalidatecode',
+  templateUrl: './forgotpasswordvalidatecode.component.html',
+  styleUrls: ['./forgotpasswordvalidatecode.component.css']
 })
-export class ForgotpasswordComponent implements OnInit, OnDestroy  {
+export class ForgotpasswordvalidatecodeComponent implements OnInit {
 
-   message:string;
-   imessage:string
-   header:string;
-   countDown;
-   counter = 60;
-   subscription: Subscription;
+  message:string;
+  header:string;
+  subscription: Subscription;
 
-  constructor( public auth:AuthService, private router:Router,private messageService: MessageService) { 
+  constructor(public auth:AuthService, private router:Router,private messageService: MessageService) {
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
-  }
-  
+   }
 
   ngOnInit() {
   }
-  ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
-  }
-  
-  sleep(delay) {
-    var start = new Date().getTime();
-    while (new Date().getTime() < start + delay);
-  }
-  
-  myEvent(event){
-    this.sleep(3000)
-    console.log("called...."+event)
-   
-  }
-  
   requestCode(form: NgForm){
-    console.log(form.value.loginname)
-    const loginname = form.value.loginname
-    this.auth.forgotPassword(loginname)
+    this.message=""
+    console.log(form.value.vcode)
+    const vcode = form.value.vcode
+    const password1 = form.value.password1
+    const password2 = form.value.password2
+    if (password1 != password2  ){
+      this.message = "passwords do not match";
+      return;  
+    }
+    this.auth.forgotPasswordValidate(vcode,password1)
   }
 
   update(msgobj){
@@ -80,7 +62,5 @@ export class ForgotpasswordComponent implements OnInit, OnDestroy  {
     console.log("success" + header)
     
   }
-  
-  
 
 }
