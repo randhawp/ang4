@@ -178,16 +178,23 @@ export class AwsService {
    }
    
   }
-  logout(){
+  
+  logout(user){
+    console.log("in logout "+user)
+  
+    let msg:string =""
+    
     let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     let userData = {
-        Username : this.user,
+        Username : user, 
         Pool : userPool
     };
     let cognitoUser = new AWSCognito.CognitoUser(userData);
+        
     if (cognitoUser != null) {
-      cognitoUser.signOut();
-    
+      cognitoUser.signOut()
+      console.log("user is logged out")
+     
     }
 
   }
@@ -226,11 +233,17 @@ export class AwsService {
         Name : 'phone_number',
         Value : phone
     };
+    var dataUserName = {
+      Name : 'name',
+      Value : username
+  };
     var attributeEmail = new AWSCognito.CognitoUserAttribute(dataEmail);
     var attributePhoneNumber = new AWSCognito.CognitoUserAttribute(dataPhoneNumber);
+    var attributeUserName = new AWSCognito.CognitoUserAttribute(dataUserName);
 
     attributeList.push(attributeEmail);
     attributeList.push(attributePhoneNumber)
+    attributeList.push(attributeUserName)
 
     userPool.signUp(username, password, attributeList, null, function(err, result){
       if (err) {
@@ -251,18 +264,44 @@ export class AwsService {
       cognitoUser.getSession(function(err, session) {
           if (err) {
               alert(err);
-              let token:CognitoIdToken = session.getIdToken().getJwtToken();
-              console.log("refresh token is ...:"+ token)
+            
+              console.log("no token is ...:"+ err)
               return;
           }
           console.log('session validity: ' + session.isValid());
-           let token:CognitoIdToken = session.getIdToken().getJwtToken();
-              console.log("old token is ...:"+ token)
+          let token:CognitoIdToken = session.getIdToken().getJwtToken();
+          console.log("new token is ...:"+ token)
+          
              
       });
   }
 
   }
+
+  isSessionValid(){
+    var ret:boolean;
+    console.log("ccaling internals")
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser != null) {
+      ret =cognitoUser.getSession(function(err, session) {
+          if (err) {
+              console.log("user not logged in")
+              return false;
+          } else{
+
+            console.log("user logged in");
+            return true;
+          }
+          
+
+      });
+  } else { return false;}
+
+  return ret;
+
+  }
+  
 
   getToken(){
 
@@ -286,22 +325,13 @@ export class AwsService {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
         let cognitoGetUser = userPool.getCurrentUser();
-        callback.cognitoCallback(null, result);
-        if (cognitoGetUser != null) {
-          cognitoGetUser.getSession(function(err, result) {
-            if (result) {
-              console.log ("Authenticated to Cognito User Pools!"+result);               
-              let token:CognitoIdToken = result.getIdToken().getJwtToken();
-              console.log("token is ...:"+ token)
-              console.log(token.getExpiration)
-              
-              
-            }
-          });
-        }
+        var e= "PASS,"+ " user found"
+        callback.cognitoCallback(e, null);
+        
       },
       onFailure: function(err) {
-          callback.cognitoCallback(err, null);
+          var e= "ERR,"+ err
+          callback.cognitoCallback(e, null);
       }
     });
   }

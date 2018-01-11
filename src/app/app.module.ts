@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { MenuComponent } from './components/mainapp/menu/menu.component';
-import { RecepitsComponent } from './components/mainapp/recepits/recepits.component';
+import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
@@ -20,7 +20,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import {MessageService} from './services/message.service';
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
-import { ComponentsComponent } from './components/components.component'
+
 
 @NgModule({
   declarations: [
@@ -29,11 +29,11 @@ import { ComponentsComponent } from './components/components.component'
     LoginComponent,
     LogoutComponent,
     MenuComponent,
-    RecepitsComponent,
+    ReceiptComponent,
     SignupComponent,
     ForgotpasswordComponent,
     ForgotpasswordvalidatecodeComponent,
-    ComponentsComponent
+    
   ],
   imports: [
     BrowserModule,

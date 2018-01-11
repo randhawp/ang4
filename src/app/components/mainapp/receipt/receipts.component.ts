@@ -4,11 +4,11 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 @Component({
-  selector: 'app-recepits',
-  templateUrl: './recepits.component.html',
-  styleUrls: ['./recepits.component.css']
+  selector: 'app-receipts',
+  templateUrl: './receipts.component.html',
+  styleUrls: ['./receipts.component.css']
 })
-export class RecepitsComponent implements OnInit {
+export class ReceiptComponent implements OnInit {
   @ViewChild('f') receiptForm: NgForm;
   submitted = false;
   

@@ -11,16 +11,13 @@ export class MainComponent implements OnInit {
   constructor(public auth:AuthService,private router:Router) { }
 
   ngOnInit() {
-    if (this.auth.isLogged() == false){
-      
-            this.router.navigate(['login']);
-          }
+   if (this.auth.isLogged() == false){
+      console.log("user not logged in")
+      this.router.navigate(['login']);
+    }
+  
   }
 
-  logout(){
-    console.log("logout called in main...");
-    this.auth.logout()
-   
-  }
+  
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-logout',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(public auth:AuthService) { 
+    console.log("current user is " + auth.getCurrentUser())
+    auth.logout(auth.getCurrentUser())
+  }
 
   ngOnInit() {
   }

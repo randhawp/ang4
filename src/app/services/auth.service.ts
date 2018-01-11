@@ -9,12 +9,24 @@ export class AuthService {
   token: string;
   message:string;
   msg:string = "Hello";
+  user:String="xxxx" ;
   
   constructor(public awsService:AwsService,private router: Router,private http: HttpClient,private messageService: MessageService) {}
 
+  setCurrentUser(user){
+    
+    this.user = new String(user);
+    console.log("current user set at " + this.user)
+  }
+
+  getCurrentUser(){
+    console.log("returned user as ...." + this.user)
+    return this.user
+  }
   loginUser(loginname: string, password: string) {
     console.log("calling")
     //this.awsService.provider="cup"
+   
     this.awsService.authenticateUserPool(loginname,password,this);
     //this.awsService.authenticateIdentityPool(loginname,password,'us-east-1',this)
   }
@@ -43,10 +55,10 @@ export class AuthService {
   getVerificationMsgResult():string{
     return this.message
   }
-  logout() {
+  logout(user) {
    console.log("logout called....")
-    this.awsService.logout()
-    this.router.navigate(['logout']);
+    this.awsService.logout(user)
+    //this.router.navigate(['logout']);
   }
 
   getToken() {
@@ -54,7 +66,8 @@ export class AuthService {
   }
 
   isLogged():boolean{
-    if (this.token != null){
+    
+    if (this.awsService.isSessionValid() == true){
       return true;
     }else{
       return false;
@@ -95,24 +108,42 @@ export class AuthService {
       if (message != null) { // error
         //this.errorMessage = message;
         
-        console.log("error >> "+message)
+        console.log("auth >> "+message)
        
         this.message = message
-        console.log("1 "+this.msg)
-        console.log("2 "+this.message)
+       
         this.messageService.sendMessage(message);
          
       } else {
-        message="success"
-        console.log("success  "+ message)
-        this.message = result
-        this.messageService.sendMessage(result);
+        message="ERR, no route to service found"
+       
+        this.messageService.sendMessage(message);
         
       }
   
 
   }
   cognitoCallback(message:string, result:any) {
+    if (message != null) { // error
+      //this.errorMessage = message;
+      
+      console.log("error >> "+message)
+     
+      this.message = message
+      console.log("1 "+this.msg)
+      console.log("2 "+this.message)
+      this.messageService.sendMessage(message);
+       
+    } else {
+      message="success"
+      console.log("success  "+ message)
+      this.message = result
+      this.messageService.sendMessage(result);
+      
+    }
+  }
+
+  cognitoCallbackx(message:string, result:any) {
     if (message != null) { // error
       //this.errorMessage = message;
       console.log("error "+message)

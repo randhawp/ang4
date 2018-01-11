@@ -8,7 +8,7 @@ import { ForgotpasswordComponent} from './components/forgotpassword/forgotpasswo
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 import { SignupComponent } from './components/signup/signup.component'
 import { MenuComponent } from './components/mainapp/menu/menu.component';
-import { RecepitsComponent } from './components/mainapp/recepits/recepits.component';
+import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
 import { AuthGuard } from './services/authguard.service'
 
 const appRoutes: Routes = [
@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: 'mainapp', canActivate:[AuthGuard],children: [
     { path: 'main', component: MainComponent },
     { path: 'menu', component: MenuComponent},
-    { path: 'recepits', component: RecepitsComponent}
+    { path: 'receipts', component: ReceiptComponent}
   ]},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
