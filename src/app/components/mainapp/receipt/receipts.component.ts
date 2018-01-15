@@ -20,7 +20,7 @@ export class ReceiptComponent implements OnInit {
     agent: ''
   };
   ngOnInit() {
-    
+    /*
       this.http.get('https://qhz4083ysl.execute-api.us-east-1.amazonaws.com/Stage/info', {
         headers: new HttpHeaders().set('Authorization', 'Bearer ' + "erewrw")
       }).subscribe(
@@ -30,7 +30,7 @@ export class ReceiptComponent implements OnInit {
         error => {
           console.log(error);
         }
-      );
+      );*/
     
   }
    

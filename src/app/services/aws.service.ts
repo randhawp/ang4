@@ -9,7 +9,8 @@ import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
 import * as AWSCognito from 'amazon-cognito-identity-js';
 import { CognitoUserPool, CognitoUserAttribute, CognitoUser, CognitoIdentityServiceProvider,
   CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, CognitoUserSession } from 'amazon-cognito-identity-js';
- 
+import { stringType } from 'aws-sdk/clients/iam';
+
 
 //declare let AWS: any;
 //declare let AWSCognito: any;
@@ -20,6 +21,8 @@ export interface Callback {
   cognitoCallbackWithCreds(message: string, result: any, creds: any, data:any):void;
   forgotPasswordCallback(message:string, result:any):void
   forgotPasswordValidateCallback(message:string, result:any):void
+  registerUserCallback(message:string, result:any):void
+  
   //googleCallback(creds: any, profile: any);
   //googleCallbackWithData(data: any);
   //testCallback(result:any, err:any);
@@ -27,7 +30,7 @@ export interface Callback {
 
 @Injectable()
 export class AwsService {
-  token:CognitoIdToken;
+  token:string;
   googleCreds:any;
   googleProfile:any;
   googleData:any;
@@ -62,6 +65,8 @@ export class AwsService {
     AWS.config.region = this.region;
     AWS.config.update({accessKeyId: 'null', secretAccessKey: 'null'});
    }
+
+  
 
   setGoogleCreds(googleCreds){
     this.googleCreds=googleCreds;
@@ -220,7 +225,7 @@ export class AwsService {
 
   
 
-  registerUser(username,email, phone, password){
+  registerUser(username,email, phone, password,callback){
     console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)
     let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     var attributeList = [];
@@ -247,11 +252,13 @@ export class AwsService {
 
     userPool.signUp(username, password, attributeList, null, function(err, result){
       if (err) {
-          alert(err);
-          return;
-      }
-      rusername = String(result.user);
-      console.log('user name is ' + rusername);
+          
+          callback.registerUserCallback(err,null);
+         
+      } else
+    
+          callback.registerUserCallback(null,result);
+    
   });
 
   }
@@ -303,12 +310,7 @@ export class AwsService {
   }
   
 
-  getToken(){
-
-
-    return this.token.getJwtToken.toString()
-  }
-
+  
   authenticateUserPool(user,password,callback){
     let authenticationData = {
       Username : user,
@@ -325,12 +327,17 @@ export class AwsService {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: function (result) {
         let cognitoGetUser = userPool.getCurrentUser();
-        var e= "PASS,"+ " user found"
-        callback.cognitoCallback(e, null);
+        var e= "PASS"
+      
+        //this.token = result.getIdToken().getJwtToken()
+        this.userToken = result.getIdToken().getJwtToken().toString()
+        console.log( this.userToken )
+        callback.cognitoCallback( e , result.getIdToken().getJwtToken().toString() );
+        console.log("==================================")
         
       },
       onFailure: function(err) {
-          var e= "ERR,"+ err
+          var e= "ERR," + err
           callback.cognitoCallback(e, null);
       }
     });

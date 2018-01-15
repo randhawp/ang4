@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { MessageService} from './message.service'
 
+
 @Injectable()
 export class AuthService {
   token: string;
@@ -33,7 +34,7 @@ export class AuthService {
 
   signupUser(username,email,phone, password){
     console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)
-    this.awsService.registerUser(username,email,phone, password)
+    this.awsService.registerUser(username,email,phone, password,this)
   }
 
   refreshSession(){
@@ -61,9 +62,7 @@ export class AuthService {
     //this.router.navigate(['logout']);
   }
 
-  getToken() {
-    return this.token;
-  }
+  
 
   isLogged():boolean{
     
@@ -104,6 +103,29 @@ export class AuthService {
     }
   }
 
+
+  registerUserCallback(message:string, result:any){
+    if (message != null) { // error
+      //this.errorMessage = message;
+      const msg1 = JSON.stringify(message)
+      var msg2 = JSON.parse(msg1)
+      
+      console.log("auth >> "+ message)
+     
+      var msg ="ERR, Registeration failed." + message
+     
+      this.messageService.sendMessage(msg);
+       
+    } else {
+      var msg="PASS, You will shortly get an email from no-reply@verificationemail.com with steps to complete the registeration process."
+     
+      this.messageService.sendMessage(msg);
+      
+    }
+
+
+  }
+
     forgotPasswordValidateCallback(message:string, result:any){
       if (message != null) { // error
         //this.errorMessage = message;
@@ -124,21 +146,19 @@ export class AuthService {
 
   }
   cognitoCallback(message:string, result:any) {
-    if (message != null) { // error
+    if (result != null && message == "PASS") { // error
       //this.errorMessage = message;
       
-      console.log("error >> "+message)
+      console.log("the token is -----------")
+      console.log(result)
      
-      this.message = message
-      console.log("1 "+this.msg)
-      console.log("2 "+this.message)
+      message = "PASS," + result
       this.messageService.sendMessage(message);
        
     } else {
-      message="success"
-      console.log("success  "+ message)
-      this.message = result
-      this.messageService.sendMessage(result);
+      
+      
+      this.messageService.sendMessage(message);
       
     }
   }

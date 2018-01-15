@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   subscription: Subscription;
   message:string;
   user:string;
+  index:number = 0;
 
   constructor(public auth:AuthService, private router:Router,private messageService: MessageService){
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
@@ -43,23 +44,23 @@ export class SignupComponent implements OnInit {
   }
 
   update(msgobj){
-  
+  console.log("############ callback")
     const msg1 = JSON.stringify(msgobj)
     var msg = JSON.parse(msg1)
-    
+    console.log(msg)
     let  arr:string[] = msg.text.split(",")
     var header:string = arr[0]
     var fmsg:string = arr[1]
 
     if (header == 'ERR') {
-
+      this.index = 1
       this.message = fmsg;
+      
     }
     if (header == 'PASS') {
-      if (this.auth.isLogged() == true){
-      console.log("++++++++++++++++++++++++++")
-      this.router.navigate(['/mainapp/receipts']);
-      }
+      this.index = 2
+      this.message = fmsg; 
+  
     }
   }
 

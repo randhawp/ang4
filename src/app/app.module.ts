@@ -19,6 +19,8 @@ import { GoogleSigninComponent } from './services/google-signin-components';
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import {MessageService} from './services/message.service';
+import {StateService} from './services/state.service'
+import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 
 
@@ -42,7 +44,7 @@ import { ForgotpasswordvalidatecodeComponent } from './components/forgotpassword
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AwsService,AuthService,AuthGuard,MessageService],
+  providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

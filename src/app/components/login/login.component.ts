@@ -5,6 +5,8 @@ import { Callback } from '../../services/aws.service';
 import { Subscription } from 'rxjs';
 import {Router} from '@angular/router'
 import { MessageService} from '../../services/message.service'
+import {StateService} from '../../services/state.service'
+
 
 
 @Component({
@@ -21,17 +23,31 @@ export class LoginComponent implements OnInit {
   message:string;
   user:string;
  
-  constructor(public auth:AuthService, private router:Router,private messageService: MessageService){
+  constructor(public auth:AuthService, private router:Router,private messageService: MessageService,private state:StateService){
    
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
     
   }
+
+  get userdata():string { 
+    return this.state.user; 
+  } 
+  set userdata(value: string) { 
+    this.state.user = value; 
+  } 
+
+  get userToken():string { 
+    return this.state.token; 
+  } 
+  set userToken(value: string) { 
+    this.state.token = value; 
+  } 
   
   ngOnInit() {
     console.log("init login")
     if (this.auth.isLogged() == true){
       console.log("will route to main")
-      this.router.navigate(['/mainapp/recepits']);
+      this.router.navigate(['/mainapp/receipts']);
     }
   }
 
@@ -39,6 +55,7 @@ export class LoginComponent implements OnInit {
   
   onLogin(form: NgForm){
     //this.provider="cup"
+    this.userdata = (form.value.loginname)
     console.log(form.value.loginname)
     const loginname = form.value.loginname
     this.auth.setCurrentUser(loginname)
@@ -62,7 +79,9 @@ export class LoginComponent implements OnInit {
     }
     if (header == 'PASS') {
       if (this.auth.isLogged() == true){
-      console.log("++++++++++++++++++++++++++")
+      console.log("token found in loging")  
+      console.log(fmsg)
+      this.userToken = fmsg
       this.router.navigate(['/mainapp/receipts']);
       }
     }
