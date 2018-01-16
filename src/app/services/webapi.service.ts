@@ -11,7 +11,7 @@ export class WebapiService {
 
   access:string;
   token:string;
-  url:string='https://tyyzqr1pd0.execute-api.us-east-1.amazonaws.com/alpha/test';
+  url:string='https://tyyzqr1pd0.execute-api.us-east-1.amazonaws.com/alpha';
 
   constructor(private http: HttpClient,private messageService: MessageService, private state:StateService,private auth:AuthService) { 
     console.log("service init...")
@@ -29,7 +29,7 @@ export class WebapiService {
   } 
 
   
-  getUserAccessRights() {
+  call(method,name) {
     
     console.log("getUserAccessRights -- init")
    
@@ -38,16 +38,23 @@ export class WebapiService {
     let oh = headers.append('Content-Type', 'application/json');
     let oh1 = oh.append('Authorization',  this.state.token );
     console.log("getUserAccessRights -- calling http get")
-    this.http.get('https://tyyzqr1pd0.execute-api.us-east-1.amazonaws.com/alpha/test',{headers: oh1}).subscribe(data => {
+    var finalurl = this.url+'/'+name
+    
+    console.log(finalurl)
+    console.log("----------")
+    this.http.get(finalurl,{headers: oh1}).subscribe(data => {
     console.log(data);
+    if (data == null || data == "" ){
+      this.accessdata="void"
+    } else {
+      this.accessdata = data.toString()
+    }
     });
     
     
   }
 
-  get accessdata():string { 
-    return this.state.user; 
-  } 
+ 
  set accessdata(value: string) { 
    this.state.access = value; 
  } 

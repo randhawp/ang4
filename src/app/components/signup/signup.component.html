@@ -26,8 +26,8 @@
             <button  class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>  
         </form>
         <div class="col-sm-8 col-sm-offset-2">
-          <div class="alert alert-danger"><ng-template [ngIf]="index == 1">{{message}}</ng-template></div>
-          <div class="alert alert-success" role="alert"> <ng-template [ngIf]="index == 2">{{message}}</ng-template></div>  
+          <div class="alert alert-danger" *ngIf="index == 1">{{message}}</div>
+          <div class="alert alert-success"  *ngIf="index == 2">{{message}}</div>  
           <!--div *ngIf="index === 1" class="alert alert-danger">{{message}}</div-->
            
         </div>
