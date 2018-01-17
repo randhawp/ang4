@@ -3,6 +3,8 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import {StateService} from '../../../services/state.service'
 import {WebapiService} from '../../../services/webapi.service'
+import { MessageService} from '../../../services/message.service'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -11,7 +13,7 @@ import {WebapiService} from '../../../services/webapi.service'
 })
 export class MainComponent implements OnInit {
 
-  constructor(public webapi: WebapiService ,public auth:AuthService,private router:Router,public state:StateService) { }
+  constructor(public webapi: WebapiService ,public auth:AuthService,private router:Router,public state:StateService,private messageService: MessageService) { }
 
   ngOnInit() {
        
@@ -20,7 +22,7 @@ export class MainComponent implements OnInit {
       this.router.navigate(['login']);
     }else{
     
-      this.webapi.call('GET','access?username='+this.data)
+      this.webapi.call('GET','access?username='+this.data,this)
      
       
     }
@@ -41,7 +43,15 @@ export class MainComponent implements OnInit {
     console.log("Reading value of token...")
     return this.state.token; 
   } 
+  set userAccess(value:string){
+    this.state.access = value
+  }
+  webapiCallback(message: string, result: any){
 
+    console.log(message)
+    this.userAccess = message;
+    this.messageService.sendMessage("REFRESHMENU");
   
+  }
 
 }

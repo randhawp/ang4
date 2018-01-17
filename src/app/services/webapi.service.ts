@@ -5,7 +5,10 @@ import { StateService } from './state.service';
 import {AuthService} from './auth.service'
 import {  CognitoUser, CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, CognitoUserSession } from 'amazon-cognito-identity-js';
 
-
+export interface Callback {
+  webapiCallback(message: string, result: any):void;
+ 
+}
 @Injectable()
 export class WebapiService {
 
@@ -29,7 +32,7 @@ export class WebapiService {
   } 
 
   
-  call(method,name) {
+  call(method,name,callback) {
     
     console.log("getUserAccessRights -- init")
    
@@ -45,9 +48,9 @@ export class WebapiService {
     this.http.get(finalurl,{headers: oh1}).subscribe(data => {
     console.log(data);
     if (data == null || data == "" ){
-      this.accessdata="void"
+      callback.webapiCallback("void")
     } else {
-      this.accessdata = data.toString()
+      callback.webapiCallback( data.toString() )
     }
     });
     
