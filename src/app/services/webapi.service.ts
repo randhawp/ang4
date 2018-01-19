@@ -31,22 +31,35 @@ export class WebapiService {
     return this.state.token; 
   } 
 
+  isSessionStale():boolean{
+    var d = new Date();
+    var n:number = d.getTime();
+    var diff:number = n - this.state.tokenage
+    diff = diff/(1000)
+    if (diff > 3000){
+      return true;
+    }else{
+      return false;
+    }
+
+  }
+
   
   call(method,name,callback) {
     
-    console.log("getUserAccessRights -- init")
-   
-    console.log(this.state.token)
+    if (this.isSessionStale){
+      this.auth.refreshSession();
+    }
+    
     let headers = new HttpHeaders();
     let oh = headers.append('Content-Type', 'application/json');
     let oh1 = oh.append('Authorization',  this.state.token );
-    console.log("getUserAccessRights -- calling http get")
+  
     var finalurl = this.url+'/'+name
     
-    console.log(finalurl)
-    console.log("----------")
+ 
     this.http.get(finalurl,{headers: oh1}).subscribe(data => {
-    console.log(data);
+  
     if (data == null || data == "" ){
       callback.webapiCallback("void")
     } else {
@@ -58,9 +71,7 @@ export class WebapiService {
   }
 
  
- set accessdata(value: string) { 
-   this.state.access = value; 
- } 
+ 
  
 }
 

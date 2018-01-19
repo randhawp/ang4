@@ -1,15 +1,17 @@
   <div class="col-sm-2 sidenav">
-    <div *ngIf = "access <=2">
-      <p><a href="#">New Receipts</a></p>
+    <div *ngIf = "access == 3">
+      <p><a  (click)="GotoReceipts()" >New Receipts</a> </p>
       <p><a href="#">Search & Edit</a></p>
     </div>
     <div *ngIf = "access == 2">
       <p><a href="#">New Deposits</a></p>
-      <p><a href="#">Search & Edit</a></p>
+      <p><a href="mainapp/admin">Search & Edit</a></p>
     </div>
     <div *ngIf = "access == 3">
-      <a href="#">ADMIN</a>
+        <p><a  (click)="GotoAdmin()" >Admin</a> </p>
     </div>
+    
+
   </div>
   
 

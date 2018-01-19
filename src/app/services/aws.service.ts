@@ -64,6 +64,7 @@ export class AwsService {
     });
     AWS.config.region = this.region;
     AWS.config.update({accessKeyId: 'null', secretAccessKey: 'null'});
+    console.log("AWS SERVICE RESTARTED")
    }
 
   

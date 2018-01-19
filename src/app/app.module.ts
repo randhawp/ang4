@@ -22,6 +22,7 @@ import {MessageService} from './services/message.service';
 import {StateService} from './services/state.service'
 import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
+import { AdminComponent } from './components/mainapp/admin/admin.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ForgotpasswordvalidatecodeComponent } from './components/forgotpassword
     SignupComponent,
     ForgotpasswordComponent,
     ForgotpasswordvalidatecodeComponent,
+    AdminComponent,
     
   ],
   imports: [

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StateService} from '../../../services/state.service'
 import { MessageService} from '../../../services/message.service'
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -14,13 +14,13 @@ export class MenuComponent implements OnInit {
   adminaccess:boolean=false;
   subscription: Subscription;
 
-  constructor(private state:StateService,private messageService: MessageService) {
+  constructor(private state:StateService,private messageService: MessageService,private router:Router) {
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
    }
 
   ngOnInit() {
     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ngoninit+++++")
-   
+    this.renderMenu()
   }
 
   set userAccess(value:string){
@@ -44,6 +44,7 @@ export class MenuComponent implements OnInit {
     }else if( this.state.access == "SADMIN"){
       this.access = 3
       console.log("systed admin")
+      //this.router.navigate(['mainapp/admin']);
     }
 
   }
@@ -60,6 +61,14 @@ export class MenuComponent implements OnInit {
       this.renderMenu()
     }
     
+  }
+
+  GotoReceipts(){
+    this.router.navigate(['/mainapp/receipts']);
+  }
+
+  GotoAdmin(){
+    this.router.navigate(['/mainapp/admin']);
   }
 
 }

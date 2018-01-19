@@ -14,14 +14,19 @@ import { Subscription } from 'rxjs';
 export class MainComponent implements OnInit {
 
   constructor(public webapi: WebapiService ,public auth:AuthService,private router:Router,public state:StateService,private messageService: MessageService) { }
-
+  username:string;
   ngOnInit() {
+
+    if(this.data == null){
+      console.log("user not logged in")
+      this.auth.logout(this.auth.getCurrentUser())
+    }
        
-   if (this.auth.isLogged() == false){
+   if (this.auth.isLogged() == false  ){
       console.log("user not logged in")
       this.router.navigate(['login']);
     }else{
-    
+      this.username = this.data;
       this.webapi.call('GET','access?username='+this.data,this)
      
       

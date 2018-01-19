@@ -8,9 +8,10 @@ export class StateService {
 
   }
 
-  user:string;
-  access:string;
-  token:string;
+  user:string=null;
+  access:string=null;
+  token:string=null;
+  tokenage:number=0
 
   
 }

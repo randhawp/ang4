@@ -82,6 +82,9 @@ export class LoginComponent implements OnInit {
       console.log("token found in loging")  
       console.log(fmsg)
       this.userToken = fmsg
+      var d = new Date();
+      var n:number = d.getTime();
+      this.state.tokenage = n
       this.router.navigate(['/mainapp/receipts']);
       }
     }
