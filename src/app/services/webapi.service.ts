@@ -4,7 +4,9 @@ import { MessageService} from './message.service'
 import { StateService } from './state.service';
 import {AuthService} from './auth.service'
 import {  CognitoUser, CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, CognitoUserSession } from 'amazon-cognito-identity-js';
-
+import { Observable }   from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import {User} from '../models/users'
 export interface Callback {
   webapiCallback(message: string, result: any):void;
  
@@ -63,12 +65,25 @@ export class WebapiService {
     if (data == null || data == "" ){
       callback.webapiCallback("void")
     } else {
-      callback.webapiCallback( data.toString() )
+      callback.webapiCallback( data.toString() , data)
     }
     });
     
     
   }
+  
+  getUser(): Observable<User[]> {
+
+    var name:string="admin?function=list_all"
+    let headers = new HttpHeaders();
+    let oh = headers.append('Content-Type', 'application/json');
+    let oh1 = oh.append('Authorization',  this.state.token );
+    var finalurl = this.url+'/'+name
+  
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    return this.http.get<User[]>(finalurl);
+  }
+  
 
  
  

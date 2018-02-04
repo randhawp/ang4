@@ -8,6 +8,10 @@ import { MainComponent } from './components/mainapp/main/main.component';
 import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
 
+import {CdkTableModule} from '@angular/cdk/table';
+import { AppMaterialModules } from './material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +27,8 @@ import {StateService} from './services/state.service'
 import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 import { AdminComponent } from './components/mainapp/admin/admin.component';
-
+//import { DataTableModule } from 'angular-4-data-table';
+//import { DataFilterPipe } from './data-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -37,14 +42,22 @@ import { AdminComponent } from './components/mainapp/admin/admin.component';
     ForgotpasswordComponent,
     ForgotpasswordvalidatecodeComponent,
     AdminComponent,
+  //  DataFilterPipe
+   
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    //DataTableModule
+    CdkTableModule, 
+    AppMaterialModules
+    
+   
   ],
   providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
