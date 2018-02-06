@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild,Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
@@ -8,6 +8,9 @@ import {catchError} from 'rxjs/operators/catchError';
 import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
+import {User} from '../../../models/users'
+import {WebapiService} from '../../../services/webapi.service'
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
 
 
 @Component({
@@ -19,8 +22,9 @@ import {switchMap} from 'rxjs/operators/switchMap';
 export class AdminComponent  implements OnInit {
   //displayedColumns = ['created', 'state', 'number', 'title'];
   displayedColumns = ['username', 'access', 'email', 'timestamp'];
-  exampleDatabase: ExampleHttpDao1 | null;
+  userDb: UserDao | null;
   dataSource = new MatTableDataSource();
+  rowdata: any;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -29,10 +33,10 @@ export class AdminComponent  implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private webapi:WebapiService,public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.exampleDatabase = new ExampleHttpDao1(this.http);
+    this.userDb = new UserDao(this.webapi);
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -42,8 +46,8 @@ export class AdminComponent  implements OnInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          //return this.exampleDatabase!.getRepoIssues(this.sort.active, this.sort.direction, this.paginator.pageIndex);
-          return this.exampleDatabase!.getRepoIssues();
+          //return this.userDb!.getUsers(this.sort.active, this.sort.direction, this.paginator.pageIndex);
+          return this.userDb!.getUsers();
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -62,50 +66,44 @@ export class AdminComponent  implements OnInit {
         })
       ).subscribe(data => this.dataSource.data = data );
   }
-}
 
-export interface GithubApi {
-  //items: GithubIssue[];
-  items:users[]
-  total_count: number;
-}
-
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
-
-export interface users{
-  useranme:string;
-  access:string;
-  email:string;
-  datetiem:string;
-
-}
-
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDao {
-  constructor(private http: HttpClient) {}
-
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-        `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-
-    return this.http.get<GithubApi>(requestUrl);
+  selectRow(row){
+    this.rowdata = row
+    console.log(row)
+    this.openDialog()
+  }
+  openDialog() {
+    this.dialog.open(DialogEditUser, {
+      data: {
+        payload: this.rowdata
+      }
+    });
   }
 }
 
-export class ExampleHttpDao1 {
-  constructor(private http: HttpClient) {}
 
-  getRepoIssues(): Observable<users[]> {
-    const href = 'https://tyyzqr1pd0.execute-api.us-east-1.amazonaws.com/alpha/admin?function=list_all';
-    const requestUrl = href;
-        //`${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
-    console.log("called")
-    return this.http.get<users[]>(requestUrl);
+
+export class UserDao {
+  constructor(private webapi:WebapiService) {}
+
+  getUsers(): Observable<User[]> {
+    return this.webapi.getUser()
   }
+}
+
+@Component({
+  selector: 'admin-edit-users',
+  templateUrl: 'admin-edit-users.html',
+})
+export class DialogEditUser {
+  roles = [
+    {value: 'AGENT', viewValue: 'Agent'},
+    {value: 'HADMIN', viewValue: 'Head Office Admin'},
+    {value: 'BADMIN', viewValue: 'Branch Office Admin'},
+    {value: 'SADMIN', viewValue: 'System Admin'}
+  ];
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+}
+export class SelectOverviewExample {
+  
 }

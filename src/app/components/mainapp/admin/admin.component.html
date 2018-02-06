@@ -1,3 +1,11 @@
+<app-main></app-main>
+<div class="container-fluid text-center">    
+  <div class="row content">
+    
+  <app-menu></app-menu>
+   <div class="col-sm-8 text-left"> 
+      <h1>System Users</h1>
+
 <div class="example-container mat-elevation-z8">
    
   
@@ -36,7 +44,7 @@
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"> <button mat-button (click)="openDialog()">Open dialog</button></mat-row>
     </mat-table>
   
     <mat-paginator [length]="resultsLength" [pageSize]="30">
@@ -44,6 +52,19 @@
   </div>
   
   
+  
   <!-- Copyright 2018 Google Inc. All Rights Reserved.
       Use of this source code is governed by an MIT-style license that
       can be found in the LICENSE file at http://angular.io/license -->
+     
+    </div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>ADS</p>
+      </div>
+      <div class="well">
+        <p>ADS</p>
+      </div>
+    </div>
+  </div>
+</div>

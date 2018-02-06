@@ -79,12 +79,10 @@ export class WebapiService {
     let oh = headers.append('Content-Type', 'application/json');
     let oh1 = oh.append('Authorization',  this.state.token );
     var finalurl = this.url+'/'+name
-  
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    return this.http.get<User[]>(finalurl);
+    return this.http.get<User[]>(finalurl,{headers: oh1});
   }
-  
 
+ 
  
  
  
