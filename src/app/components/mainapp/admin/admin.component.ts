@@ -10,7 +10,7 @@ import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {User} from '../../../models/users'
 import {WebapiService} from '../../../services/webapi.service'
-import {MatDialog, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class AdminComponent  implements OnInit {
   userDb: UserDao | null;
   dataSource = new MatTableDataSource();
   rowdata: any;
+  selectedrole:any;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -73,12 +74,22 @@ export class AdminComponent  implements OnInit {
     this.openDialog()
   }
   openDialog() {
-    this.dialog.open(DialogEditUser, {
+    let dialogRef = this.dialog.open(DialogEditUser, {
+      width: '250px',
+      height: '300px',
       data: {
         payload: this.rowdata
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      
+      this.selectedrole = result;
+      console.log('The dialog was closed' + this.selectedrole);
+      this.rowdata.access = this.selectedrole
+    });
   }
+
+  
 }
 
 
@@ -96,14 +107,20 @@ export class UserDao {
   templateUrl: 'admin-edit-users.html',
 })
 export class DialogEditUser {
+  selected=''
   roles = [
     {value: 'AGENT', viewValue: 'Agent'},
     {value: 'HADMIN', viewValue: 'Head Office Admin'},
     {value: 'BADMIN', viewValue: 'Branch Office Admin'},
     {value: 'SADMIN', viewValue: 'System Admin'}
   ];
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogEditUser>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
-export class SelectOverviewExample {
-  
-}
+

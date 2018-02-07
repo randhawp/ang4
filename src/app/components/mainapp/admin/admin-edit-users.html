@@ -2,10 +2,14 @@
 <div mat-dialog-content>
  <p>Current Role {{data.payload.access}}</p>
   <mat-form-field>
-    <mat-select placeholder="Select New Role">
+    <mat-select placeholder="Select New Role" [(value)]="selected"> 
       <mat-option *ngFor="let role of roles" [value]="role.value">
         {{ role.viewValue }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  
+  selected is {{selected}}
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="selected" cdkFocusInitial>Ok</button>
+  </div>
