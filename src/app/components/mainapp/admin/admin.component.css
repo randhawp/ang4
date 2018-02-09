@@ -48,4 +48,8 @@
   .mat-column-created {
     max-width: 124px;
   }
+  .highlight{
+    background: rgb(104, 113, 190); /* green */
+  }
+  
   

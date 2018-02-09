@@ -26,6 +26,8 @@ export class AdminComponent  implements OnInit {
   dataSource = new MatTableDataSource();
   rowdata: any;
   selectedrole:any;
+  selectedRowIndex: number = -1;
+  previousrow:number = -1
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -73,6 +75,12 @@ export class AdminComponent  implements OnInit {
     console.log(row)
     this.openDialog()
   }
+  highlight(row){
+    console.log(row);
+    this.selectedRowIndex = row.username;
+   
+  }
+  
   openDialog() {
     let dialogRef = this.dialog.open(DialogEditUser, {
       width: '250px',
