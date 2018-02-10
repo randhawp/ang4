@@ -1,5 +1,6 @@
-<h1 mat-dialog-title>Edit User {{data.payload.username}}</h1>
 <div mat-dialog-content>
+    <h1 mat-dialog-title>Edit User {{data.payload.username}}</h1>
+
  <p>Current Role {{data.payload.access}}</p>
   <mat-form-field>
     <mat-select placeholder="Select New Role" [(value)]="selected"> 
@@ -8,8 +9,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  selected is {{selected}}
+ 
   <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="selected" cdkFocusInitial>Ok</button>
+    <button mat-raised-button	 (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button	 [mat-dialog-close]="selected" cdkFocusInitial>Save</button>
+  </div>
+
   </div>

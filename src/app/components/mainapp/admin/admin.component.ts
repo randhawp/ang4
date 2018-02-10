@@ -11,7 +11,7 @@ import {switchMap} from 'rxjs/operators/switchMap';
 import {User} from '../../../models/users'
 import {WebapiService} from '../../../services/webapi.service'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
-
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -80,11 +80,15 @@ export class AdminComponent  implements OnInit {
     this.selectedRowIndex = row.username;
    
   }
+
+  setRole(role:string){
+
+    return "XXX";
+  }
   
   openDialog() {
     let dialogRef = this.dialog.open(DialogEditUser, {
-      width: '250px',
-      height: '300px',
+    
       data: {
         payload: this.rowdata
       }
@@ -129,6 +133,18 @@ export class DialogEditUser {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+}
+
+@Pipe({name: 'setRole'})
+export class SetRolePipe implements PipeTransform {
+  transform(value: string, exponent: string): string {
+    
+    if (value=='AGENT') return "Agent";
+    if (value=='HADMIN') return "Head Office Admin";
+    if (value=='BADMIN') return "Branch Office Admin";
+    if (value=='SADMIN') return "System Manager";
+    
   }
 }
 

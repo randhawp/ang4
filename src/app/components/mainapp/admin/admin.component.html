@@ -24,7 +24,7 @@
       <!-- Title Column -->
       <ng-container matColumnDef="access">
         <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.access }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.access | setRole  }}</mat-cell>
       </ng-container>
   
       <!-- State Column -->
