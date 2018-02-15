@@ -56,19 +56,31 @@ export class WebapiService {
     let headers = new HttpHeaders();
     let oh = headers.append('Content-Type', 'application/json');
     let oh1 = oh.append('Authorization',  this.state.token );
-  
+ console.log(this.state.token)
     var finalurl = this.url+'/'+name
     
- 
-    this.http.get(finalurl,{headers: oh1}).subscribe(data => {
-  
-    if (data == null || data == "" ){
-      callback.webapiCallback("void")
-    } else {
-      callback.webapiCallback( data.toString() , data)
+    if(method == "GET"){
+      this.http.get(finalurl,{headers: oh1}).subscribe(data => {
+      
+      if (data == null || data == "" ){
+        callback.webapiCallback("void")
+      } else {
+        callback.webapiCallback( data.toString() , data)
+      }
+      });
     }
-    });
     
+    if(method == "POST"){
+      let body = {};
+      this.http.post(finalurl,JSON.stringify(body),{headers: oh1}).subscribe(data => {
+      
+      if (data == null || data == "" ){
+        callback.webapiCallback("void")
+      } else {
+        callback.webapiCallback( data.toString() , data)
+      }
+      });
+    }
     
   }
   

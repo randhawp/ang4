@@ -13,6 +13,7 @@
     align-items: center;
     padding-left: 24px;
     font-size: 20px;
+    color: #2269ec;
   }
   
   .example-table {
@@ -51,5 +52,8 @@
   .highlight{
     background: rgb(104, 113, 190); /* green */
   }
+  i.icon-blue {
+    color: blue;
+}
   
   

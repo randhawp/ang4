@@ -4,7 +4,7 @@
     
   <app-menu></app-menu>
    <div class="col-sm-8 text-left"> 
-      <h1>System Users</h1>
+      <h1>System Users <i class="material-icons orange600">face</i></h1>
 
 <div class="example-container mat-elevation-z8">
    
@@ -17,19 +17,19 @@
   
       <!-- Number Column -->
       <ng-container matColumnDef="username">
-        <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="example-header">User</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.username }}</mat-cell>
       </ng-container>
   
       <!-- Title Column -->
       <ng-container matColumnDef="access">
-        <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="example-header">Role</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.access | setRole  }}</mat-cell>
       </ng-container>
   
       <!-- State Column -->
       <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef class="example-header">Email</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.email }}</mat-cell>
       </ng-container>
   
@@ -37,22 +37,29 @@
       <ng-container matColumnDef="timestamp">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header
-                         disableClear="true">
+                         disableClear="true" class="example-header">
           Date Regn.
         </mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.timestamp | date }}</mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="example-header">Actions</mat-header-cell>
+          <mat-cell *matCellDef="let row"> <button md-raised-button (click)="selectRow(row)" >Edit</button>    <span style="width: 10px"></span>
+            <button md-icon-button (click)="deleteUser(row)"><i class="material-icons  icon-blue">delete</i></button></mat-cell>
+         
+      </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" 
+      <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
       [ngClass]="{'highlight': selectedRowIndex == row.username}"
-      (mouseover)="highlight(row)"> </mat-row>
+      (mouseover)="highlight(row,i)"> </mat-row>
 
       
       
     </mat-table>
   
-    <mat-paginator [length]="resultsLength" [pageSize]="30">
+    <mat-paginator [length]="resultsLength" [pageSize]="2">
     </mat-paginator>
   </div>
   

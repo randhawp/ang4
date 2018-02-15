@@ -26,7 +26,7 @@ import {MessageService} from './services/message.service';
 import {StateService} from './services/state.service'
 import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
-import { AdminComponent,DialogEditUser,SetRolePipe } from './components/mainapp/admin/admin.component';
+import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './components/mainapp/admin/admin.component';
 //import { DataTableModule } from 'angular-4-data-table';
 //import { DataFilterPipe } from './data-filter.pipe';
 
@@ -43,6 +43,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe } from './components/mainapp/
     ForgotpasswordvalidatecodeComponent,
     AdminComponent,
     DialogEditUser,
+    DialogDeleteUser,
     SetRolePipe
   //  DataFilterPipe
    
@@ -61,7 +62,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe } from './components/mainapp/
     
    
   ],
-  entryComponents: [DialogEditUser ],
+  entryComponents: [DialogEditUser,DialogDeleteUser ],
   providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
 })

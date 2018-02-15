@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+        <h1 mat-dialog-title>Delete User {{data.payload.username}}</h1>
+    
+     <p>To ensure user cannot register again, please delete associated email</p>
+      
+      <div mat-dialog-actions>
+        <button mat-raised-button	 (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button	 [mat-dialog-close]="selected" cdkFocusInitial>Confirm Delete</button>
+      </div>
+    
+      </div>

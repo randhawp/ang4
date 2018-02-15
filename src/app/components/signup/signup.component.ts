@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable,ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Callback } from '../../services/aws.service';
@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
   message:string;
   user:string;
   index:number = 0;
+  @ViewChild('f') receiptForm: NgForm;
 
   constructor(public auth:AuthService, private router:Router,private messageService: MessageService){
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
@@ -59,7 +60,8 @@ export class SignupComponent implements OnInit {
     }
     if (header == 'PASS') {
       this.index = 2
-      this.message = fmsg; 
+      this.message = fmsg;
+      this.receiptForm.reset(); 
   
     }
   }

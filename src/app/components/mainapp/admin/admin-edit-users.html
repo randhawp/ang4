@@ -1,7 +1,7 @@
 <div mat-dialog-content>
     <h1 mat-dialog-title>Edit User {{data.payload.username}}</h1>
 
- <p>Current Role {{data.payload.access}}</p>
+ <p>Current Role {{data.payload.access | setRole}}</p>
   <mat-form-field>
     <mat-select placeholder="Select New Role" [(value)]="selected"> 
       <mat-option *ngFor="let role of roles" [value]="role.value">

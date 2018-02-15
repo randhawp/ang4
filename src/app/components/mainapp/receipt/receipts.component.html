@@ -5,106 +5,66 @@
   <app-menu></app-menu>
    <div class="col-sm-8 text-left"> 
       <h1>New Receipt</h1>
-      
-            <form (ngSubmit)="onSubmit()" #f="ngForm">
-              <div
-                id="receipt-data"
-                ngModelGroup="receiptFormData"
-                #receiptFormData="ngModelGroup">
-                <div class="form-group">
-                  <label for="rcvdfrom">Received From</label>
-                  <input
-                    type="text"
-                    id="rcvdfrom"
-                    class="form-control"
-                    ngModel
-                    name="rcvdfrom"
-                    required>
-                  <label for="forreason">For</label>
-                  <input
-                    type="text"
-                    id="forreason"
-                    class="form-control"
-                    ngModel
-                    name="forreason"
-                    required>
-                  <label for="agent">Agent</label>
-                  <input
-                    type="text"
-                    id="agent"
-                    class="form-control"
-                    ngModel
-                    name="agent"
-                    required>  
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+          <div
+            id="receipt-data"
+            ngModelGroup="receiptFormData"
+            #receiptFormData="ngModelGroup">
+            <div class="form-group">
+                <label for="agent">Agent</label>
+                <input type="text" id="agent" class="form-control" ngModel  name="agent"  required>  
+            </div>
+            <div class="form-group">
+              <label for="rcvdfrom">Received From</label>
+              <input type="text"  id="rcvdfrom"  class="form-control"  ngModel  name="rcvdfrom"  required>
+            </div>
+            <div class="form-group">
+              <label for="forreason">For</label>
+              <input type="text" id="forreason" class="form-control" ngModel name="forreason"  required>
+            </div>
+            <span>
+              <div class="form-group">
                   <label for="amount">Amount</label>
-                  <input
-                    type="text"
-                    id="amount"
-                    class="form-control"
-                    ngModel
-                    name="amount"
-                    required>
-                  <label for="invoice">Invoice</label>
-                  <input
-                    type="text"
-                    id="invoice"
-                    class="form-control"
-                    ngModel
-                    name="invoice"
-                    required>
-                   <div class="checkbox" >
+                  <input type="text" id="amount" class="form-control" ngModel name="amount" required>
+              </div>  
+              <div class="form-group">
+                
                   <label for="usd">USD</label>
-                  <input
-                    type="checkbox"
-                    name="usd"
-                    ngModel
-                    
-                    >
-                  <div class="form-group">
-                      <label for="remarks">Remarks</label>
-                        <textarea
-                          name="remarks"
-                          rows="3"
-                          cols="40"
-                          class="form-control"
-                          [(ngModel)]="answer"></textarea>
-                  </div>
-                  <div class="radio" *ngFor="let paytype of PayTypes">
-                    <label>
-                    <input
-                      type="radio"
-                      name="paytype"
-                      ngModel
-                      [value]="paytype"
-                      required>
-                    {{ paytype }}
-                  </label> </div>
-                
+                  <input type="checkbox" name="usd" ngModel >
               </div>
-                  
-                </div>
-                
-               
+            </span>
+            <div class="form-group">
+                <label for="invoice">Invoice</label>
+                <input type="text" id="invoice" class="form-control" ngModel name="invoice" required>
+            </div> 
+            
+            <div class="form-group">
+              <label for="remarks">Remarks</label>
+              <textarea name="remarks" rows="3"   cols="40" class="form-control"  [(ngModel)]="answer"></textarea>
+            </div>
+            <div class="form-group">
+              <div class="radio" *ngFor="let paytype of PayTypes">
+                <label> <input type="radio" name="paytype"  ngModel   [value]="paytype"   required>    {{ paytype }}   </label> 
               </div>
-             
-             
-             
-              <button
-                class="btn btn-primary"
-                type="submit"
-                [disabled]="!f.valid">Submit</button>
-            </form>
+            </div>
+            <button   class="btn btn-primary"  type="submit"  [disabled]="!f.valid">Submit</button>
+            </div>
+        </form>
+           
+          
+    </div>
+          
           
 
 
 
-    </div>
+    
     <div class="col-sm-2 sidenav">
       <div class="well">
-        <p>ADS</p>
+        <p>Recent Activity</p>
       </div>
       <div class="well">
-        <p>ADS</p>
+        <p>Today's Summary{{lastReceiptData}}</p>
       </div>
     </div>
   </div>
