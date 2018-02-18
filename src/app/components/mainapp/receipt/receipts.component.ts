@@ -3,6 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import {WebapiService} from '../../../services/webapi.service'
+import {StateService} from '../../../services/state.service'
+
 @Component({
   selector: 'app-receipts',
   templateUrl: './receipts.component.html',
@@ -14,7 +16,7 @@ export class ReceiptComponent implements OnInit {
   url:string;
   
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
-  constructor(public webapi: WebapiService) { }
+  constructor(public webapi: WebapiService,private state:StateService) { }
   receiptData = {
     rcvdfrom: '',
     forreason: '',
@@ -28,7 +30,11 @@ export class ReceiptComponent implements OnInit {
 
   lastReceiptData: any;
   ngOnInit() {
-      
+    console.log("the user permission is ===========")
+    console.log(this.state.access)
+    let l = this.state.getUserSecurityLevel(this.state.access)
+    console.log(l.toString())
+    console.log("the user permission is ===========")
   }
   
   

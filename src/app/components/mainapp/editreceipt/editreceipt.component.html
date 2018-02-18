@@ -1,0 +1,188 @@
+<app-main></app-main>
+<div class="container-fluid text-center">    
+  <div class="row content">
+    
+  <app-menu></app-menu>
+   <div class="col-sm-8 text-left"> 
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Search
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+          <div
+            id="receipt-data"
+            ngModelGroup="receiptFormData"
+            #receiptFormData="ngModelGroup">
+         
+            <div class="row">
+              <div class="column" >
+                <div class="form-group">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="datefrom" placeholder="Choose start date" [(ngModel)]="receiptFormData.datefrom" name="datefrom" required>
+                    <mat-datepicker-toggle matSuffix [for]="datefrom"></mat-datepicker-toggle>
+                    <mat-datepicker #datefrom ></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="column">
+                <div class="form-group">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="dateto" placeholder="Choose end date" [(ngModel)]="receiptFormData.dateto" name="dateto" required>
+                    <mat-datepicker-toggle matSuffix [for]="dateto"></mat-datepicker-toggle>
+                    <mat-datepicker #dateto></mat-datepicker>
+                  </mat-form-field>
+                </div>
+  
+              </div>
+            </div>
+            <div class="row">
+              <div class="column" >
+                <mat-form-field  >
+                  <input matInput placeholder="Amount From" >
+                </mat-form-field>
+              </div>
+              <div class="column" >
+                <mat-form-field  >
+                  <input matInput placeholder="Amount To" >
+                </mat-form-field>
+              </div>
+            </div>
+            
+         
+            <div class="row">
+              <div class="column" >
+                <mat-form-field  >
+                  <input matInput placeholder="Receipt # From" >
+                </mat-form-field>
+              </div>
+              <div class="column" >
+                <mat-form-field  >
+                  <input matInput placeholder="Receipt # to" >
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="column" >
+                <mat-form-field  >
+                  <input matInput placeholder="For" >
+                </mat-form-field>
+              </div>
+              <div class="column" >
+                <mat-form-field  >
+                  <input matInput placeholder="Agent" >
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <div class="row">
+              <mat-radio-group>
+                <mat-radio-button value="cheque">Cheque</mat-radio-button>
+                <mat-radio-button value="directdeposit">Direct Deposit</mat-radio-button>
+                <mat-radio-button value="debit">Debit</mat-radio-button>
+                <mat-radio-button value="credit">Credit</mat-radio-button>
+                <mat-radio-button value="cash">Cash</mat-radio-button>
+              </mat-radio-group>
+            </div>
+  
+            
+            <div class="form-group">
+              <div class="row">
+                <button mat-raised-button color="primary" [disabled]="!f.valid"> Search</button>
+              </div>
+                
+            </div>  
+           
+            </div>
+          </form>
+       
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Search results
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+        <div class="example-container mat-elevation-z8">
+   
+  
+          <mat-table #table [dataSource]="dataSource" class="example-table"
+                     matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+        
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+        
+            <!-- Number Column -->
+            <ng-container matColumnDef="username">
+              <mat-header-cell *matHeaderCellDef class="example-header">User</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.username }}</mat-cell>
+            </ng-container>
+        
+            <!-- Title Column -->
+            <ng-container matColumnDef="access">
+              <mat-header-cell *matHeaderCellDef class="example-header">Role</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.access | setRole  }}</mat-cell>
+            </ng-container>
+        
+            <!-- State Column -->
+            <ng-container matColumnDef="email">
+              <mat-header-cell *matHeaderCellDef class="example-header">Email</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.email }}</mat-cell>
+            </ng-container>
+        
+            <!-- Created Column -->
+            <ng-container matColumnDef="timestamp">
+              <mat-header-cell *matHeaderCellDef
+                               mat-sort-header
+                               disableClear="true" class="example-header">
+                Date Regn.
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.timestamp | date }}</mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="example-header">Actions</mat-header-cell>
+                <mat-cell *matCellDef="let row"> <button md-raised-button (click)="selectRow(row)" >Edit</button>    <span style="width: 10px"></span>
+                  <button md-icon-button (click)="deleteUser(row)"><i class="material-icons  icon-blue">delete</i></button></mat-cell>
+               
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
+            [ngClass]="{'highlight': selectedRowIndex == row.username}"
+            (mouseover)="highlight(row,i)"> </mat-row>
+      
+            
+            
+          </mat-table>
+        
+          <mat-paginator [length]="resultsLength" [pageSize]="2">
+          </mat-paginator>
+        </div>
+        
+      </mat-expansion-panel>
+    </mat-accordion>
+          
+    </div>
+          
+          
+    
+
+
+    
+    <!--div class="col-sm-2 sidenav">
+      <div class="well">
+        <p>Recent Activity</p>
+      </div>
+      <div class="well">
+        <p>Today's Summary{{lastReceiptData}}</p>
+      </div>
+    </div-->
+  </div>
+</div>

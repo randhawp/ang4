@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
+import { EditreceiptComponent } from './components/mainapp/editreceipt/editreceipt.component'
 
 import {CdkTableModule} from '@angular/cdk/table';
 import { AppMaterialModules } from './material.module';
@@ -38,6 +39,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     LogoutComponent,
     MenuComponent,
     ReceiptComponent,
+    EditreceiptComponent,
     SignupComponent,
     ForgotpasswordComponent,
     ForgotpasswordvalidatecodeComponent,

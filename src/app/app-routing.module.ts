@@ -10,6 +10,7 @@ import { SignupComponent } from './components/signup/signup.component'
 import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { AdminComponent } from './components/mainapp/admin/admin.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
+import { EditreceiptComponent } from './components/mainapp/editreceipt/editreceipt.component'
 import { AuthGuard } from './services/authguard.service'
 
 const appRoutes: Routes = [
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
     { path: 'main', component: MainComponent },
     { path: 'menu', component: MenuComponent},
     { path: 'receipts', component: ReceiptComponent},
+    { path: 'editreceipts', component: EditreceiptComponent},
     { path: 'admin', component: AdminComponent}
   ]},
   { path: 'login', component: LoginComponent},
