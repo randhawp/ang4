@@ -39,10 +39,13 @@
               <textarea name="remarks" rows="3"   cols="40" class="form-control"  [(ngModel)]="answer"></textarea>
             </div>
             <div class="form-group">
-              <div class="radio" *ngFor="let paytype of PayTypes">
-                <label> <input type="radio" name="paytype"  ngModel   [value]="paytype"   required>    {{ paytype }}   </label> 
-              </div>
+                <mat-radio-group class="paytype-radio-group" ngModel name="paytype">
+                    <mat-radio-button class="paytype-radio-button" *ngFor="let paytype of paytypes" [value]="paytype.value">
+                      {{paytype.viewValue}}
+                    </mat-radio-button>
+                  </mat-radio-group>
             </div>
+           
             <button   class="btn btn-primary"  type="submit"  [disabled]="!f.valid">Submit</button>
             </div>
         </form>

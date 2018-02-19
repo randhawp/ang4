@@ -29,6 +29,17 @@ export class ReceiptComponent implements OnInit {
     office:''
   };
 
+ 
+
+  paytypes = [
+    {value: 'cheque', viewValue: 'Cheque'},
+    {value: 'directdeposit', viewValue: 'Direct Deposit'},
+    {value: 'debit', viewValue: 'Debit'},
+    {value: 'credit', viewValue: 'Credit'},
+    {value: 'cash', viewValue: 'Cash'}
+    
+  ];
+
   lastReceiptData: any;
   ngOnInit() {
     console.log("the user permission is ===========")
@@ -58,7 +69,7 @@ export class ReceiptComponent implements OnInit {
     this.url="receipt?function=add_new_receipt&paytype="+this.receiptData.paytype+"&rcvdfrom="+this.receiptData.rcvdfrom+
     "&invoice="+this.receiptData.invoice+"&lock=x&remark="+this.receiptData.remarks+"&fortrip="+this.receiptData.forreason+
     "&usd="+this.receiptData.usd+"&agent="+this.state.user+"&status=na&amount="+this.receiptData.amount+"&office="+this.state.office
-    
+    console.log(this.url)
     this.webapi.call('POST',this.url,this)
     this.receiptForm.reset();
   }
