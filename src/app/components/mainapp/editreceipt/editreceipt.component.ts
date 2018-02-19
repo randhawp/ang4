@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-editreceipt',
@@ -19,8 +20,10 @@ export class EditreceiptComponent implements OnInit {
     paytype:'',
     remarks:''
   };
-  //displayedColumns = ['id', 'date', 'amount', 'agent','invoice'];
-
+  displayedColumns = ['id', 'date', 'amount', 'actions'];
+  dataSource = new MatTableDataSource();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   constructor() { }
 
   ngOnInit() {

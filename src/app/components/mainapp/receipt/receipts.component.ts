@@ -25,7 +25,8 @@ export class ReceiptComponent implements OnInit {
     usd: false,
     invoice: '',
     paytype:'',
-    remarks:''
+    remarks:'',
+    office:''
   };
 
   lastReceiptData: any;
@@ -42,7 +43,7 @@ export class ReceiptComponent implements OnInit {
     this.submitted = true;
     this.receiptData.rcvdfrom = this.receiptForm.value.receiptFormData.rcvdfrom;
     this.receiptData.forreason = this.receiptForm.value.receiptFormData.forreason;
-    this.receiptData.agent = this.receiptForm.value.receiptFormData.agent;
+    this.receiptData.agent = this.state.user
     this.receiptData.amount = this.receiptForm.value.receiptFormData.amount;
     this.receiptData.usd = this.receiptForm.value.receiptFormData.usd;
     this.receiptData.invoice = this.receiptForm.value.receiptFormData.invoice;
@@ -56,7 +57,7 @@ export class ReceiptComponent implements OnInit {
     this.lastReceiptData = this.receiptData
     this.url="receipt?function=add_new_receipt&paytype="+this.receiptData.paytype+"&rcvdfrom="+this.receiptData.rcvdfrom+
     "&invoice="+this.receiptData.invoice+"&lock=x&remark="+this.receiptData.remarks+"&fortrip="+this.receiptData.forreason+
-    "&usd="+this.receiptData.usd+"&agent="+this.receiptData.agent+"&status=na&amount="+this.receiptData.amount
+    "&usd="+this.receiptData.usd+"&agent="+this.state.user+"&status=na&amount="+this.receiptData.amount+"&office="+this.state.office
     
     this.webapi.call('POST',this.url,this)
     this.receiptForm.reset();

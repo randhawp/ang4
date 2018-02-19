@@ -32,9 +32,9 @@ export class AuthService {
     //this.awsService.authenticateIdentityPool(loginname,password,'us-east-1',this)
   }
 
-  signupUser(username,email,phone, password){
+  signupUser(username,email,phone, password,office){
     console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)
-    this.awsService.registerUser(username,email,phone, password,this)
+    this.awsService.registerUser(username,email,phone, password,office,this)
   }
 
   refreshSession(){

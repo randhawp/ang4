@@ -11,7 +11,8 @@ export class StateService {
   user:string=null;
   access:string=null;
   token:string=null;
-  tokenage:number=0
+  tokenage:number=0;
+  office:string=null;
 
   getUserSecurityLevel( level):number {
     if (level == null ) return 0;

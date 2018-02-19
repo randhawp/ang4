@@ -18,6 +18,13 @@ export class SignupComponent implements OnInit {
   user:string;
   index:number = 0;
   @ViewChild('f') receiptForm: NgForm;
+  selectedValue: string;
+
+  offices = [
+    {value: 'vancouver', viewValue: 'Vancouver'},
+    {value: 'surrey', viewValue: 'Surrey'},
+    {value: 'toronto', viewValue: 'Toronto'}
+  ];
 
   constructor(public auth:AuthService, private router:Router,private messageService: MessageService){
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
@@ -39,7 +46,8 @@ export class SignupComponent implements OnInit {
     const email = form.value.email
     const phone = form.value.phone
     console.log("username is" + loginname + "email is "+email+" phone is "+phone + "password id " +password)
-    this.auth.signupUser(loginname,email,phone, password)
+    console.log(this.selectedValue)
+    this.auth.signupUser(loginname,email,phone, password,this.selectedValue)
     
 
   }

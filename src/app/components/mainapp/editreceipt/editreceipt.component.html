@@ -3,7 +3,7 @@
   <div class="row content">
     
   <app-menu></app-menu>
-   <div class="col-sm-8 text-left"> 
+   <div class="col-sm-10 text-left"> 
       <mat-accordion>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -119,33 +119,24 @@
                   The actual rendered columns are set as a property on the row definition" -->
         
             <!-- Number Column -->
-            <ng-container matColumnDef="username">
+            <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef class="example-header">User</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.username }}</mat-cell>
+              <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
             </ng-container>
         
             <!-- Title Column -->
-            <ng-container matColumnDef="access">
+            <ng-container matColumnDef="date">
               <mat-header-cell *matHeaderCellDef class="example-header">Role</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.access | setRole  }}</mat-cell>
+              <mat-cell *matCellDef="let row">{{ row.date  }}</mat-cell>
             </ng-container>
         
             <!-- State Column -->
-            <ng-container matColumnDef="email">
+            <ng-container matColumnDef="amount">
               <mat-header-cell *matHeaderCellDef class="example-header">Email</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.email }}</mat-cell>
+              <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
             </ng-container>
         
-            <!-- Created Column -->
-            <ng-container matColumnDef="timestamp">
-              <mat-header-cell *matHeaderCellDef
-                               mat-sort-header
-                               disableClear="true" class="example-header">
-                Date Regn.
-              </mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.timestamp | date }}</mat-cell>
-            </ng-container>
-      
+            
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef class="example-header">Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row"> <button md-raised-button (click)="selectRow(row)" >Edit</button>    <span style="width: 10px"></span>
@@ -154,8 +145,7 @@
             </ng-container>
         
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
-            [ngClass]="{'highlight': selectedRowIndex == row.username}"
+            <mat-row *matRowDef="let row; columns: displayedColumns;"
             (mouseover)="highlight(row,i)"> </mat-row>
       
             

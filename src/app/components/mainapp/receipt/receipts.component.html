@@ -4,16 +4,12 @@
     
   <app-menu></app-menu>
    <div class="col-sm-8 text-left"> 
-      <h1>New Receipt</h1>
+      <h1>New  Receipt</h1>
       <form (ngSubmit)="onSubmit()" #f="ngForm">
           <div
             id="receipt-data"
             ngModelGroup="receiptFormData"
             #receiptFormData="ngModelGroup">
-            <div class="form-group">
-                <label for="agent">Agent</label>
-                <input type="text" id="agent" class="form-control" ngModel  name="agent"  required>  
-            </div>
             <div class="form-group">
               <label for="rcvdfrom">Received From</label>
               <input type="text"  id="rcvdfrom"  class="form-control"  ngModel  name="rcvdfrom"  required>

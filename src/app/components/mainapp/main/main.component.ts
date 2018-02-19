@@ -54,7 +54,9 @@ export class MainComponent implements OnInit {
   webapiCallback(message: string, result: any){
 
     console.log(message)
-    this.userAccess = message;
+    let  arr:string[] = message.split(",")
+    this.userAccess = arr[0];
+    this.state.office =arr[1];
     this.messageService.sendMessage("REFRESHMENU");
   
   }

@@ -226,8 +226,9 @@ export class AwsService {
 
   
 
-  registerUser(username,email, phone, password,callback){
+  registerUser(username,email, phone, password,office,callback){
     console.log("username us" +username + "email is "+email+" phone is "+phone + "password id " +password)
+    console.log(office)
     let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     var attributeList = [];
     var rusername = "";
@@ -243,13 +244,19 @@ export class AwsService {
       Name : 'name',
       Value : username
   };
+    var dataOffice ={
+      Name: 'custom:office',
+      Value : office
+    };
     var attributeEmail = new AWSCognito.CognitoUserAttribute(dataEmail);
     var attributePhoneNumber = new AWSCognito.CognitoUserAttribute(dataPhoneNumber);
     var attributeUserName = new AWSCognito.CognitoUserAttribute(dataUserName);
+    var attributeOffice = new AWSCognito.CognitoUserAttribute(dataOffice);
 
     attributeList.push(attributeEmail);
     attributeList.push(attributePhoneNumber)
     attributeList.push(attributeUserName)
+    attributeList.push(attributeOffice)
 
     userPool.signUp(username, password, attributeList, null, function(err, result){
       if (err) {
