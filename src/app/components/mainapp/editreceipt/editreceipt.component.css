@@ -74,6 +74,16 @@
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+.paytype-radio-group {
+  display: inline-flex;
+  flex-direction: row;
+}
 
-  
+.paytype-radio-button {
+  margin: 5px;
+}
+
+.paytype-selected-value {
+  margin: 15px 0;
+}
   

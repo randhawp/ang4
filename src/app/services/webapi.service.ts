@@ -7,6 +7,7 @@ import {  CognitoUser, CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, Co
 import { Observable }   from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {User} from '../models/users'
+import {Receipt} from '../models/receipt'
 export interface Callback {
   webapiCallback(message: string, result: any):void;
  
@@ -94,6 +95,16 @@ export class WebapiService {
     return this.http.get<User[]>(finalurl,{headers: oh1});
   }
 
+  
+  getReceipts(): Observable<Receipt[]> {
+
+    var name:string="receipt?function=search&office=surrey&datefrom=0&dateto=0"
+    let headers = new HttpHeaders();
+    let oh = headers.append('Content-Type', 'application/json');
+    let oh1 = oh.append('Authorization',  this.state.token );
+    var finalurl = this.url+'/'+name
+    return this.http.get<Receipt[]>(finalurl,{headers: oh1});
+  }
  
  
  

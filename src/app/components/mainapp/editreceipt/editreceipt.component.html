@@ -12,17 +12,29 @@
             </mat-panel-title>
             
           </mat-expansion-panel-header>
-        <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <form (ngSubmit)="onSubmitSearch()" #f="ngForm">
           <div
             id="receipt-data"
             ngModelGroup="receiptFormData"
             #receiptFormData="ngModelGroup">
-         
+
+            <div class="row">
+                <div class="column" >
+                    <div class="show" *ngIf="role == 1">{{officeName}}</div>
+                    <div class="show" *ngIf="role == 2">
+                      <mat-radio-group class="paytype-radio-group" ngModel name="office" required>
+                          <mat-radio-button class="paytype-radio-button" *ngFor="let office of offices" [value]="office.value">
+                            {{office.viewValue}}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
             <div class="row">
               <div class="column" >
                 <div class="form-group">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="datefrom" placeholder="Choose start date" [(ngModel)]="receiptFormData.datefrom" name="datefrom" required>
+                    <input matInput [matDatepicker]="datefrom" placeholder="Choose start date" ngModel name="datefrom" required>
                     <mat-datepicker-toggle matSuffix [for]="datefrom"></mat-datepicker-toggle>
                     <mat-datepicker #datefrom ></mat-datepicker>
                   </mat-form-field>
@@ -31,7 +43,7 @@
               <div class="column">
                 <div class="form-group">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="dateto" placeholder="Choose end date" [(ngModel)]="receiptFormData.dateto" name="dateto" required>
+                    <input matInput [matDatepicker]="dateto" placeholder="Choose end date" ngModel name="dateto" required>
                     <mat-datepicker-toggle matSuffix [for]="dateto"></mat-datepicker-toggle>
                     <mat-datepicker #dateto></mat-datepicker>
                   </mat-form-field>
@@ -42,12 +54,12 @@
             <div class="row">
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Amount From" >
+                  <input matInput placeholder="Amount From" ngModel name="amountfrom" >
                 </mat-form-field>
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Amount To" >
+                  <input matInput placeholder="Amount To"  ngModel name="'amountto'" >
                 </mat-form-field>
               </div>
             </div>
@@ -56,12 +68,12 @@
             <div class="row">
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Receipt # From" >
+                  <input matInput placeholder="Receipt # From" ngModel name="receiptfrom">
                 </mat-form-field>
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Receipt # to" >
+                  <input matInput placeholder="Receipt # to" ngModel name="receiptto">
                 </mat-form-field>
               </div>
             </div>
@@ -69,24 +81,22 @@
             <div class="row">
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="For" >
+                  <input matInput placeholder="For" ngModel name="for">
                 </mat-form-field>
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Agent" >
+                  <input matInput placeholder="Agent" ngModel name="agent">
                 </mat-form-field>
               </div>
             </div>
   
             <div class="row">
-              <mat-radio-group>
-                <mat-radio-button value="cheque">Cheque</mat-radio-button>
-                <mat-radio-button value="directdeposit">Direct Deposit</mat-radio-button>
-                <mat-radio-button value="debit">Debit</mat-radio-button>
-                <mat-radio-button value="credit">Credit</mat-radio-button>
-                <mat-radio-button value="cash">Cash</mat-radio-button>
-              </mat-radio-group>
+                <mat-radio-group class="paytype-radio-group" ngModel name="paytype">
+                    <mat-radio-button class="paytype-radio-button" *ngFor="let paytype of paytypes" [value]="paytype.value">
+                      {{paytype.viewValue}}
+                    </mat-radio-button>
+                  </mat-radio-group>
             </div>
   
             
@@ -120,19 +130,19 @@
         
             <!-- Number Column -->
             <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef class="example-header">User</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+              <mat-header-cell *matHeaderCellDef class="example-header">Agent</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.agent }}</mat-cell>
             </ng-container>
         
             <!-- Title Column -->
             <ng-container matColumnDef="date">
-              <mat-header-cell *matHeaderCellDef class="example-header">Role</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.date  }}</mat-cell>
+              <mat-header-cell *matHeaderCellDef class="example-header">Office</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.office  }}</mat-cell>
             </ng-container>
         
             <!-- State Column -->
             <ng-container matColumnDef="amount">
-              <mat-header-cell *matHeaderCellDef class="example-header">Email</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef class="example-header">Amount</mat-header-cell>
               <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
             </ng-container>
         
