@@ -24,6 +24,8 @@ export class EditreceiptComponent implements OnInit {
   @ViewChild('f') receiptForm: NgForm;
   submitted = false;
   receiptData = {
+    id:'',
+    office:'',
     datefrom: '',
     dateto: '',
     agent: '',
@@ -33,7 +35,7 @@ export class EditreceiptComponent implements OnInit {
     paytype:'',
     remarks:''
   };
-  displayedColumns = ['id', 'date', 'amount', 'actions'];
+  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom'];
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -95,6 +97,13 @@ export class EditreceiptComponent implements OnInit {
     //console.log(this.url)
     this.getTableData()
     this.receiptForm.reset();
+  }
+
+  highlight(row,i){
+    console.log(i);
+    this.tableSelectedRow = i
+    this.selectedRowIndex = row.username
+    
   }
 
   getTableData(){

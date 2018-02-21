@@ -128,35 +128,48 @@
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
         
-            <!-- Number Column -->
+            <!-- Agent Column -->
             <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef class="example-header">Agent</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.agent }}</mat-cell>
+              <mat-header-cell *matHeaderCellDef class="example-header">Id</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
             </ng-container>
         
-            <!-- Title Column -->
-            <ng-container matColumnDef="date">
+            <!-- Office Column -->
+            <ng-container matColumnDef="office">
               <mat-header-cell *matHeaderCellDef class="example-header">Office</mat-header-cell>
               <mat-cell *matCellDef="let row">{{ row.office  }}</mat-cell>
             </ng-container>
         
-            <!-- State Column -->
+            <!-- Amount Column -->
             <ng-container matColumnDef="amount">
               <mat-header-cell *matHeaderCellDef class="example-header">Amount</mat-header-cell>
               <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
             </ng-container>
         
-            
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef class="example-header">Actions</mat-header-cell>
-                <mat-cell *matCellDef="let row"> <button md-raised-button (click)="selectRow(row)" >Edit</button>    <span style="width: 10px"></span>
-                  <button md-icon-button (click)="deleteUser(row)"><i class="material-icons  icon-blue">delete</i></button></mat-cell>
-               
+            <!-- Invoice Column -->
+            <ng-container matColumnDef="invoice">
+              <mat-header-cell *matHeaderCellDef class="example-header">Invoice</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.invoice }}</mat-cell>
             </ng-container>
         
+            <!-- Paytype Column -->
+            <ng-container matColumnDef="paytype">
+              <mat-header-cell *matHeaderCellDef class="example-header">Paytype</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.paytype }}</mat-cell>
+            </ng-container>
+        
+            <!-- Rcvd Column -->
+            <ng-container matColumnDef="rcvdfrom">
+              <mat-header-cell *matHeaderCellDef class="example-header">Rcvd</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.rcvdfrom }}</mat-cell>
+            </ng-container>
+        
+            
+            
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"
-            (mouseover)="highlight(row,i)"> </mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
+      [ngClass]="{'highlight': selectedRowIndex == row.id}"
+      (mouseover)="highlight(row,i)"> </mat-row>
       
             
             
@@ -165,6 +178,15 @@
           <mat-paginator [length]="resultsLength" [pageSize]="2">
           </mat-paginator>
         </div>
+       <div>
+          <button md-raised-button (click)="selectRow(row)" >Edit / View</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow(row)" >Print</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow(row)" >Void</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow(row)" >Post</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow(row)" >Un-Post</button>    <span style="width: 10px"></span>
+                
+       </div>
+    
         
       </mat-expansion-panel>
     </mat-accordion>
