@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
-import { EditreceiptComponent } from './components/mainapp/editreceipt/editreceipt.component'
+import { EditreceiptComponent,DialogReceiptEditor } from './components/mainapp/editreceipt/editreceipt.component'
 
 import {CdkTableModule} from '@angular/cdk/table';
 import { AppMaterialModules } from './material.module';
@@ -46,6 +46,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     AdminComponent,
     DialogEditUser,
     DialogDeleteUser,
+    DialogReceiptEditor,
     SetRolePipe
   //  DataFilterPipe
    
@@ -64,7 +65,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     
    
   ],
-  entryComponents: [DialogEditUser,DialogDeleteUser ],
+  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor ],
   providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {StateService} from '../../../services/state.service'
@@ -13,6 +13,8 @@ import {map} from 'rxjs/operators/map';
 import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {Receipt} from '../../../models/receipt'
+import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
+
 
 
 @Component({
@@ -66,7 +68,7 @@ export class EditreceiptComponent implements OnInit {
   selectedrole:any;
   selectedRowIndex: number = -1;
   previousrow:number = -1
-  selectedUser:string;
+  selectedReceipt:string;
   mode:string = "";
   tableSelectedRow:number =-1;
   resultsLength = 0;
@@ -74,7 +76,7 @@ export class EditreceiptComponent implements OnInit {
   isRateLimitReached = false;
 
 
-  constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService) { }
+  constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.officeName = this.state.office;
@@ -102,10 +104,37 @@ export class EditreceiptComponent implements OnInit {
   highlight(row,i){
     console.log(i);
     this.tableSelectedRow = i
-    this.selectedRowIndex = row.username
+    this.selectedRowIndex = row.id
+    this.rowdata = row
+  }
+  selectRowToEdit(row){
+    console.log(row)
     
+    this.selectedReceipt = this.rowdata.id
+    this.openDialog()
+  }
+  openDialog() {
+    let dialogRef = this.dialog.open(DialogReceiptEditor, {
+    
+      data: {
+        payload: this.rowdata
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+      this.selectedrole = result;
+      console.log('The dialog was closed' + this.selectedrole);
+      this.rowdata.access = this.selectedrole
+      this.mode="EDIT"
+      //var url_param:string="admin?function=edit_user&key=" +this.selectedUser+"&role="+this.selectedrole+"&status=active"
+      //this.webapi.call('GET',url_param,this)
+      }
+    });
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
   getTableData(){
     this.userDb = new ReceiptDao(this.webapi);
 
@@ -124,7 +153,7 @@ export class EditreceiptComponent implements OnInit {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
-          //this.resultsLength = data.total_count;
+          //this.resultsLength = 5;
           //this.ref.markForCheck();
           console.log(data)
           return data;
@@ -155,5 +184,28 @@ export class ReceiptDao {
 
   getReceipts(): Observable<Receipt[]> {
     return this.webapi.getReceipts();
+  }
+}
+
+
+@Component({
+  selector: 'edit-receipts',
+  templateUrl: 'edit-receipts.html',
+})
+export class DialogReceiptEditor {
+  selected=''
+  roles = [
+    {value: 'AGENT', viewValue: 'Agent'},
+    {value: 'HADMIN', viewValue: 'Head Office Admin'},
+    {value: 'BADMIN', viewValue: 'Branch Office Admin'},
+    {value: 'SADMIN', viewValue: 'System Admin'}
+  ];
+  //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogReceiptEditor>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

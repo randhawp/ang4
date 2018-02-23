@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+    <h1 mat-dialog-title>Edit Receipt {{data.payload.id}}</h1>
+
+ <p>{{data.payload.amount}}</p>
+ <p>{{data.payload.fortrip}}</p>
+ <p>{{data.payload.invoice}}</p>
+ <p>{{data.payload.rcvdfrom}}</p>
+ <p>{{data.payload.paytype}}</p>
+ <p>{{data.payload.remarks}}</p>
+ 
+  <div mat-dialog-actions>
+    <button mat-raised-button	 (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button	 [mat-dialog-close]="selected" cdkFocusInitial>Save</button>
+  </div>
+
+  </div>

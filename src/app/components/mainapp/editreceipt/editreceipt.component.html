@@ -169,7 +169,7 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
       [ngClass]="{'highlight': selectedRowIndex == row.id}"
-      (mouseover)="highlight(row,i)"> </mat-row>
+      (click)="highlight(row,i)"> </mat-row>
       
             
             
@@ -177,13 +177,14 @@
         
           <mat-paginator [length]="resultsLength" [pageSize]="2">
           </mat-paginator>
+          
         </div>
        <div>
-          <button md-raised-button (click)="selectRow(row)" >Edit / View</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRow(row)" >Print</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRow(row)" >Void</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRow(row)" >Post</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRow(row)" >Un-Post</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow()" >Void</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow()" >Post</button>    <span style="width: 10px"></span>
+          <button md-raised-button (click)="selectRow()" >Un-Post</button>    <span style="width: 10px"></span>
                 
        </div>
     
