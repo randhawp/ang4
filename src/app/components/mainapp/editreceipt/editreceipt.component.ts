@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild,Inject } from '@angular/core';
+import { Component, OnInit, ViewChild,Inject,ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatSort, MatTableDataSource, MatExpansionPanel} from '@angular/material';
 import {StateService} from '../../../services/state.service'
 import {WebapiService} from '../../../services/webapi.service'
 import { MessageService} from '../../../services/message.service'
@@ -24,6 +24,8 @@ import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 })
 export class EditreceiptComponent implements OnInit {
   @ViewChild('f') receiptForm: NgForm;
+  @ViewChild('panel1') panel1: MatExpansionPanel;
+  @ViewChild('panel2') panel2: MatExpansionPanel;
   submitted = false;
   receiptData = {
     id:'',
@@ -94,11 +96,14 @@ export class EditreceiptComponent implements OnInit {
     this.receiptData.datefrom = this.receiptForm.value.receiptFormData.datefrom;
     this.receiptData.dateto = this.receiptForm.value.receiptFormData.dateto;
     console.log(this.receiptData.datefrom)
-
+   
+    console.log(this.panel1.id)
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
     //console.log(this.url)
     this.getTableData()
     this.receiptForm.reset();
+    this.panel1.close()
+    this.panel2.open()
   }
 
   highlight(row,i){

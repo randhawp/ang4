@@ -4,8 +4,8 @@
     
   <app-menu></app-menu>
    <div class="col-sm-10 text-left"> 
-      <mat-accordion>
-        <mat-expansion-panel>
+      <mat-accordion multi="true">
+        <mat-expansion-panel id="panel1" #panel1 >
           <mat-expansion-panel-header>
             <mat-panel-title>
               Search
@@ -111,8 +111,7 @@
           </form>
        
         </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState = true"
-                             (closed)="panelOpenState = false">
+        <mat-expansion-panel id="panel2"  #panel2 >
           <mat-expansion-panel-header>
             <mat-panel-title>
               Search results
