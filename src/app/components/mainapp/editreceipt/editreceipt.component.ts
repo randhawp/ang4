@@ -14,6 +14,7 @@ import {startWith} from 'rxjs/operators/startWith';
 import {switchMap} from 'rxjs/operators/switchMap';
 import {Receipt} from '../../../models/receipt'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
+import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 
 
 
@@ -67,7 +68,7 @@ export class EditreceiptComponent implements OnInit {
   
   dataSource = new MatTableDataSource();
   rowdata: any;
-  selectedrole:any;
+  editedForm:any;
   selectedRowIndex: number = -1;
   previousrow:number = -1
   selectedReceipt:string;
@@ -125,16 +126,17 @@ export class EditreceiptComponent implements OnInit {
         payload: this.rowdata
       }
     });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result != null) {
-      this.selectedrole = result;
-      console.log('The dialog was closed' + this.selectedrole);
-      this.rowdata.access = this.selectedrole
-      this.mode="EDIT"
-      //var url_param:string="admin?function=edit_user&key=" +this.selectedUser+"&role="+this.selectedrole+"&status=active"
-      //this.webapi.call('GET',url_param,this)
-      }
-    });
+    dialogRef.afterClosed().subscribe(
+      data =>  {
+        if (data != null) {
+        this.editedForm = data;
+        console.log('The dialog was closed' + this.editedForm);
+        this.rowdata.amount = this.editedForm.amount
+        this.mode="EDIT"
+        //var url_param:string="admin?function=edit_user&key=" +this.selectedUser+"&role="+this.editedForm+"&status=active"
+        //this.webapi.call('GET',url_param,this)
+        }}
+  );    
   }
 
   ngAfterViewInit() {
@@ -198,19 +200,37 @@ export class ReceiptDao {
   templateUrl: 'edit-receipts.html',
 })
 export class DialogReceiptEditor {
-  selected=''
-  roles = [
-    {value: 'AGENT', viewValue: 'Agent'},
-    {value: 'HADMIN', viewValue: 'Head Office Admin'},
-    {value: 'BADMIN', viewValue: 'Branch Office Admin'},
-    {value: 'SADMIN', viewValue: 'System Admin'}
-  ];
+ 
+  payload;
+  form: FormGroup;
+
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
-  constructor(
+  constructor( private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogReceiptEditor>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.payload = data.payload
+
+      this.form = fb.group({
+        id: [this.payload.id],
+        rcvdfrom: [this.payload.rcvdfrom],
+        fortrip: [this.payload.fortrip],
+        amount: [this.payload.amount],
+        usd: [this.payload.usd],
+        invoice: [this.payload.invoice],
+        remark: [this.payload.remark]
+
+        
+    });
+     }
 
   onNoClick(): void {
+    this.dialogRef.close();
+  }
+  save() {
+    this.dialogRef.close(this.form.value);
+  }
+
+  close() {
     this.dialogRef.close();
   }
 }

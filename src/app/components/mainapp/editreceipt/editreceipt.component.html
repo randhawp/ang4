@@ -127,12 +127,42 @@
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
         
-            <!-- Agent Column -->
+            <!-- id Column -->
             <ng-container matColumnDef="id">
               <mat-header-cell *matHeaderCellDef class="example-header">Id</mat-header-cell>
               <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
             </ng-container>
+
+            <ng-container matColumnDef="agent">
+                <mat-header-cell *matHeaderCellDef class="example-header">Agent</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.agent }}</mat-cell>
+            </ng-container>
         
+            <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef class="example-header">Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.date }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fortrip">
+                <mat-header-cell *matHeaderCellDef class="example-header">for</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.fortrip }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="remark">
+                <mat-header-cell *matHeaderCellDef class="example-header">Remark</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.remark }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef class="example-header">Status</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="usd">
+                <mat-header-cell *matHeaderCellDef class="example-header">USD</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.usd }}</mat-cell>
+              </ng-container>
+
             <!-- Office Column -->
             <ng-container matColumnDef="office">
               <mat-header-cell *matHeaderCellDef class="example-header">Office</mat-header-cell>

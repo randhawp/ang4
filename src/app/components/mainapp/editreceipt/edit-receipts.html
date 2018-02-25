@@ -1,17 +1,55 @@
 
 <h1 mat-dialog-title>Edit Receipt {{data.payload.id}}</h1>
-<div mat-dialog-content>
-    <p>{{data.payload.amount}}</p>
-    <p>{{data.payload.fortrip}}</p>
-    <p>{{data.payload.invoice}}</p>
-    <p>{{data.payload.rcvdfrom}}</p>
-    <p>{{data.payload.paytype}}</p>
-    <p>{{data.payload.amount}}</p>
-    
 
-</div>
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+
+        <input matInput placeholder="Rcvd From" formControlName="rcvdfrom">
+
+    </mat-form-field>
+
+    <mat-form-field>
+
+        <input matInput placeholder="For" formControlName="fortrip">
+
+    </mat-form-field>
+    <mat-form-field>
+
+        <input matInput placeholder="Amount" formControlName="amount">
+
+    </mat-form-field>
+
+    <mat-form-field>
+
+        <input matInput placeholder="USD" formControlName="usd">
+
+    </mat-form-field>
+
+
+    <mat-form-field>
+
+        <input matInput placeholder="Invoice" formControlName="invoice">
+
+    </mat-form-field>
+
+    <mat-form-field>
+
+        <input matInput placeholder="Remarks" formControlName="remark">
+
+    </mat-form-field>
+
+</mat-dialog-content>
  
-  <div mat-dialog-actions>
-    <button mat-raised-button	 (click)="onNoClick()">Cancel</button>
-    <button mat-raised-button	 [mat-dialog-close]="selected" cdkFocusInitial>Save</button>
-  </div>
+<mat-dialog-actions>
+
+    <button class="mat-raised-button"
+            (click)="close()">
+        Close
+    </button>
+
+    <button class="mat-raised-button mat-primary"
+            (click)="save()">
+        Save
+    </button>
+
+</mat-dialog-actions>
