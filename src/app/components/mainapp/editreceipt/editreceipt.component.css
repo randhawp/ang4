@@ -89,3 +89,11 @@ input.ng-invalid.ng-touched {
 .highlight{
   background: rgb(104, 113, 190); /* green */
 }
+.paytypeedit-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.paytypeedit-radio-button {
+  margin: 5px 16px;
+}

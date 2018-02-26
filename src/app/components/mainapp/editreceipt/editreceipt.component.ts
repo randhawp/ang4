@@ -131,6 +131,9 @@ export class EditreceiptComponent implements OnInit {
         if (data != null) {
         this.editedForm = data;
         console.log('The dialog was closed' + this.editedForm);
+        console.log(this.editedForm.usd)
+        console.log(this.editedForm.paytype)
+        console.log(this.editedForm.amount)
         this.rowdata.amount = this.editedForm.amount
         this.mode="EDIT"
         //var url_param:string="admin?function=edit_user&key=" +this.selectedUser+"&role="+this.editedForm+"&status=active"
@@ -203,21 +206,42 @@ export class DialogReceiptEditor {
  
   payload;
   form: FormGroup;
+  usdIsChecked:boolean;
+  isPayType:boolean;
+  paytypes = [
+    {value: 'cheque', viewValue: 'Cheque'},
+    {value: 'directdeposit', viewValue: 'Direct Deposit'},
+    {value: 'debit', viewValue: 'Debit'},
+    {value: 'credit', viewValue: 'Credit'},
+    {value: 'cash', viewValue: 'Cash'}
+    
+  ];
 
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   constructor( private fb: FormBuilder,
     public dialogRef: MatDialogRef<DialogReceiptEditor>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.payload = data.payload
+      
+      if (this.payload.usd != 'true'){
+        this.usdIsChecked = false;
+      }else{
+        this.usdIsChecked = true;
+      }
+      if(this.payload.paytype == "visa"){
+        this.isPayType = true;
+      }
 
+      console.log(this.payload.paytype)
       this.form = fb.group({
         id: [this.payload.id],
-        rcvdfrom: [this.payload.rcvdfrom],
-        fortrip: [this.payload.fortrip],
-        amount: [this.payload.amount],
+        rcvdfrom: [this.payload.rcvdfrom, Validators.required],
+        fortrip: [this.payload.fortrip, Validators.required],
+        amount: [this.payload.amount, Validators.required],
         usd: [this.payload.usd],
-        invoice: [this.payload.invoice],
-        remark: [this.payload.remark]
+        invoice: [this.payload.invoice, Validators.required],
+        remark: [this.payload.remark],
+        paytype: [this.payload.paytype]
 
         
     });

@@ -1,42 +1,42 @@
 
 <h1 mat-dialog-title>Edit Receipt {{data.payload.id}}</h1>
 
-<mat-dialog-content [formGroup]="form">
-    <mat-form-field>
+<mat-dialog-content [formGroup]="form" #f="ngForm">
+  
+  <div class="column">
+    <div class="row">
+      <mat-form-field>  <input matInput placeholder="Rcvd From" formControlName="rcvdfrom">  </mat-form-field>
+    </div>
 
-        <input matInput placeholder="Rcvd From" formControlName="rcvdfrom">
+    <div class="row">
+      <mat-form-field>  <input matInput placeholder="For" formControlName="fortrip">  </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field> <input matInput placeholder="Amount" formControlName="amount">  </mat-form-field>
+    </div>
 
-    </mat-form-field>
+    <div class="row">
+      <mat-checkbox [checked]="usdIsChecked" formControlName="usd">USD</mat-checkbox>
+    </div>
 
-    <mat-form-field>
+    <div class="row">
+      <mat-form-field> <input matInput placeholder="Invoice" formControlName="invoice"> </mat-form-field>
+    </div>
 
-        <input matInput placeholder="For" formControlName="fortrip">
+    <div class="row">
+      <mat-form-field> <input matInput placeholder="Remarks" formControlName="remark">  </mat-form-field>
+    </div>
+    <div class="row">
+     
+        <mat-radio-group class="paytypeedit-radio-group" formControlName="paytype"  >
+            <mat-radio-button class="paytypeedit-radio-button" *ngFor="let paytype of paytypes" [value]="paytype.value" >
+              {{paytype.viewValue}}
+            </mat-radio-button>
+        </mat-radio-group>
+     
+    </div>
 
-    </mat-form-field>
-    <mat-form-field>
-
-        <input matInput placeholder="Amount" formControlName="amount">
-
-    </mat-form-field>
-
-    <mat-form-field>
-
-        <input matInput placeholder="USD" formControlName="usd">
-
-    </mat-form-field>
-
-
-    <mat-form-field>
-
-        <input matInput placeholder="Invoice" formControlName="invoice">
-
-    </mat-form-field>
-
-    <mat-form-field>
-
-        <input matInput placeholder="Remarks" formControlName="remark">
-
-    </mat-form-field>
+  </div>
 
 </mat-dialog-content>
  
@@ -47,7 +47,7 @@
         Close
     </button>
 
-    <button class="mat-raised-button mat-primary"
+    <button class="mat-raised-button mat-primary" [disabled]="!f.valid"  
             (click)="save()">
         Save
     </button>

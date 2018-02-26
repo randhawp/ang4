@@ -102,7 +102,7 @@
             
             <div class="form-group">
               <div class="row">
-                <button mat-raised-button color="primary" [disabled]="!f.valid"> Search</button>
+                <button class="mat-raised-button mat-primary"   [disabled]="!f.valid"> Search</button>
               </div>
                 
             </div>  
@@ -209,7 +209,7 @@
           
         </div>
        <div>
-          <button md-raised-button (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
+          <button class="md-raised-button md-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
           <button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span>
           <button md-raised-button (click)="selectRow()" >Void</button>    <span style="width: 10px"></span>
           <button md-raised-button (click)="selectRow()" >Post</button>    <span style="width: 10px"></span>
