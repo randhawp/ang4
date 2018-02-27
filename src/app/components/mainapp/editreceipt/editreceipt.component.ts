@@ -40,7 +40,7 @@ export class EditreceiptComponent implements OnInit {
     paytype:'',
     remarks:''
   };
-  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom'];
+  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date'];
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -117,9 +117,9 @@ export class EditreceiptComponent implements OnInit {
     console.log(row)
     
     this.selectedReceipt = this.rowdata.id
-    this.openDialog()
+    this.openDialogEdit()
   }
-  openDialog() {
+  openDialogEdit() {
     let dialogRef = this.dialog.open(DialogReceiptEditor, {
     
       data: {
@@ -133,15 +133,64 @@ export class EditreceiptComponent implements OnInit {
         console.log('The dialog was closed' + this.editedForm);
         console.log(this.editedForm.usd)
         console.log(this.editedForm.paytype)
-        console.log(this.editedForm.amount)
+        console.log(this.editedForm.date)
         this.rowdata.amount = this.editedForm.amount
         this.mode="EDIT"
-        //var url_param:string="admin?function=edit_user&key=" +this.selectedUser+"&role="+this.editedForm+"&status=active"
-        //this.webapi.call('GET',url_param,this)
+        this.url="receipt?function=edit_receipt&paytype="+this.editedForm.paytype+"&rcvdfrom="+this.editedForm.rcvdfrom+
+    "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remarks+"&fortrip="+this.editedForm.fortrip+
+    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.state.office+"&date="+this.rowdata.date
+    console.log(this.url)
+    this.webapi.call('POST',this.url,this)
+    this.receiptForm.reset();
         }}
   );    
   }
 
+  webapiCallback(message: string, result: any){
+
+    console.log(message)
+    if ( this.mode == "DELETE"){
+      console.log("mode is delete")
+      //this.dataSource.data[this.selectedRowIndex] = null
+      this.dataSource.data.splice(this.tableSelectedRow, 1);
+      this.dataSource.paginator = this.paginator;
+    }
+     
+    if (this.mode == "EDIT"){
+      console.log("edited" + message)
+    }
+  }
+
+  selectRowToVoid(){
+        
+    this.selectedReceipt = this.rowdata.id
+    this.openDialogVoidReceipt()
+  }
+
+  openDialogVoidReceipt() {
+    let dialogRef = this.dialog.open(DialogVoidReceipt, {
+    
+      data: {
+        payload: this.rowdata
+      }
+    });
+    dialogRef.afterClosed().subscribe(
+      data =>  {
+        if (data != null) {
+        this.editedForm = data;
+        console.log('The dialog was closed' + this.editedForm);
+        console.log(this.editedForm.id)
+       
+        this.mode="EDIT"
+        this.url="receipt?function=edit_receipt&paytype="+"void"+"&rcvdfrom="+"void"+
+    "&invoice="+"void"+"&lockstate=x&remark="+"void"+"&fortrip="+"void"+
+    "&usd="+"false"+"&agent="+this.state.user+"&status=void&amount="+0+"&office="+this.state.office+"&date="+this.rowdata.date
+    console.log(this.url)
+    this.webapi.call('POST',this.url,this)
+    this.receiptForm.reset();
+        }}
+  );    
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -256,5 +305,27 @@ export class DialogReceiptEditor {
 
   close() {
     this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'void-receipt',
+  templateUrl: 'void-receipt.html',
+})
+
+export class DialogVoidReceipt {
+  payload
+  //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogVoidReceipt>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.payload = data.payload
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  save() {
+    this.dialogRef.close(this.payload.id);
   }
 }

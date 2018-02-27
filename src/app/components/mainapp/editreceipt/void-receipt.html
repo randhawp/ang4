@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Void Receipt {{data.payload.id}} ?</h1>
+
+<mat-dialog-content >
+        <p>There is no turning back if voided !</p>
+</mat-dialog-content>
+ 
+<mat-dialog-actions>
+    
+    <button class="mat-raised-button"
+    (click)="onNoClick()">
+        Close
+    </button>
+    
+    <button class="mat-raised-button mat-primary" 
+        (click)="save()">
+        Void
+    </button>
+    
+</mat-dialog-actions>
+    
