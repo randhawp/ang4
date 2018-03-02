@@ -119,6 +119,11 @@ export class EditreceiptComponent implements OnInit {
     this.selectedReceipt = this.rowdata.id
     this.openDialogEdit()
   }
+
+  selectRowToPost(){
+    this.selectedReceipt = this.rowdata.id
+    this.openDialogPost()
+  }
   openDialogEdit() {
     let dialogRef = this.dialog.open(DialogReceiptEditor, {
     
@@ -146,6 +151,21 @@ export class EditreceiptComponent implements OnInit {
   );    
   }
 
+  openDialogPost() {
+    let dialogRef = this.dialog.open(DialogPostReceipt, {
+    
+      data: {
+        payload: this.rowdata
+      }
+    });
+    dialogRef.afterClosed().subscribe(
+      data =>  {
+        if (data != null) {
+        this.editedForm = data;
+        
+        }}
+  );    
+  }
   webapiCallback(message: string, result: any){
 
     console.log(message)
@@ -328,4 +348,58 @@ export class DialogVoidReceipt {
   save() {
     this.dialogRef.close(this.payload.id);
   }
+}
+
+@Component({
+  selector: 'post-receipt',
+  templateUrl: 'post-receipt.html',
+  styleUrls: ['./editreceipt.component.css']
+})
+export class DialogPostReceipt  {
+     
+  payload
+  ELEMENT_DATA: Element[] = [];
+  
+  title = "app";
+  displayedColumns = ["invoice", "payment", "amount"];
+  dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
+  //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  
+  constructor( public dialogRef: MatDialogRef<DialogPostReceipt>,  @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.payload = data.payload
+      
+  }
+
+  ngOnInit() {
+   
+  }
+  searchElements(search: string = "") {
+    console.log(search);
+    this.dataSource.filter = search.toLowerCase().trim();
+  }
+  addRow() {
+    alert('adding row');
+    var inv:string="ssss";
+    this.dataSource.data.push({
+      invoice: inv,
+      payment: "Hydrogen",
+      amount: 1.0079
+    });
+    this.dataSource.filter = "";
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  save() {
+    this.dialogRef.close(this.payload.id);
+  }
+
+ connect() { }
+ disconnect() { }
+}
+export interface Element {
+  invoice: string;
+  payment: string;
+  amount: number;
 }

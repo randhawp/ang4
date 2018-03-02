@@ -1,0 +1,88 @@
+<h1 mat-dialog-title>Post Receipt {{data.payload.id}} ?</h1>
+
+<mat-dialog-content >
+    <mat-card>
+        <div class="row">
+                <div class="column" >
+                    <span  class="font-weight-bold">Receipt No {{data.payload.id}}</span>
+
+                </div>
+                <div class="column" >
+                        <span  class="font-weight-bold">Agent {{data.payload.agent}}</span>
+                </div>
+        </div>
+        <div class="row">
+                <div class="column" >
+                    <span  class="font-weight-bold">Date {{data.payload.date}}</span>
+
+                </div>
+                <div class="column" >
+                        <span  class="font-weight-bold">Invoice No. {{data.payload.invoice}}</span>
+                </div>
+        </div>
+        <div class="row">
+                <div class="column" >
+                    <span  class="font-weight-bold">Received From {{data.payload.rcvdfrom}}</span>
+
+                </div>
+                <div class="column" >
+                        <span  class="font-weight-bold">Total Amount {{data.payload.amount}}</span>
+                </div>
+        </div>
+    </mat-card>   
+    
+    <mat-card>
+        <div class="row">
+            <div class="column"> <mat-form-field>  <input matInput placeholder="Invoice"> </mat-form-field> </div>
+            <div class="column"> <mat-form-field>  <input matInput placeholder="Payment"> </mat-form-field> </div>
+            <div class="column"> <mat-form-field>  <input matInput placeholder="Amount"> </mat-form-field> </div>
+        </div>
+        <button (click)='addRow()'>Add Row</button>
+        <mat-table #table [dataSource]="dataSource">
+
+                <!--- Note that these columns can be defined in any order.
+                       The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Invoice -->
+                <ng-container matColumnDef="invoice">
+                  <mat-header-cell *matHeaderCellDef> Invoice </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.invoice}} </mat-cell>
+                </ng-container>
+              
+                <!-- Payment -->
+                <ng-container matColumnDef="payment">
+                  <mat-header-cell *matHeaderCellDef> Payment# </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.payment}} </mat-cell>
+                </ng-container>
+              
+                <!-- Amount -->
+                <ng-container matColumnDef="amount">
+                  <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+              
+                </ng-container>
+                
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+                            
+       
+    </mat-card>
+
+        
+</mat-dialog-content>
+ 
+<mat-dialog-actions>
+    
+    <button class="mat-raised-button"
+    (click)="onNoClick()">
+        Close
+    </button>
+    
+    <button class="mat-raised-button mat-primary" 
+        (click)="save()">
+        Void
+    </button>
+    
+</mat-dialog-actions>
+    
