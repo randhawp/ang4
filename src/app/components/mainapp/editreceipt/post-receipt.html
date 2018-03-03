@@ -33,11 +33,11 @@
     
     <mat-card>
         <div class="row">
-            <div class="column"> <mat-form-field>  <input matInput placeholder="Invoice"> </mat-form-field> </div>
-            <div class="column"> <mat-form-field>  <input matInput placeholder="Payment"> </mat-form-field> </div>
-            <div class="column"> <mat-form-field>  <input matInput placeholder="Amount"> </mat-form-field> </div>
+            <div class="column"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
+            <div class="column"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
+            <div class="column"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" > </mat-form-field> </div>
         </div>
-        <button (click)='addRow()'>Add Row</button>
+        <button (click)='addRow(invoice,payment,amount)'>Add Row</button>
         <mat-table #table [dataSource]="dataSource">
 
                 <!--- Note that these columns can be defined in any order.

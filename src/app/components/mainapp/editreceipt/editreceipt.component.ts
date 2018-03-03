@@ -359,7 +359,12 @@ export class DialogPostReceipt  {
      
   payload
   ELEMENT_DATA: Element[] = [];
-  
+  runningTotal:number = 0;
+
+  invoiceB:string;
+  paymentB:string;
+  amountB:number = 0;
+
   title = "app";
   displayedColumns = ["invoice", "payment", "amount"];
   dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
@@ -371,20 +376,29 @@ export class DialogPostReceipt  {
   }
 
   ngOnInit() {
-   
+   this.runningTotal=0;
   }
   searchElements(search: string = "") {
     console.log(search);
     this.dataSource.filter = search.toLowerCase().trim();
   }
-  addRow() {
-    alert('adding row');
-    var inv:string="ssss";
+  addRow(invoice,payment,amount) {
+    
+    this.runningTotal = this.runningTotal + Number(amount.value)
+    console.log("amt is " + this.payload.amount)
+    console.log("running total is " + this.runningTotal )
+    if (this.runningTotal > this.payload.amount){
+      alert("total problem");
+      return;
+    }
     this.dataSource.data.push({
-      invoice: inv,
-      payment: "Hydrogen",
-      amount: 1.0079
+      invoice: invoice.value,
+      payment: payment.value,
+      amount: amount.value
     });
+    this.invoiceB="";
+    this.paymentB="";
+    this.amountB=0;
     this.dataSource.filter = "";
   }
 
