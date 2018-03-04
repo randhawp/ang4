@@ -1,32 +1,46 @@
 
 <h1 mat-dialog-title>Edit Receipt {{data.payload.id}}</h1>
-
+ 
 <mat-dialog-content [formGroup]="form" #f="ngForm">
   
-  <div class="column">
-    <div class="row">
+  <div class="row">
+    <div class="column">
       <mat-form-field>  <input matInput placeholder="Rcvd From" formControlName="rcvdfrom">  </mat-form-field>
     </div>
 
-    <div class="row">
+    <div class="column">
       <mat-form-field>  <input matInput placeholder="For" formControlName="fortrip">  </mat-form-field>
     </div>
-    <div class="row">
-      <mat-form-field> <input matInput placeholder="Amount" formControlName="amount">  </mat-form-field>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <mat-form-field> <input matInput type="number"  ng-pattern="/^[0-9]{1,7}$/"   #amount minlength="1"
+        maxlength="12"  placeholder="Amount" formControlName="amount">
+       
+      </mat-form-field>
     </div>
 
-    <div class="row">
+    <div class="column">
       <mat-checkbox [checked]="usdIsChecked" formControlName="usd">USD</mat-checkbox>
     </div>
-
+  </div>
+  
+  <div class="column">
     <div class="row">
       <mat-form-field> <input matInput placeholder="Invoice" formControlName="invoice"> </mat-form-field>
     </div>
 
     <div class="row">
-      <mat-form-field> <input matInput placeholder="Remarks" formControlName="remark">  </mat-form-field>
+      <mat-form-field> 
+          <textarea matInput placeholder="Autosize textarea" matTextareaAutosize matAutosizeMinRows="2"
+          matAutosizeMaxRows="5" formControlName="remark"  placeholder="Remarks" ></textarea>  
+      </mat-form-field>
     </div>
-    <div class="row">
+  </div>
+
+  <div class="row">
+    <div class="column">
      
         <mat-radio-group class="paytypeedit-radio-group" formControlName="paytype"  >
             <mat-radio-button class="paytypeedit-radio-button" *ngFor="let paytype of paytypes" [value]="paytype.value" >

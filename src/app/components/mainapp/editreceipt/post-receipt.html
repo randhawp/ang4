@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Post Receipt {{data.payload.id}} ?</h1>
 
 <mat-dialog-content >
-    <mat-card>
+  
         <div class="row">
                 <div class="column" >
                     <span  class="font-weight-bold">Receipt No {{data.payload.id}}</span>
@@ -29,17 +29,17 @@
                         <span  class="font-weight-bold">Total Amount {{data.payload.amount}}</span>
                 </div>
         </div>
-    </mat-card>   
-    
-    <mat-card>
+   
         <div class="row">
-            <div class="column"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
-            <div class="column"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
-            <div class="column"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" > </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" > </mat-form-field> </div>
         </div>
+    
         <button (click)='addRow(invoice,payment,amount)'>Add Row</button>
+    <mat-card>               
         <mat-table #table [dataSource]="dataSource">
-
+            
                 <!--- Note that these columns can be defined in any order.
                        The actual rendered columns are set as a property on the row definition" -->
               
@@ -65,8 +65,8 @@
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
-                            
-       
+
+        
     </mat-card>
 
         
@@ -76,12 +76,12 @@
     
     <button class="mat-raised-button"
     (click)="onNoClick()">
-        Close
+        Cancel
     </button>
     
     <button class="mat-raised-button mat-primary" 
         (click)="save()">
-        Void
+        Post Receipt
     </button>
     
 </mat-dialog-actions>

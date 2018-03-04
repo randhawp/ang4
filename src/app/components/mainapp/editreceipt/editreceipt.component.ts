@@ -270,6 +270,7 @@ export class ReceiptDao {
 @Component({
   selector: 'edit-receipts',
   templateUrl: 'edit-receipts.html',
+  styleUrls: ['./editreceipt.component.css']
 })
 export class DialogReceiptEditor {
  
@@ -360,7 +361,7 @@ export class DialogPostReceipt  {
   payload
   ELEMENT_DATA: Element[] = [];
   runningTotal:number = 0;
-
+  @ViewChild('f') receiptForm: NgForm;
   invoiceB:string;
   paymentB:string;
   amountB:number = 0;
@@ -407,7 +408,11 @@ export class DialogPostReceipt  {
   }
   save() {
     this.dialogRef.close(this.payload.id);
+    console.log(this.dataSource.data.length)
+    console.log(this.dataSource.data)
+    
   }
+ 
 
  connect() { }
  disconnect() { }
