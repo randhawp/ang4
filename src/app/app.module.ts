@@ -7,6 +7,12 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
+import { NewdepositsComponent } from './components/mainapp/newdeposits/newdeposits.component';
+import { EditdepositsComponent } from './components/mainapp/editdeposits/editdeposits.component';
+import { ChangepasswordComponent} from './components/mainapp/changepassword/changepassword.component';
+import { NewsComponent} from './components/mainapp/news/news.component';
+import { BankComponent } from './components/mainapp/bank/bank.component';
+
 import { EditreceiptComponent,DialogReceiptEditor,DialogVoidReceipt, DialogPostReceipt } from './components/mainapp/editreceipt/editreceipt.component'
 
 import {CdkTableModule} from '@angular/cdk/table';
@@ -49,7 +55,13 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     DialogReceiptEditor,
     DialogVoidReceipt,
     DialogPostReceipt,
-    SetRolePipe
+    SetRolePipe,
+    NewdepositsComponent,
+    EditdepositsComponent,
+    ChangepasswordComponent,
+    NewsComponent,
+    BankComponent
+
   //  DataFilterPipe
    
     

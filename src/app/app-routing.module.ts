@@ -11,6 +11,11 @@ import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { AdminComponent } from './components/mainapp/admin/admin.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
 import { EditreceiptComponent } from './components/mainapp/editreceipt/editreceipt.component'
+import { NewdepositsComponent } from './components/mainapp/newdeposits/newdeposits.component';
+import { EditdepositsComponent } from './components/mainapp/editdeposits/editdeposits.component';
+import { ChangepasswordComponent} from './components/mainapp/changepassword/changepassword.component';
+import { NewsComponent} from './components/mainapp/news/news.component';
+import { BankComponent } from './components/mainapp/bank/bank.component';
 import { AuthGuard } from './services/authguard.service'
 
 const appRoutes: Routes = [
@@ -20,7 +25,13 @@ const appRoutes: Routes = [
     { path: 'menu', component: MenuComponent},
     { path: 'receipts', component: ReceiptComponent},
     { path: 'editreceipts', component: EditreceiptComponent},
-    { path: 'admin', component: AdminComponent}
+    { path: 'admin', component: AdminComponent},
+    { path: 'newdeposits', component: NewdepositsComponent},
+    { path: 'editdeposits', component: EditdepositsComponent},
+    { path: 'passwd', component: ChangepasswordComponent},
+    { path: 'news', component: NewsComponent},
+    { path: 'bank', component: BankComponent},
+
   ]},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},

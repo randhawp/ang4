@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     console.log("init login")
     if (this.auth.isLogged() == true){
       console.log("will route to main")
-      this.router.navigate(['/mainapp/receipts']);
+      this.router.navigate(['/mainapp/news']);
     }
   }
 

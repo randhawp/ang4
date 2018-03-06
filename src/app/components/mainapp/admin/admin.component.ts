@@ -13,7 +13,9 @@ import {WebapiService} from '../../../services/webapi.service'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-
+//
+import { AuthService } from '../../../services/auth.service';
+import {Router} from '@angular/router'
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -39,7 +41,7 @@ export class AdminComponent  implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient, private webapi:WebapiService,public dialog: MatDialog,private ref: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private webapi:WebapiService,public dialog: MatDialog,private ref: ChangeDetectorRef,public auth:AuthService,private router:Router) {}
 
   ngOnInit() {
     this.userDb = new UserDao(this.webapi);

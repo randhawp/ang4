@@ -162,9 +162,25 @@ export class EditreceiptComponent implements OnInit {
       data =>  {
         if (data != null) {
         this.editedForm = data;
+        console.log("############")
+        var datas = JSON.stringify(data)
+        var amount = dialogRef.componentInstance.getRunningTotal()
+        var status=""
+        if ( amount == this.rowdata.amount){
+          status = "FULL-POSTED"
+        }
+        if ( amount < this.rowdata.amount){
+          status = "PARTIAL-POSTED"
+        }
+        this.url="receipt?function=post_receipt&id="+this.rowdata.id+"&details="+"datas"+"&amount="+amount+"&status="+status
+        console.log(this.url)
+        this.webapi.call('POST',this.url,this)
+        
+        console.log("############")
         
         }}
-  );    
+  );
+       
   }
   webapiCallback(message: string, result: any){
 
@@ -376,6 +392,10 @@ export class DialogPostReceipt  {
       
   }
 
+  getRunningTotal(){
+    return this.runningTotal;
+  }
+
   ngOnInit() {
    this.runningTotal=0;
   }
@@ -407,10 +427,8 @@ export class DialogPostReceipt  {
     this.dialogRef.close();
   }
   save() {
-    this.dialogRef.close(this.payload.id);
-    console.log(this.dataSource.data.length)
-    console.log(this.dataSource.data)
-    
+    this.dialogRef.close(this.dataSource.data);
+   
   }
  
 
