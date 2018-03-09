@@ -120,7 +120,7 @@ export class AdminComponent  implements OnInit {
       this.rowdata.access = this.selectedrole
       this.mode="EDIT"
       var url_param:string="admin?function=edit_user&key=" +this.selectedUser+"&role="+this.selectedrole+"&status=active"
-      this.webapi.call('GET',url_param,this)
+      this.webapi.call('GET',url_param,this,null)
       }
     });
   }
@@ -139,7 +139,7 @@ export class AdminComponent  implements OnInit {
       this.mode="DELETE";
       var url_param:string="admin?function=delete_user&key=" +this.rowdata.username
       console.log(url_param)
-      this.webapi.call('GET',url_param,this)
+      this.webapi.call('GET',url_param,this,null)
       }
     });
   }

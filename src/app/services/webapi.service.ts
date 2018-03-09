@@ -37,8 +37,10 @@ export class WebapiService {
   isSessionStale():boolean{
     var d = new Date();
     var n:number = d.getTime();
+    console.log("toekn ag is " + this.state.tokenage.toString() + " and time nos is " + n )
     var diff:number = n - this.state.tokenage
     diff = diff/(1000)
+    console.log("time diff is " + diff.toString())
     if (diff > 3000){
       return true;
     }else{
@@ -48,9 +50,9 @@ export class WebapiService {
   }
 
   
-  call(method,name,callback) {
+  call(method,name,callback,body) {
     
-    if (this.isSessionStale){
+    if (this.isSessionStale() == true ){
       this.auth.refreshSession();
     }
     
@@ -72,7 +74,7 @@ export class WebapiService {
     }
     
     if(method == "POST"){
-      let body = {};
+      //let body = {}
       this.http.post(finalurl,JSON.stringify(body),{headers: oh1}).subscribe(data => {
       
       if (data == null || data == "" ){

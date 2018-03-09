@@ -124,6 +124,11 @@ export class EditreceiptComponent implements OnInit {
     this.selectedReceipt = this.rowdata.id
     this.openDialogPost()
   }
+
+  selectRowToUnPost(){
+    this.selectedReceipt = this.rowdata.id
+    this.openDialogUnPost()
+  }
   openDialogEdit() {
     let dialogRef = this.dialog.open(DialogReceiptEditor, {
     
@@ -145,7 +150,7 @@ export class EditreceiptComponent implements OnInit {
     "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remarks+"&fortrip="+this.editedForm.fortrip+
     "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.state.office+"&date="+this.rowdata.date
     console.log(this.url)
-    this.webapi.call('POST',this.url,this)
+    this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
         }}
   );    
@@ -163,7 +168,6 @@ export class EditreceiptComponent implements OnInit {
         if (data != null) {
         this.editedForm = data;
         console.log("############")
-        var datas = JSON.stringify(data)
         var amount = dialogRef.componentInstance.getRunningTotal()
         var status=""
         if ( amount == this.rowdata.amount){
@@ -172,9 +176,31 @@ export class EditreceiptComponent implements OnInit {
         if ( amount < this.rowdata.amount){
           status = "PARTIAL-POSTED"
         }
-        this.url="receipt?function=post_receipt&id="+this.rowdata.id+"&details="+"datas"+"&amount="+amount+"&status="+status
+        this.url="receipt?function=post_details&id="+this.rowdata.id+"&amount="+amount+"&status="+status+"&office="+this.rowdata.office+"&date="+this.rowdata.date+"&orignalamt="+this.rowdata.amount
         console.log(this.url)
-        this.webapi.call('POST',this.url,this)
+        this.webapi.call('POST',this.url,this,data)
+        
+        console.log("############")
+        
+        }}
+  );
+       
+  }
+
+  
+  openDialogUnPost() {
+    let dialogRef = this.dialog.open(DialogUnPostReceipt, {
+    
+      data: {
+        payload: this.rowdata
+      }
+    });
+    dialogRef.afterClosed().subscribe(
+      data =>  {
+        if (data != null) {
+        this.url="receipt?function=unpost&id="+this.rowdata.id+"&office="+this.rowdata.office+"&date="+this.rowdata.date
+        console.log(this.url)
+        this.webapi.call('POST',this.url,this,null)
         
         console.log("############")
         
@@ -222,7 +248,7 @@ export class EditreceiptComponent implements OnInit {
     "&invoice="+"void"+"&lockstate=x&remark="+"void"+"&fortrip="+"void"+
     "&usd="+"false"+"&agent="+this.state.user+"&status=void&amount="+0+"&office="+this.state.office+"&date="+this.rowdata.date
     console.log(this.url)
-    this.webapi.call('POST',this.url,this)
+    this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
         }}
   );    
@@ -365,6 +391,31 @@ export class DialogVoidReceipt {
   save() {
     this.dialogRef.close(this.payload.id);
   }
+}
+
+@Component({
+  selector: 'unpost-receipt',
+  templateUrl: 'unpost-receipt.html',
+  styleUrls: ['./editreceipt.component.css']
+})
+
+export class DialogUnPostReceipt  {
+  payload
+  //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogUnPostReceipt>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.payload = data.payload
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  save() {
+    this.dialogRef.close(this.payload.id);
+  }
+
+
 }
 
 @Component({

@@ -27,7 +27,7 @@ export class MainComponent implements OnInit {
       this.router.navigate(['login']);
     }else{
       this.username = this.data;
-      this.webapi.call('GET','access?username='+this.data,this)
+      this.webapi.call('GET','access?username='+this.data,this,null)
      
       
     }

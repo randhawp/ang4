@@ -13,7 +13,7 @@ import { ChangepasswordComponent} from './components/mainapp/changepassword/chan
 import { NewsComponent} from './components/mainapp/news/news.component';
 import { BankComponent } from './components/mainapp/bank/bank.component';
 
-import { EditreceiptComponent,DialogReceiptEditor,DialogVoidReceipt, DialogPostReceipt } from './components/mainapp/editreceipt/editreceipt.component'
+import { EditreceiptComponent,DialogReceiptEditor,DialogVoidReceipt, DialogPostReceipt, DialogUnPostReceipt } from './components/mainapp/editreceipt/editreceipt.component'
 
 import {CdkTableModule} from '@angular/cdk/table';
 import { AppMaterialModules } from './material.module';
@@ -55,6 +55,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     DialogReceiptEditor,
     DialogVoidReceipt,
     DialogPostReceipt,
+    DialogUnPostReceipt,
     SetRolePipe,
     NewdepositsComponent,
     EditdepositsComponent,
@@ -80,7 +81,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     
    
   ],
-  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor,DialogVoidReceipt,DialogPostReceipt ],
+  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor,DialogVoidReceipt,DialogPostReceipt,DialogUnPostReceipt ],
   providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
 })

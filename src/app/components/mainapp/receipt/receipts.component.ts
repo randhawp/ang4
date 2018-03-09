@@ -70,7 +70,7 @@ export class ReceiptComponent implements OnInit {
     "&invoice="+this.receiptData.invoice+"&lock=x&remark="+this.receiptData.remarks+"&fortrip="+this.receiptData.forreason+
     "&usd="+this.receiptData.usd+"&agent="+this.state.user+"&status=na&amount="+this.receiptData.amount+"&office="+this.state.office
     console.log(this.url)
-    this.webapi.call('POST',this.url,this)
+    this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
   }
 
