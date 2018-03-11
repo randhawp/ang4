@@ -3,145 +3,73 @@
 <mat-dialog-content >
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #cash100 (keyup)="0" > 
+                    <input class="input-coins"  matInput type="number"  (change)=updateTotal()  [(ngModel)]="cash100" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label>  x 100 </label>
                 </div>    
                 <div class="col-sm-3 col-md-4" >
-                        <label> {{ cash100.value *100 | number : '1.2-2' }} </label> 
+                        <label class="input-coins"> {{ cash100t  | number : '1.2-2' }} </label> 
                 </div>
                     
         </div>
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #cash50 (keyup)="0" > 
+                    <input class="input-coins"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal()  [(ngModel)]="cash50" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label>  x 50 </label>
                 </div>    
                 <div class="col-sm-3 col-md-4" >
-                        <label> {{ cash50.value * 50 | number : '1.2-2' }} </label> 
+                        <label class="input-coins" > {{ cash50t  | number : '1.2-2' }} </label> 
                 </div>
                     
         </div>
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #cash20 (keyup)="0" > 
+                    <input class="input-coins"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal()  [(ngModel)]="cash20" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label>  x 20 </label>
                 </div>    
                 <div class="col-sm-3 col-md-4" >
-                        <label> {{ cash20.value * 20 | number : '1.2-2' }} </label> 
+                        <label class="input-coins" > {{ cash20t  | number : '1.2-2' }} </label> 
                 </div>
                     
         </div>
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #cash10 (keyup)="0" > 
+                    <input class="input-coins"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal()  [(ngModel)]="cash10" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label>  x 10 </label>
                 </div>    
                 <div class="col-sm-3 col-md-4" >
-                        <label> {{ cash10.value * 10 | number : '1.2-2' }} </label> 
+                        <label class="input-coins" > {{ cash10t  | number : '1.2-2' }} </label> 
                 </div>
                     
         </div>
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #cash5 (keyup)="0" > 
+                    <input class="input-coins"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal()  [(ngModel)]="cash5" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label>  x 5 </label>
                 </div>    
                 <div class="col-sm-3 col-md-4" >
-                        <label> {{ cash5.value * 5 | number : '1.2-2' }} </label> 
+                        <label class="input-coins" > {{ cash5t  | number : '1.2-2' }} </label> 
                 </div>
                     
         </div>
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #coin2 (keyup)="0" > 
-                </div>
-                <div class="col-sm-3 col-md-4" >
-                        <label>  x 2 </label>
-                </div>    
-                <div class="col-sm-3 col-md-4" >
-                        <label> {{ coin2.value * 2 | number : '1.2-2' }} </label> 
-                </div>
-                    
-        </div>
-        <div class="row">
-                <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #coin1 (keyup)="0" > 
-                </div>
-                <div class="col-sm-3 col-md-4" >
-                        <label>  x 1 </label>
-                </div>    
-                <div class="col-sm-3 col-md-4" >
-                        <label> {{ coin1.value * 1 }} </label> 
-                </div>
-                    
-        </div>
-        <div class="row">
-                <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #coin50 (keyup)="0" > 
-                </div>
-                <div class="col-sm-3 col-md-4" >
-                        <label>  x 0.50 </label>
-                </div>    
-                <div class="col-sm-3 col-md-4" >
-                        <label> {{ coin50.value * 0.50 | number : '1.2-2' }} </label> 
-                </div>
-                    
-        </div>
-        <div class="row">
-                <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #coin25 (keyup)="0" > 
-                </div>
-                <div class="col-sm-3 col-md-4" >
-                        <label>  x 0.25 </label>
-                </div>    
-                <div class="col-sm-3 col-md-4" >
-                        <label> {{ coin25.value * 0.25 | number : '1.2-2' }} </label> 
-                </div>
-                    
-        </div>
-        <div class="row">
-                <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #coin10 (keyup)="0" > 
-                </div>
-                <div class="col-sm-3 col-md-4" >
-                        <label>  x 0.10 </label>
-                </div>    
-                <div class="col-sm-3 col-md-4" >
-                        <label> {{ coin10.value * 0.10 | number : '1.2-2'  }} </label> 
-                </div>
-                    
-        </div>
-        <div class="row">
-                <div  class="col-sm-3 col-md-4">
-                    <input class="input-coins"  matInput type="number" #coin5 (keyup)="0" > 
-                </div>
-                <div class="col-sm-3 col-md-4" >
-                        <label>  x 0.05 </label>
-                </div>    
-                <div class="col-sm-3 col-md-4" >
-                        <label> {{ coin5.value * 0.05 | number : '1.2-2' }} </label> 
-                </div>
-                    
-        </div>
-        <div class="row">
-                <div  class="col-sm-3 col-md-4">
-              
+                        
                 </div>
                 <div class="col-sm-3 col-md-4">
                         <label>  Total </label>
                 </div>    
-                <div class="col-sm-3 col-md-4"   >
-                        <label> {{ cash100+cash50+cash20+cash10+cash5+coin2+coin1+coin50+coin25+coin10+coin5 | number : '1.2-2' }} </label> 
+                <div class="col-sm-3 col-md-4"  >
+                        <label class="input-coins" > {{ cashtotal  | number : '1.2-2' }} </label> 
                 </div>
                     
         </div>

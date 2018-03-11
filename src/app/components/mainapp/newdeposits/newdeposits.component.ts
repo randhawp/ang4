@@ -252,6 +252,19 @@ export class ReceiptDao {
 
 export class DialogCashBox  {
   payload
+  cash100:number=0;
+  cash100t:number=0;
+  cash50:number=0;
+  cash50t:number=0;
+  cash20:number=0;
+  cash20t:number=0;
+  cash10:number=0;
+  cash10t:number=0;
+  cash5:number=0;
+  cash5t:number=0;
+
+  cashtotal:number=0;
+
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   constructor(
     public dialogRef: MatDialogRef<DialogCashBox>,
@@ -259,11 +272,37 @@ export class DialogCashBox  {
       this.payload = data.payload
      }
 
+  updateTotal():number{
+
+    console.log("here")
+    this.cash100t = this.cash100 * 100
+    console.log(this.cash100t)
+    this.cash50t  = this.cash50 * 50
+    console.log(this.cash50t)
+    this.cash20t  = this.cash20 * 20
+    this.cash10t = this.cash10 * 10
+    this.cash5t = this.cash5 * 5
+    this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t;
+    return this.cashtotal   
+
+
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
   save() {
-    this.dialogRef.close(this.payload.id);
+    //this.dialogRef.close(this.payload.id);
+    console.log("ready to add")
+    this.cash100t = this.cash100 * 100
+    console.log(this.cash100t)
+    this.cash50t  = this.cash50 * 50
+    console.log(this.cash50t)
+    this.cash20t  = this.cash20 * 20
+    this.cash10t = this.cash10 * 10
+    this.cash5t = this.cash5 * 5
+    this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t;
+    console.log(this.cashtotal)
   }
 
 
