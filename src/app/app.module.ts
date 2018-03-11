@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { MainComponent } from './components/mainapp/main/main.component';
 import { MenuComponent } from './components/mainapp/menu/menu.component';
 import { ReceiptComponent } from './components/mainapp/receipt/receipts.component';
-import { NewdepositsComponent } from './components/mainapp/newdeposits/newdeposits.component';
+import { NewdepositsComponent, DialogCashBox } from './components/mainapp/newdeposits/newdeposits.component';
 import { EditdepositsComponent } from './components/mainapp/editdeposits/editdeposits.component';
 import { ChangepasswordComponent} from './components/mainapp/changepassword/changepassword.component';
 import { NewsComponent} from './components/mainapp/news/news.component';
@@ -61,7 +61,8 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     EditdepositsComponent,
     ChangepasswordComponent,
     NewsComponent,
-    BankComponent
+    BankComponent,
+    DialogCashBox
 
   //  DataFilterPipe
    
@@ -81,7 +82,7 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     
    
   ],
-  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor,DialogVoidReceipt,DialogPostReceipt,DialogUnPostReceipt ],
+  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor,DialogVoidReceipt,DialogPostReceipt,DialogUnPostReceipt,DialogCashBox ],
   providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
 })

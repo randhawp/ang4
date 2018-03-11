@@ -107,6 +107,64 @@
           </mat-paginator>
           
         </div>
+        <div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+          <div class="row">
+            <div class="column">
+                  <form class="form-signin" (ngSubmit)="onSignup(f)" #f="ngForm">
+                      <div class="row">
+                        <div class="column">
+
+                          <div class="form-group">
+                              <mat-form-field>
+                                  <label for="office">Bane </label>
+                                <mat-select  [(ngModel)]="selectedValue" class="form-control" name="selectedValue" required>
+                                  <mat-option *ngFor="let bank of banks" [value]="bank.value">
+                                    {{ bank.viewValue }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                      </div>
+                    <div class="row">
+                        <div class="column">
+                            <mat-form-field>  <input matInput type="number"  placeholder="Total Cheque" formControlName="cheque">  </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <mat-form-field>  <input matInput type="number" placeholder="Total Cash" (keydown)="showCashBox()" formControlName="cash">  </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <mat-form-field>  <input matInput type="number" placeholder="Total Debit" formControlName="debit">  </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <mat-form-field>  <input matInput type="number" placeholder="Total Credit" formControlName="credit">  </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <mat-form-field>  <input matInput type="number" placeholder="Total Direct" formControlName="direct">  </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <mat-form-field>  <input matInput type="number" placeholder="Total Deposit" formControlName="total">  </mat-form-field>
+                        </div>
+                    </div>
+                      
+                      
+                  </form>
+            </div>
+                <div>
+                    <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Deposit</button>    <span style="width: 10px"></span>
+                    <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Cancel</button>    <span style="width: 10px"></span>
+                </div>
+          </div>
        <div>
           <button class="md-raised-button md-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
                 

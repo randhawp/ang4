@@ -43,6 +43,12 @@ export class NewdepositsComponent implements OnInit {
   displayedColumns = ['select','id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date'];
   selection = new SelectionModel<Element>(true, []);
 
+  banks = [
+    {value: '1', viewValue: 'Bank of A'},
+    {value: '2', viewValue: 'Bank of B'},
+    {value: '3', viewValue: 'Bank of C'}
+  ];
+
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -133,6 +139,31 @@ export class NewdepositsComponent implements OnInit {
     }
   }
 
+  showCashBox(){
+    console.log("showing cash dialog");
+    this.openDialogCashBox();
+  }
+
+  openDialogCashBox() {
+    let dialogRef = this.dialog.open(DialogCashBox, {
+    
+      data: {
+        payload: this.rowdata
+      }
+    });
+    dialogRef.afterClosed().subscribe(
+      data =>  {
+        if (data != null) {
+       // this.url="receipt?function=unpost&id="+this.rowdata.id+"&office="+this.rowdata.office+"&date="+this.rowdata.date
+        //console.log(this.url)
+        //this.webapi.call('POST',this.url,this,null)
+        
+        console.log("############")
+        
+        }}
+  );
+       
+  }
   
   
   ngAfterViewInit() {
@@ -213,3 +244,27 @@ export class ReceiptDao {
 }
 
 
+@Component({
+  selector: 'cashbix',
+  templateUrl: 'cashbox.html',
+  styleUrls: ['./newdeposits.component.css']
+})
+
+export class DialogCashBox  {
+  payload
+  //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    public dialogRef: MatDialogRef<DialogCashBox>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      this.payload = data.payload
+     }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  save() {
+    this.dialogRef.close(this.payload.id);
+  }
+
+
+}
