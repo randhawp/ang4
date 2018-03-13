@@ -86,6 +86,14 @@ export class NewdepositsComponent implements OnInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
+  totalcash:number=0;
+  totaldebit:number=0;
+  totalcredit:number=0;
+  totalcheque:number=0;
+  totaldirect:number=0;
+  totalsum:number=0;
+
+
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
 
@@ -139,6 +147,10 @@ export class NewdepositsComponent implements OnInit {
     }
   }
 
+  updateTotal(){
+    this.totalsum = this.totalcash*1 + this.totalcheque*1 + this.totalcredit*1 + this.totaldebit*1 + this.totaldirect*1
+  }
+
   showCashBox(){
     console.log("showing cash dialog");
     this.openDialogCashBox();
@@ -157,12 +169,13 @@ export class NewdepositsComponent implements OnInit {
        // this.url="receipt?function=unpost&id="+this.rowdata.id+"&office="+this.rowdata.office+"&date="+this.rowdata.date
         //console.log(this.url)
         //this.webapi.call('POST',this.url,this,null)
-        
-        console.log("############")
+        console.log("in dailog return")
+        console.log(data)
+        this.totalcash = data
         
         }}
   );
-       
+         
   }
   
   
@@ -219,13 +232,20 @@ export class NewdepositsComponent implements OnInit {
         //this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
+
+
   cl(row){
     const numSelected = this.selection.selected.length;
     console.log(numSelected)
     console.log("xxx" +  numSelected.toString())
-    this.dataSource.data.forEach(row => this.selection.isSelected)
+    //console.log(this.dataSource.data.forEach(row => this.selection.isSelected))
+      console.log(this.selection.selected)
+      var data = this.selection.selected
+      for(let speakerElement of data) {
+        console.log("Speaker element",speakerElement['paytype']);// element is JSON 
 
-    console.log(this.selection.selected)
+      }
+     
   }
 
   
@@ -262,6 +282,8 @@ export class DialogCashBox  {
   cash10t:number=0;
   cash5:number=0;
   cash5t:number=0;
+  coins:number=0;
+  actualdeposit=0;
 
   cashtotal:number=0;
 
@@ -282,7 +304,8 @@ export class DialogCashBox  {
     this.cash20t  = this.cash20 * 20
     this.cash10t = this.cash10 * 10
     this.cash5t = this.cash5 * 5
-    this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t;
+    this.coins = this.coins * 1; 
+    this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t + this.coins;
     return this.cashtotal   
 
 
@@ -301,8 +324,12 @@ export class DialogCashBox  {
     this.cash20t  = this.cash20 * 20
     this.cash10t = this.cash10 * 10
     this.cash5t = this.cash5 * 5
-    this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t;
+    this.coins = this.coins * 1;
+    this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t +this.coins
     console.log(this.cashtotal)
+
+    console.log(this.actualdeposit)
+    this.dialogRef.close(this.actualdeposit);
   }
 
 

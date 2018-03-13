@@ -63,6 +63,19 @@
         </div>
         <div class="row">
                 <div  class="col-sm-3 col-md-4">
+                        <label class="input-coins" >  </label> 
+                </div>
+                <div class="col-sm-3 col-md-4" >
+                        <label>  Coins  </label>
+                </div>    
+                <div class="col-sm-3 col-md-4" >
+                        
+                        <input class="input-coins"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal()  [(ngModel)]="coins" #ctrl="ngModel" > 
+                </div>
+                    
+        </div>
+        <div class="row">
+                <div  class="col-sm-3 col-md-4">
                         
                 </div>
                 <div class="col-sm-3 col-md-4">
@@ -70,6 +83,19 @@
                 </div>    
                 <div class="col-sm-3 col-md-4"  >
                         <label class="input-coins" > {{ cashtotal  | number : '1.2-2' }} </label> 
+                </div>
+                    
+        </div>
+        <div class="row">
+                <div  class="col-sm-3 col-md-4">
+                        <label class="input-coins" >  </label> 
+                </div>
+                <div class="col-sm-3 col-md-4" >
+                        <label>  Actual Deposit  </label>
+                </div>    
+                <div class="col-sm-3 col-md-4" >
+                        
+                        <input class="input-coins"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal()  [(ngModel)]="actualdeposit" #ctrl="ngModel" > 
                 </div>
                     
         </div>

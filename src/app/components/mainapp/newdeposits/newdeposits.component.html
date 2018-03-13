@@ -116,7 +116,7 @@
 
                           
                              
-                                  <label for="office">Bane </label>
+                                  <label for="office">Bank </label>
                                 <mat-select  [(ngModel)]="selectedValue"  name="selectedValue" required>
                                   <mat-option *ngFor="let bank of banks" [value]="bank.value">
                                     {{ bank.viewValue }}
@@ -128,36 +128,36 @@
                       </div>
                     <div class="row">
                         <div class="column">
-                             <input matInput type="number"  placeholder="Total Cheque" > 
+                             <input matInput type="number"  (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                             <input matInput type="number" placeholder="Total Cash" (keydown)="showCashBox()" > 
+                             <input matInput type="number" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" > 
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                             <input matInput type="number" placeholder="Total Debit" > 
+                             <input matInput type="number" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                             <input matInput type="number" placeholder="Total Credit" > 
+                             <input matInput type="number" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                             <input matInput type="number" placeholder="Total Direct" > 
+                             <input matInput type="number" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
                         </div>
                     </div>
                     <div class="row">
                         <div class="column">
-                             <input matInput type="number" placeholder="Total Deposit" > 
+                             <input matInput type="number" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > {{totalsum}}
                         </div>
                     </div>
-                      
-                      
+                       
+                    
                 
             </div>
                 <div>
