@@ -93,6 +93,14 @@ export class NewdepositsComponent implements OnInit {
   totaldirect:number=0;
   totalsum:number=0;
 
+  depositcashtotal:number=0;
+  depositdebittotal:number=0;
+  depositcredittotal:number=0;
+  depositchequetotal:number=0;
+  depositdirecttotal:number=0;
+  deposittotal:number=0;
+
+
 
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
@@ -241,11 +249,36 @@ export class NewdepositsComponent implements OnInit {
     //console.log(this.dataSource.data.forEach(row => this.selection.isSelected))
       console.log(this.selection.selected)
       var data = this.selection.selected
-      for(let speakerElement of data) {
-        console.log("Speaker element",speakerElement['paytype']);// element is JSON 
+      this.depositcashtotal = 0
+      this.depositchequetotal = 0
+      this.depositdebittotal = 0
+      this.depositcredittotal = 0
+      this.depositdirecttotal =0
+      this.deposittotal = 0 
+      for(let e of data) {
+        console.log("Speaker element",e['paytype']);// element is JSON 
+        console.log("Speaker element",e['amount']);// element is JSON 
+        
+  
+        if ( e['paytype'] == 'directdeposit') { this.depositdirecttotal = this.depositdirecttotal + e['amount']; this.deposittotal = this.deposittotal + e['amount']}
+
+        if ( e['paytype'] == 'cash') { this.depositcashtotal = this.depositcashtotal + e['amount']; this.deposittotal = this.deposittotal + e['amount'] }
+
+        if ( e['paytype'] == 'debit') { this.depositdebittotal = this.depositdebittotal + e['amount']; this.deposittotal = this.deposittotal + e['amount'] }
+
+        if ( e['paytype'] == 'credit') { this.depositcredittotal = this.depositcredittotal + e['amount']; this.deposittotal = this.deposittotal + e['amount'] }
+
+        if ( e['paytype'] == 'cheque') { this.depositchequetotal = this.depositchequetotal + e['amount']; this.deposittotal = this.deposittotal + e['amount'] }
+
+        
 
       }
-     
+      this.totalcheque = this.depositchequetotal;
+      this.totalcredit = this.depositcredittotal;
+      this.totaldebit = this.depositdebittotal;
+      this.totaldirect = this.depositdirecttotal;
+      this.totalcash = this.depositcashtotal;
+      this.totalsum = this.deposittotal;
   }
 
   
@@ -306,6 +339,7 @@ export class DialogCashBox  {
     this.cash5t = this.cash5 * 5
     this.coins = this.coins * 1; 
     this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t + this.coins;
+    this.actualdeposit = this.cashtotal
     return this.cashtotal   
 
 

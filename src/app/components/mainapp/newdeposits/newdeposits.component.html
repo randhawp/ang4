@@ -107,72 +107,67 @@
           </mat-paginator>
           
         </div>
-        <div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-          <div class="row">
-            <div class="column">
-               
+        <mat-card>
+          <!--div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"-->
+            <div class="row">
+              <div class="col-sm-4" style="background-color:lavender;">
+                 
                       <div class="row">
                         <div class="column">
-
-                          
-                             
-                                  <label for="office">Bank </label>
-                                <mat-select  [(ngModel)]="selectedValue"  name="selectedValue" required>
-                                  <mat-option *ngFor="let bank of banks" [value]="bank.value">
-                                    {{ bank.viewValue }}
-                                  </mat-option>
-                                </mat-select>
-                             
-                        
-                    </div>
+  
+                            <label for="office">Bank </label>
+                            <mat-select  [(ngModel)]="selectedValue"  name="selectedValue" required>
+                              <mat-option *ngFor="let bank of banks" [value]="bank.value">
+                               {{ bank.viewValue }}
+                               </mat-option>
+                             </mat-select>
+                        </div>
                       </div>
-                    <div class="row">
-                        <div class="column">
-                             <input matInput type="number"  (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                             <input matInput type="number" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" > 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                             <input matInput type="number" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
+                      <div class="row">
+                          <div class="column">
+                            <input matInput type="number"  (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="column">
+                            <input matInput type="number" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" > 
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="column">
+                            <input matInput type="number" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="column">
                              <input matInput type="number" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                             <input matInput type="number" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                             <input matInput type="number" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > {{totalsum}}
-                        </div>
-                    </div>
-                       
-                    
-                
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="column">
+                            <input matInput type="number" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="column">
+                            <input matInput type="number" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
+                          </div>
+                      </div>
+              </div>
+              <div class="col-sm-4" style="background-color:lavender;">
+                      <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Deposit</button>    <span style="width: 10px"></span>
+                      <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Cancel</button>    <span style="width: 10px"></span>
+                  </div>
             </div>
-                <div>
-                    <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Deposit</button>    <span style="width: 10px"></span>
-                    <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Cancel</button>    <span style="width: 10px"></span>
-                </div>
-          </div>
-       <div>
-          <button class="md-raised-button md-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
-                
-       </div>
-    
-        
+         <div>
+                  
+         </div>
+      
           
-    </div>
+            
+      <!--/div-->
+      </mat-card>
+      
           
           
     

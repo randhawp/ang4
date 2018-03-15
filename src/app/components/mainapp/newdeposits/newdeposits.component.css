@@ -1,6 +1,31 @@
 .input_coins {
  
   background-color:violet;
+  text-align: right;
+  align-content: inherit;
+  outline-color: blue;
+  width: 100px;
   
 
   } 
+
+  .example-form {
+    min-width: 400px;
+    max-width: 1000px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  .aaa{
+    width: 400pc;
+    text-align: center;
+  
+  }
+  .cash-label{
+    width: 100pc;
+    text-align: right;
+  
+  }
+  
