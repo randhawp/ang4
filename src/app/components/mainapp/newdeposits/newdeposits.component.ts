@@ -100,6 +100,7 @@ export class NewdepositsComponent implements OnInit {
   depositdirecttotal:number=0;
   deposittotal:number=0;
 
+  receiptslist:string;
 
 
 
@@ -270,8 +271,8 @@ export class NewdepositsComponent implements OnInit {
 
         if ( e['paytype'] == 'cheque') { this.depositchequetotal = this.depositchequetotal + e['amount']; this.deposittotal = this.deposittotal + e['amount'] }
 
-        
-
+        this.receiptslist = this.receiptslist+","+e['id']
+        console.log(this.receiptslist)
       }
       this.totalcheque = this.depositchequetotal;
       this.totalcredit = this.depositcredittotal;

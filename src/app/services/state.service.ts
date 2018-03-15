@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-
+import {Router} from '@angular/router';
 @Injectable()
 export class StateService {
 
-  constructor() { 
+  constructor(private router:Router) { 
     console.log(">>>>>>>>>>>>> STATE SERVICE STARTED <<<<<<<<<<<<<<")
+    if ( this.user == null){
+      console.log("Illegal attemp to log in")
+      this.router.navigate(['login']);
+    }
 
   }
 

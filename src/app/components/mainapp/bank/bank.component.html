@@ -3,24 +3,34 @@
   <div class="row content">
     
   <app-menu></app-menu>
-   <div class="col-sm-8 text-left"> 
+   <div class="row"> 
       <h1>Add/Edit Bank Details</h1>
-           
+    <div class="column">
+      <mat-form-field>
+          <mat-select [(ngModel)]="selectedBank" placeholder="Select Bank">
+            <mat-option *ngFor="let bank of bankdata" [value]="bank.codename" (click)="onClick(bank.fullname)">
+              {{ bank.fullname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!--span style="margin-left: 10px">selected value: {{selectedBank}} </span-->
+    </div>       
           
     </div>
-          
+    <div class="row">
+      <div class="column">
+          <label> Edit Bank A/C details </label>
+          <input value={{selectedBankName}} (change)=updateName() [(ngModel)]="newBankName" > 
+          <button (click)="updateBankDetails()"> Update Name</button>
+      </div>
+      
+    </div>
+    
           
 
 
 
     
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>Recent Activity</p>
-      </div>
-      <div class="well">
-        <p>Today's Summary{{lastReceiptData}}</p>
-      </div>
-    </div>
+   
   </div>
 </div>

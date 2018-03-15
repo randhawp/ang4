@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
   constructor(public webapi: WebapiService ,public auth:AuthService,private router:Router,public state:StateService,private messageService: MessageService) { }
   username:string;
   ngOnInit() {
-
+    console.log("MAIN app starting - checking token <<<<<<<<<<<<")
     if(this.data == null){
       console.log("user not logged in")
       this.auth.logout(this.auth.getCurrentUser())

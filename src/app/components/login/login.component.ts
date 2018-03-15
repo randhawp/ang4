@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
       var d = new Date();
       var n:number = d.getTime();
       this.state.tokenage = n
-      this.router.navigate(['/mainapp/receipts']);
+      this.router.navigate(['/mainapp/news']);
       }
     }
           

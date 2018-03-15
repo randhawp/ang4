@@ -125,32 +125,38 @@
                       </div>
                       <div class="row">
                           <div class="column">
-                            <input matInput type="number"  (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
+                            <label class="deposit-label">Cheque</label>
+                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
                           </div>
                       </div>
                       <div class="row">
                           <div class="column">
-                            <input matInput type="number" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" > 
+                              <label class="deposit-label">Cash</label>
+                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" > 
                           </div>
                       </div>
                       <div class="row">
                           <div class="column">
-                            <input matInput type="number" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
+                              <label class="deposit-label" >Debit</label>
+                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
                           </div>
                       </div>
                       <div class="row">
                           <div class="column">
-                             <input matInput type="number" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
+                              <label class="deposit-label">Credit</label>
+                             <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
                           </div>
                       </div>
                       <div class="row">
                           <div class="column">
-                            <input matInput type="number" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
+                              <label class="deposit-label">Direct</label>
+                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
                           </div>
                       </div>
                       <div class="row">
                           <div class="column">
-                            <input matInput type="number" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
+                              <label class="deposit-label" >Total</label>
+                            <input matInput type="number" class="deposit-inputbox" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
                           </div>
                       </div>
               </div>
