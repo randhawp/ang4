@@ -158,10 +158,22 @@ export class NewdepositsComponent implements OnInit {
       console.log(result[0])
       console.log(result[0].fullname)
       this.bankdata = result
-      this.selectedBank = result[0].fullname
+      this.selectedBankName = result[0].fullname
+      this.selectedBank = result[0].code
     }
     if (this.mode == "DEPOSIT"){
       console.log(message)
+      if (message == "deposited"){
+        this.selection.clear() 
+        this.masterToggle()
+        this.getTableData()
+        alert("Deposit completed")
+      } else{
+        this.selection.clear()
+        this.masterToggle()
+        this.getTableData()
+        alert("The deposit failed. Please check or contact technical support")
+      }
     }
     
   }
@@ -313,11 +325,11 @@ export class NewdepositsComponent implements OnInit {
   makeDeposit(){
 
     if(this.totalsum==0 || this.selectedBank == null){
-      alert("Select receipts to make a deposit")
+      alert("Select receipts and bank account to make a deposit")
       return;
     }
     this.receiptslist=""
-    if(this.totalcash != 0 && this.cashboxshown == 0 ){ this.showCashBox(); this.cashboxshown = 1; }
+    if(this.totalcash != 0 && this.cashboxshown == 0 ){ this.showCashBox(); this.cashboxshown = 1; return;}
     console.log(this.selection.selected) //details
     var data = this.selection.selected
     console.log(this.totalsum.toString()) //depositamt
