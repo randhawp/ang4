@@ -153,12 +153,16 @@ export class NewdepositsComponent implements OnInit {
 
     console.log("in call back web")
    
-   
+    if (this.mode == "BANKDATA"){
       console.log("bank data")
       console.log(result[0])
       console.log(result[0].fullname)
       this.bankdata = result
       this.selectedBank = result[0].fullname
+    }
+    if (this.mode == "DEPOSIT"){
+      console.log(message)
+    }
     
   }
 
@@ -253,7 +257,7 @@ export class NewdepositsComponent implements OnInit {
   getBankList(){
     this.url="admin?function=list_bank"
     console.log(this.url)
-    this.mode="0"
+    
     this.webapi.call('GET',this.url,this,null)
 
 
