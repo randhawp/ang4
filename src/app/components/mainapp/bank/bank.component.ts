@@ -32,12 +32,7 @@ export class BankComponent implements OnInit {
   constructor(private http: HttpClient, private webapi:WebapiService,public dialog: MatDialog,public auth:AuthService, r:Router,public state:StateService) { }
 
   ngOnInit() {
-    console.log("the user permission is ===========")
-    console.log(this.state.access)
-    let l = this.state.getUserSecurityLevel(this.state.access)
-    console.log(l.toString())
-    console.log("the user permission is ===========")
-    this.getBankList()
+   this.getBankList()
   }
 
   getBankList(){

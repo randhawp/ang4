@@ -103,6 +103,12 @@ export class NewdepositsComponent implements OnInit {
   receiptslist:string;
 
 
+  bankdata:any;
+  selectedBank:string;
+  selectedBankName:string;
+  newBankName:string;
+ 
+  cashboxshown:number=0;
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
 
@@ -115,8 +121,10 @@ export class NewdepositsComponent implements OnInit {
     if (this.state.access == "HADMIN" || this.state.access == "SADMIN"){
       this.role =2;
     }
-
+   
     this.getTableData()
+    this.mode="BANKDATA"
+    this.getBankList()
   }
 
   onSubmitSearch() {
@@ -143,17 +151,15 @@ export class NewdepositsComponent implements OnInit {
   
   webapiCallback(message: string, result: any){
 
-    console.log(message)
-    if ( this.mode == "DELETE"){
-      console.log("mode is delete")
-      //this.dataSource.data[this.selectedRowIndex] = null
-      this.dataSource.data.splice(this.tableSelectedRow, 1);
-      this.dataSource.paginator = this.paginator;
-    }
-     
-    if (this.mode == "EDIT"){
-      console.log("edited" + message)
-    }
+    console.log("in call back web")
+   
+   
+      console.log("bank data")
+      console.log(result[0])
+      console.log(result[0].fullname)
+      this.bankdata = result
+      this.selectedBank = result[0].fullname
+    
   }
 
   updateTotal(){
@@ -169,7 +175,7 @@ export class NewdepositsComponent implements OnInit {
     let dialogRef = this.dialog.open(DialogCashBox, {
     
       data: {
-        payload: this.rowdata
+        payload: this.totalcash
       }
     });
     dialogRef.afterClosed().subscribe(
@@ -181,6 +187,7 @@ export class NewdepositsComponent implements OnInit {
         console.log("in dailog return")
         console.log(data)
         this.totalcash = data
+        this.updateSelectTotal();
         
         }}
   );
@@ -237,13 +244,28 @@ export class NewdepositsComponent implements OnInit {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     //this.isAllSelected() ?
-      //  this.selection.clear() :
+        this.selection.clear() //:
         //this.dataSource.data.forEach(row => this.selection.select(row));
+        this.updateSelectTotal();
   }
 
 
+  getBankList(){
+    this.url="admin?function=list_bank"
+    console.log(this.url)
+    this.mode="0"
+    this.webapi.call('GET',this.url,this,null)
 
-  cl(row){
+
+  }
+
+  onClick(n){
+    this.selectedBankName = n
+    console.log(n)
+    console.log(this.selectedBank)
+  }
+
+  updateSelectTotal(){
     const numSelected = this.selection.selected.length;
     console.log(numSelected)
     console.log("xxx" +  numSelected.toString())
@@ -271,8 +293,8 @@ export class NewdepositsComponent implements OnInit {
 
         if ( e['paytype'] == 'cheque') { this.depositchequetotal = this.depositchequetotal + e['amount']; this.deposittotal = this.deposittotal + e['amount'] }
 
-        this.receiptslist = this.receiptslist+","+e['id']
-        console.log(this.receiptslist)
+       //this.receiptslist = this.receiptslist+","+e['id']
+        //console.log(this.receiptslist)
       }
       this.totalcheque = this.depositchequetotal;
       this.totalcredit = this.depositcredittotal;
@@ -280,6 +302,31 @@ export class NewdepositsComponent implements OnInit {
       this.totaldirect = this.depositdirecttotal;
       this.totalcash = this.depositcashtotal;
       this.totalsum = this.deposittotal;
+
+      
+  }
+
+  makeDeposit(){
+
+    if(this.totalsum==0 || this.selectedBank == null){
+      alert("Select receipts to make a deposit")
+      return;
+    }
+    this.receiptslist=""
+    if(this.totalcash != 0 && this.cashboxshown == 0 ){ this.showCashBox(); this.cashboxshown = 1; }
+    console.log(this.selection.selected) //details
+    var data = this.selection.selected
+    console.log(this.totalsum.toString()) //depositamt
+    for(let e of data) {
+      this.receiptslist = this.receiptslist+","+e['id']+","+e['office']+","+e['date'] //WARNING do not change this format or else change on server too
+    }
+    console.log(this.receiptslist) //receiptsid
+    console.log(this.selectedBank) //selected bank id
+
+    this.url="receipt?function=deposit&depositamt="+this.totalsum.toString()+"&receiptsid="+this.receiptslist+"&bankac="+this.selectedBank
+    console.log(this.url)
+    this.webapi.call('POST',this.url,this,this.selection.selected)
+    this.mode="DEPOSIT"
   }
 
   

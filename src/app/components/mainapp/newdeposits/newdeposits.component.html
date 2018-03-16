@@ -21,7 +21,7 @@
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <mat-checkbox (click)="$event.stopPropagation()"
-                              (change)="$event ? selection.toggle(row) : null; cl(row)"
+                              (change)="$event ? selection.toggle(row) : null; updateSelectTotal()"
                               [checked]="selection.isSelected(row)">
                 </mat-checkbox>
               </mat-cell>
@@ -115,12 +115,14 @@
                       <div class="row">
                         <div class="column">
   
-                            <label for="office">Bank </label>
-                            <mat-select  [(ngModel)]="selectedValue"  name="selectedValue" required>
-                              <mat-option *ngFor="let bank of banks" [value]="bank.value">
-                               {{ bank.viewValue }}
-                               </mat-option>
-                             </mat-select>
+                            <label class="deposit-label">Bank </label>
+                            <mat-form-field>
+                                <mat-select [(ngModel)]="selectedBank" placeholder="Select Bank">
+                                  <mat-option *ngFor="let bank of bankdata" [value]="bank.codename" (click)="onClick(bank.fullname)">
+                                    {{ bank.fullname }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
                         </div>
                       </div>
                       <div class="row">
@@ -160,10 +162,12 @@
                           </div>
                       </div>
               </div>
-              <div class="col-sm-4" style="background-color:lavender;">
-                      <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Deposit</button>    <span style="width: 10px"></span>
-                      <button class="md-raised-button md-primary" (click)="selectRowToEdit()" > Cancel</button>    <span style="width: 10px"></span>
+              <div class="col-sm-4">
+                  <div class="container-fluid text-center"> 
+                      <button class="mat-raised-button mat-primary" (click)="makeDeposit()" > Deposit</button>    <span style="width: 10px"></span>
+                      <button class="mat-raised-button" (click)=" masterToggle()" > Cancel</button>    <span style="width: 10px"></span>
                   </div>
+              </div>
             </div>
          <div>
                   
