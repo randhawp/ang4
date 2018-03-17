@@ -35,9 +35,18 @@ export class EditdepositsComponent implements OnInit {
   enddate:string;
   dataSource = new MatTableDataSource();
   dataSourceDetail = new MatTableDataSource();
+  selectedDepositId:number;
+  selectedReceipts:string;
+  selectedBankAc:string
+  selectedDate:number
+
   displayedColumns = ['depositid', 'datecreated', 'depositamt','actions'];
   displayedColumnsDetail = ['date', 'amount', 'agentname','invoice','rcvdfrom','fortrip'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('panel1') panel1: MatExpansionPanel;
+  @ViewChild('panel2') panel2: MatExpansionPanel;
+  @ViewChild('panel3') panel3: MatExpansionPanel;
+  
   resultsLength = 0;
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
@@ -45,6 +54,7 @@ export class EditdepositsComponent implements OnInit {
   ngOnInit() {
     this.mode="BANKDATA"
     this.getBankList()
+    this.panel1.open()
   }
   getBankList(){
     this.url="admin?function=list_bank"
@@ -74,6 +84,20 @@ export class EditdepositsComponent implements OnInit {
       console.log(result[0])
       this.dataSource.data = result
       this.dataSource.paginator = this.paginator;
+      this.panel1.close()
+      console.log("closing panel1")
+      this.panel2.open()
+      
+    }
+    if(this.mode == "UNDEPOSIT"){
+      if(message == "undeposited"){
+        alert("The deposit was rolled back")
+      }else{
+        alert("Rollaback of the deposit failed")
+      }
+     
+      this.panel3.close()
+      this.panel1.open()
     }
     
   }
@@ -81,9 +105,15 @@ export class EditdepositsComponent implements OnInit {
     this.rowdata = row
     console.log(row)
     console.log(row.details)
+    this.selectedDepositId = row.depositid
+    this.selectedReceipts = row.receiptsid
+    this.selectedBankAc = row.bankac
+    this.selectedDate = row.datecreated
     let arr:Array<string> = row.details
     this.dataSourceDetail.data = arr
       //this.dataSource.paginator = this.paginator;
+    this.panel2.close()
+    this.panel3.open()
    
   }
   highlight(row,i){
@@ -103,6 +133,19 @@ export class EditdepositsComponent implements OnInit {
     this.webapi.call('GET',this.url,this,null)
     this.mode="SEARCH"
 
+  }
+//incase of deposits the rstatus is not updated, that is only for posting, partial posting etc
+//for deposits the depositid is used, when zero then the record is not deposited, and therfore on undeposit it is set back to zero - see lamda function
+  unPost(){
+    console.log(this.selectedDepositId)
+    console.log(this.selectedReceipts)
+    console.log(this.selectedBankAc)
+    console.log(this.selectedDate) 
+    console.log("unpost")
+    this.url="receipt?function=undeposit&bankac="+this.selectedBankAc+"&datecreated="+this.selectedDate+"&receiptsid="+this.selectedReceipts+"&depositid="+this.selectedDepositId
+    console.log(this.url)
+    this.webapi.call('POST',this.url,this,null)
+    this.mode="UNDEPOSIT"
   }
 
 

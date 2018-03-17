@@ -154,6 +154,44 @@ export class AwsService {
       });
   }
 
+  changePassword(user,oldpwd,newpwd,callback){
+
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let cognitoUser = userPool.getCurrentUser();
+
+
+    if (cognitoUser != null) {
+      console.log("cog user is not null " +user)
+      cognitoUser.changePassword(oldpwd, newpwd, function(err, result) {
+      if (err) {
+          console.log(err)
+          alert(err);
+          return;
+      }
+      alert("Password Updated")
+      console.log('call result: ' + result);
+      });
+    }
+
+  }
+
+  deleteUser(user){
+    this.user = user;
+    let userPool = new AWSCognito.CognitoUserPool(this.poolData);
+    let userData = {
+        Username : user,
+        Pool : userPool
+    };
+    let cognitoUser = new AWSCognito.CognitoUser(userData);
+    cognitoUser.deleteUser(function(err, result) {
+      if (err) {
+          alert(err);
+          return;
+      }
+      console.log('call result: ' + result);
+  });
+  }
+
   forgotPassword(user,callback){
 
     let msg:string =""

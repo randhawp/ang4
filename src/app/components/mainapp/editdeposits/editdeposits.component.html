@@ -3,13 +3,13 @@
   <div class="row content">
     
   <app-menu></app-menu>
-   <div class="col-sm-8 text-left"> 
+   <div class="col-sm-10 text-left"> 
       <h1>Edit Deposits</h1>
       <mat-accordion>
-          <mat-expansion-panel>
+          <mat-expansion-panel  id="panel1" #panel1>
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Search
+                  <span class="glyphicon glyphicon-search"></span> Search
               </mat-panel-title>
              
             </mat-expansion-panel-header>
@@ -36,8 +36,7 @@
               </div>  
             </form>
           </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                               (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true"  (closed)="panelOpenState = false"  id="panel2" #panel2>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 List of searched deposits {{selectedBankName}}
@@ -104,8 +103,7 @@
               </div>
           </mat-expansion-panel>
         
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                               (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true"  (closed)="panelOpenState = false"  id="panel3" #panel3 >
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Details of selected deposit
@@ -173,6 +171,9 @@
                 <mat-paginator [length]="resultsLength" [pageSize]="4">
                 </mat-paginator>
               </div>
+              <div class="row">
+                  <button class="mat-raised-button mat-primary" (click)="unPost()" > UnPost </button>
+                </div>
           </mat-expansion-panel>
         </mat-accordion>
         

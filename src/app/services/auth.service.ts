@@ -48,6 +48,10 @@ export class AuthService {
   
   }
 
+  changePassword(username,oldpassword,newpassword){
+    this.awsService.changePassword(username,oldpassword,newpassword,this)
+  }
+
   forgotPasswordValidate(code,newpassword){
     this.awsService.forgotPasswordValidate(code,newpassword,this);
   }
