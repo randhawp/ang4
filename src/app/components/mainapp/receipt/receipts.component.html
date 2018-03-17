@@ -4,6 +4,7 @@
     
   <app-menu></app-menu>
    <div class="col-sm-8 text-left"> 
+     <mat-card>
       <h1>New  Receipt</h1>
       <form (ngSubmit)="onSubmit()" #f="ngForm">
           <div
@@ -21,12 +22,12 @@
             <span>
               <div class="form-group">
                   <label for="amount">Amount</label>
-                  <input type="text" id="amount" class="form-control" ngModel name="amount" required>
+                  <input type="number" id="amount" class="form-control" ngModel name="amount" required>
               </div>  
               <div class="form-group">
                 
                   <label for="usd">USD</label>
-                  <input type="checkbox" name="usd" ngModel >
+                  <input type="checkbox" name="usd" ngModel value=false >
               </div>
             </span>
             <div class="form-group">
@@ -39,9 +40,9 @@
               <textarea name="remarks" rows="3"   cols="40" class="form-control"  [(ngModel)]="answer"></textarea>
             </div>
             <div class="form-group">
-                <mat-radio-group class="paytype-radio-group" ngModel name="paytype">
-                    <mat-radio-button class="paytype-radio-button" *ngFor="let paytype of paytypes" [value]="paytype.value">
-                      {{paytype.viewValue}}
+                <mat-radio-group class="paytype-radio-group" [(ngModel)]="paytypecontrol" name="paytype" >
+                    <mat-radio-button class="paytype-radio-button" *ngFor="let p of paytypes" name="p.value"  [value]="p.value" >
+                      {{p.viewValue}}
                     </mat-radio-button>
                   </mat-radio-group>
             </div>
@@ -49,7 +50,7 @@
             <button   class="btn btn-primary"  type="submit"  [disabled]="!f.valid">Submit</button>
             </div>
         </form>
-           
+      </mat-card>
           
     </div>
           

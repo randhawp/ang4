@@ -14,6 +14,7 @@ export class ReceiptComponent implements OnInit {
   @ViewChild('f') receiptForm: NgForm;
   submitted = false;
   url:string;
+  paytypecontrol
   
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
   constructor(public webapi: WebapiService,private state:StateService) { }
@@ -32,11 +33,11 @@ export class ReceiptComponent implements OnInit {
  
 
   paytypes = [
-    {value: 'cheque', viewValue: 'Cheque'},
-    {value: 'directdeposit', viewValue: 'Direct Deposit'},
-    {value: 'debit', viewValue: 'Debit'},
-    {value: 'credit', viewValue: 'Credit'},
-    {value: 'cash', viewValue: 'Cash'}
+    {value: 'cheque', viewValue: 'Cheque',selected:false},
+    {value: 'directdeposit', viewValue: 'Direct Deposit',selected:false},
+    {value: 'debit', viewValue: 'Debit',selected:false},
+    {value: 'credit', viewValue: 'Credit',selected:false},
+    {value: 'cash', viewValue: 'Cash',selected:true}
     
   ];
 
@@ -47,6 +48,7 @@ export class ReceiptComponent implements OnInit {
     let l = this.state.getUserSecurityLevel(this.state.access)
     console.log(l.toString())
     console.log("the user permission is ===========")
+    this.paytypecontrol='credit'
   }
   
   
@@ -60,6 +62,12 @@ export class ReceiptComponent implements OnInit {
     this.receiptData.invoice = this.receiptForm.value.receiptFormData.invoice;
     this.receiptData.paytype = this.receiptForm.value.receiptFormData.paytype;
     this.receiptData.remarks = this.receiptForm.value.receiptFormData.remarks;
+    if ( this.receiptData.usd != true){
+      this.receiptData.usd = false;
+    }
+    if (this.receiptData.remarks == "" ||  this.receiptData.remarks == null){
+      this.receiptData.remarks="na"
+    }
     console.log("submitting")
     console.log("1")
     console.log(this.receiptData.rcvdfrom)
