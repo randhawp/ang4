@@ -2,17 +2,16 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     
-  <app-menu></app-menu>
-   <div class="col-sm-10 text-left"> 
+    <app-menu></app-menu>
+    <div class="col-sm-10 text-left"> 
       <mat-accordion multi="true">
-        <mat-expansion-panel id="panel1" #panel1 >
+        <mat-expansion-panel id="panel1"   #panel1 >
           <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="glyphicon glyphicon-search"></span> Search
             </mat-panel-title>
-            
           </mat-expansion-panel-header>
-        <form (ngSubmit)="onSubmitSearch()" #f="ngForm">
+          <form (ngSubmit)="onSubmitSearch()" #f="ngForm">
           <div
             id="receipt-data"
             ngModelGroup="receiptFormData"
@@ -59,7 +58,7 @@
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Amount To"  ngModel name="'amountto'" >
+                  <input matInput placeholder="Amount To"  ngModel name="amountto" >
                 </mat-form-field>
               </div>
             </div>
@@ -111,136 +110,119 @@
           </form>
        
         </mat-expansion-panel>
-        <mat-expansion-panel id="panel2"  #panel2 >
+
+        <mat-expansion-panel id="panel2" (opened)="panelOpenState = true"  (closed)="panelOpenState = false"   #panel2 >
           <mat-expansion-panel-header>
             <mat-panel-title>
               Search results
             </mat-panel-title>
             
           </mat-expansion-panel-header>
-        <div class="example-container mat-elevation-z8">
-   
-  
-          <mat-table #table [dataSource]="dataSource" class="example-table"
-                     matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
-        
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-        
-            <!-- id Column -->
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef class="example-header">Id</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="agent">
-                <mat-header-cell *matHeaderCellDef class="example-header">Agent</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.agent }}</mat-cell>
-            </ng-container>
-        
-            <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef class="example-header">Date</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.date | date }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="rstatus">
-                <mat-header-cell *matHeaderCellDef class="example-header">Status</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.rstatus }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="fortrip">
-                <mat-header-cell *matHeaderCellDef class="example-header">for</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.fortrip }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="remark">
-                <mat-header-cell *matHeaderCellDef class="example-header">Remark</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.remark }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="status">
-                <mat-header-cell *matHeaderCellDef class="example-header">Status</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="usd">
-                <mat-header-cell *matHeaderCellDef class="example-header">USD</mat-header-cell>
-                <mat-cell *matCellDef="let row">{{ row.usd }}</mat-cell>
+          <div class="example-container mat-elevation-z8">
+    
+    
+            <mat-table #table [dataSource]="dataSource" class="example-table"
+                      matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+          
+              <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+          
+              <!-- id Column -->
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef class="example-header">Id</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
               </ng-container>
 
-            <!-- Office Column -->
-            <ng-container matColumnDef="office">
-              <mat-header-cell *matHeaderCellDef class="example-header">Office</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.office  }}</mat-cell>
-            </ng-container>
-        
-            <!-- Amount Column -->
-            <ng-container matColumnDef="amount">
-              <mat-header-cell *matHeaderCellDef class="example-header">Amount</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
-            </ng-container>
-        
-            <!-- Invoice Column -->
-            <ng-container matColumnDef="invoice">
-              <mat-header-cell *matHeaderCellDef class="example-header">Invoice</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.invoice }}</mat-cell>
-            </ng-container>
-        
-            <!-- Paytype Column -->
-            <ng-container matColumnDef="paytype">
-              <mat-header-cell *matHeaderCellDef class="example-header">Paytype</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.paytype }}</mat-cell>
-            </ng-container>
-        
-            <!-- Rcvd Column -->
-            <ng-container matColumnDef="rcvdfrom">
-              <mat-header-cell *matHeaderCellDef class="example-header">Rcvd</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.rcvdfrom }}</mat-cell>
-            </ng-container>
-        
-            
-            
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
-      [ngClass]="{'highlight': selectedRowIndex == row.id}"
-      (click)="highlight(row,i)"> </mat-row>
-      
-            
-            
-          </mat-table>
-        
-          <mat-paginator [length]="resultsLength" [pageSize]="5">
-          </mat-paginator>
+              <ng-container matColumnDef="agent">
+                  <mat-header-cell *matHeaderCellDef class="example-header">Agent</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.agent }}</mat-cell>
+              </ng-container>
           
-        </div>
-       <div>
-          <div *ngIf="showEditButton" >
-            <button class="md-raised-button md-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
-          </div>
-          <!--button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span-->
-          <div *ngIf="showVoidButton" >  
-            <button md-raised-button (click)="selectRowToVoid()" >Void</button>    <span style="width: 10px"></span>
-          </div>
-          <div *ngIf="showPostButton" >
-            <button md-raised-button (click)="selectRowToPost()" >Post</button>    <span style="width: 10px"></span>
-          </div>
-          <div *ngIf="showUnPostButton" >
-            <button md-raised-button (click)="selectRowToUnPost()" >Un-Post</button>    <span style="width: 10px"></span>
-          </div>
-                
-       </div>
-       
-               
+              <ng-container matColumnDef="date">
+                  <mat-header-cell *matHeaderCellDef class="example-header">Date</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.date | date }}</mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="rstatus">
+                  <mat-header-cell *matHeaderCellDef class="example-header">Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.rstatus }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="fortrip">
+                  <mat-header-cell *matHeaderCellDef class="example-header">for</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.fortrip }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="remark">
+                  <mat-header-cell *matHeaderCellDef class="example-header">Remark</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.remark }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef class="example-header">Status</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="usd">
+                  <mat-header-cell *matHeaderCellDef class="example-header">USD</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{ row.usd }}</mat-cell>
+                </ng-container>
+
+              <!-- Office Column -->
+              <ng-container matColumnDef="office">
+                <mat-header-cell *matHeaderCellDef class="example-header">Office</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.office  }}</mat-cell>
+              </ng-container>
+          
+              <!-- Amount Column -->
+              <ng-container matColumnDef="amount">
+                <mat-header-cell *matHeaderCellDef class="example-header">Amount</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
+              </ng-container>
+          
+              <!-- Invoice Column -->
+              <ng-container matColumnDef="invoice">
+                <mat-header-cell *matHeaderCellDef class="example-header">Invoice</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.invoice }}</mat-cell>
+              </ng-container>
+          
+              <!-- Paytype Column -->
+              <ng-container matColumnDef="paytype">
+                <mat-header-cell *matHeaderCellDef class="example-header">Paytype</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.paytype }}</mat-cell>
+              </ng-container>
+          
+              <!-- Rcvd Column -->
+              <ng-container matColumnDef="rcvdfrom">
+                <mat-header-cell *matHeaderCellDef class="example-header">Rcvd</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{ row.rcvdfrom }}</mat-cell>
+              </ng-container>
+          
               
-        
-      </mat-expansion-panel>
-    </mat-accordion>
+              
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
+          [ngClass]="{'highlight': selectedRowIndex == row.id}"
+          (click)="highlight(row,i)"> </mat-row>
           
+                
+                
+              </mat-table>
+            
+              <mat-paginator [length]="resultsLength" [pageSize]="5">
+              </mat-paginator>
+              
+            </div>
+          <div class="btn-group">
+              
+              <button *ngIf="showEditButton" class="mat-raised-button mat-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
+              <!--button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span-->
+              <button  *ngIf="showVoidButton" class="mat-raised-button" (click)="selectRowToVoid()" >Void</button>    <span style="width: 10px"></span>
+              <button  *ngIf="showPostButton" class="mat-raised-button" (click)="selectRowToPost()" >Post</button>    <span style="width: 10px"></span>
+              <button *ngIf="showUnPostButton" class="mat-raised-button " (click)="selectRowToUnPost()" >Un-Post</button>    <span style="width: 10px"></span>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
-          
-          
-    
-
-
     
     <!--div class="col-sm-2 sidenav">
       <div class="well">

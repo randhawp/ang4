@@ -6,14 +6,14 @@
    <div class="col-sm-8 text-left"> 
      <mat-card>
       <h1>New  Receipt</h1>
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
+      <form (ngSubmit)="onSubmit()" (onReset)="resetForm()" #f="ngForm">
           <div
             id="receipt-data"
             ngModelGroup="receiptFormData"
             #receiptFormData="ngModelGroup">
             <div class="form-group">
               <label for="rcvdfrom">Received From</label>
-              <input type="text"  id="rcvdfrom"  class="form-control"  ngModel  name="rcvdfrom"  required>
+              <input type="text"  id="rcvdfrom"  class="form-control" (keyup)="clearMessage()"  ngModel  name="rcvdfrom"  required>
             </div>
             <div class="form-group">
               <label for="forreason">For</label>
@@ -50,6 +50,12 @@
             <button   class="btn btn-primary"  type="submit"  [disabled]="!f.valid">Submit</button>
             </div>
         </form>
+
+        <div class="col-sm-8 col-sm-offset-2">
+          <div class="alert alert-danger" *ngIf="returnval == 1">{{message}}</div>
+          <div class="alert alert-success"  *ngIf="returnval == 2">{{message}}</div>  
+         
+        </div>
       </mat-card>
           
     </div>
@@ -61,10 +67,19 @@
     
     <div class="col-sm-2 sidenav">
       <div class="well">
-        <p>Recent Activity</p>
+        <p><B>Last Receipt</B></p>
+        <p>    Amount: {{lastReceiptAmount}}     
+        </p>
+        <p>
+          PayType: {{lastPayType}}
+        </p>
+        <p>
+          From: {{lastRcvdFrom}}
+        </p>
       </div>
       <div class="well">
-        <p>Today's Summary{{lastReceiptData}}</p>
+        <p><B>Session Count</B><p>
+          <p> Receipts entered :{{receiptCount}}</p>
       </div>
     </div>
   </div>

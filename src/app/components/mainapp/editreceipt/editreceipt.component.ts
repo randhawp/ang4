@@ -27,6 +27,7 @@ export class EditreceiptComponent implements OnInit {
   @ViewChild('f') receiptForm: NgForm;
   @ViewChild('panel1') panel1: MatExpansionPanel;
   @ViewChild('panel2') panel2: MatExpansionPanel;
+  panelOpenState: boolean = false;
   submitted = false;
   receiptData = {
     id:'',
@@ -88,10 +89,13 @@ export class EditreceiptComponent implements OnInit {
   ngOnInit() {
     this.officeName = this.state.office;
 
-    if (this.state.access == "AGENT" || this.state.access == "BADMIN"){
-      this.role =1;
+    if (this.state.access == "AGENT") {
+      this.role = 0;
     }
-    if (this.state.access == "HADMIN" || this.state.access == "SADMIN"){
+    if ( this.state.access == "BADMIN"){
+      this.role = 1;
+    }
+    if (this.state.access == "HADMIN" ){
       this.role =2;
     }
     this.setAccessLevel()
@@ -123,12 +127,32 @@ export class EditreceiptComponent implements OnInit {
     this.submitted = true;
     this.receiptData.datefrom = this.receiptForm.value.receiptFormData.datefrom;
     this.receiptData.dateto = this.receiptForm.value.receiptFormData.dateto;
-    console.log(this.receiptData.datefrom)
-   
-    console.log(this.panel1.id)
+    console.log("### Starting Search ###")
+    console.log(this.receiptForm.value.receiptFormData.amountfrom)
+    console.log(this.receiptForm.value.receiptFormData.amountto)
+    console.log( this.receiptForm.value.receiptFormData.datefrom)
+    var t1 = (this.receiptForm.value.receiptFormData.datefrom.getTime())
+    console.log(t1)
+    console.log( this.receiptForm.value.receiptFormData.dateto)
+    var t2 = this.receiptForm.value.receiptFormData.dateto.getTime()
+    console.log(t2)
+    console.log(this.receiptForm.value.receiptFormData.office)
+    console.log(this.role)
+    console.log(this.state.user)
+
+    let office = this.receiptForm.value.receiptFormData.office
+    let amtfrom = this.receiptForm.value.receiptFormData.amountfrom
+    let amtto = this.receiptForm.value.receiptFormData.amountto
+    let datefrom = t1
+    let dateto = t2
+    let role = this.role
+    let user = this.state.user
+    
+
+    console.log("### Starting Search Phase 1 end ###")
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
     //console.log(this.url)
-    this.getTableData()
+    this.getTableData(office,amtfrom,amtto,datefrom,dateto,role,user)
     this.receiptForm.reset();
     this.panel1.close()
     this.panel2.open()
@@ -283,7 +307,7 @@ export class EditreceiptComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  getTableData(){
+  getTableData(office,amtfrom,amtto,datefrom,dateto,role,user){
     this.userDb = new ReceiptDao(this.webapi);
 
     // If the user changes the sort order, reset back to the first page.
@@ -295,6 +319,7 @@ export class EditreceiptComponent implements OnInit {
         switchMap(() => {
           this.isLoadingResults = true;
           //return this.userDb!.getUsers(this.sort.active, this.sort.direction, this.paginator.pageIndex);
+          this.userDb.setData(office,amtfrom,amtto,datefrom,dateto,role,user)
           return this.userDb!.getReceipts()
         }),
         map(data => {
@@ -316,22 +341,39 @@ export class EditreceiptComponent implements OnInit {
 
   }
 
-  getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getReceipts()
-  }
+  //getReceipts(): Observable<Receipt[]> {
+    //return this.webapi.getReceipts(this.state.office,this.receiptData.datefrom,this.receiptData.dateto,agent,this.receiptData.,amtto,this.role)
+  //}
 
   
 }
 
 export class ReceiptDao {
   constructor(private webapi:WebapiService) {}
+  office:string;
+  datefrom:string;
+  dateto:string
+  agent:string;
+  amtfrom:number;
+  amtto:number;
+  role:number
+
+  setData(office,amtfrom,amtto,datefrom,dateto,role,user){
+    this.office = office
+    this.amtfrom = amtfrom
+    this.amtto = amtto
+    this.datefrom = datefrom
+    this.dateto = dateto
+    this.role = role
+    this.agent = user;
+  }
 
   connect(): Observable<Receipt[]> {
-    return this.webapi.getReceipts();
+    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role);
   }
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getReceipts();
+    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role);
   }
 }
 

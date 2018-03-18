@@ -14,7 +14,15 @@ export class ReceiptComponent implements OnInit {
   @ViewChild('f') receiptForm: NgForm;
   submitted = false;
   url:string;
-  paytypecontrol
+  paytypecontrol:string='credit'
+  returnval:number =0;
+  message:string;
+
+  receiptCount:number = 0;
+
+  lastReceiptAmount:number=0;
+  lastPayType:string;
+  lastRcvdFrom:string;
   
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
   constructor(public webapi: WebapiService,private state:StateService) { }
@@ -79,12 +87,33 @@ export class ReceiptComponent implements OnInit {
     "&usd="+this.receiptData.usd+"&agent="+this.state.user+"&status=na&amount="+this.receiptData.amount+"&office="+this.state.office
     console.log(this.url)
     this.webapi.call('POST',this.url,this,null)
-    this.receiptForm.reset();
+   
+  }
+  clearMessage(){
+    this.returnval = 0
+  }
+
+  resetForm(){
+    this.paytypecontrol='credit'
+    console.log("reset...")
   }
 
   webapiCallback(message: string, result: any){
 
     console.log(message)
+    if (message == "added"){
+      this.returnval = 2
+      this.receiptForm.reset()
+      this.message="Receipt successfully entered"
+      this.receiptCount += 1
+      this.lastPayType = this.receiptData.paytype
+      this.lastRcvdFrom = this.receiptData.rcvdfrom
+      this.lastReceiptAmount = this.receiptData.amount
+      
+    } else {
+      this.returnval = 1
+      this.message="Failed to add receipt."
+    }
    
   }
 
