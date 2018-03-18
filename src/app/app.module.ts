@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AwsService } from './services/aws.service';
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './services/authguard.service';
-import { GoogleSigninComponent } from './services/google-signin-components';
+
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotpasswordComponent } from './components/forgotpassword/forgotpassword.component';
 import {MessageService} from './services/message.service';
@@ -34,6 +34,7 @@ import {StateService} from './services/state.service'
 import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './components/mainapp/admin/admin.component';
+
 //import { DataTableModule } from 'angular-4-data-table';
 //import { DataFilterPipe } from './data-filter.pipe';
 
@@ -62,7 +63,8 @@ import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './co
     ChangepasswordComponent,
     NewsComponent,
     BankComponent,
-    DialogCashBox
+    DialogCashBox,
+    
 
   //  DataFilterPipe
    

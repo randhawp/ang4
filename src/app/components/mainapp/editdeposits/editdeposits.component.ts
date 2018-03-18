@@ -39,6 +39,7 @@ export class EditdepositsComponent implements OnInit {
   selectedReceipts:string;
   selectedBankAc:string
   selectedDate:number
+  panelOpenState:boolean;
 
   displayedColumns = ['depositid', 'datecreated', 'depositamt','actions'];
   displayedColumnsDetail = ['date', 'amount', 'agentname','invoice','rcvdfrom','fortrip'];

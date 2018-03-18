@@ -110,6 +110,24 @@ export class WebapiService {
     return this.http.get<Receipt[]>(finalurl,{headers: oh1});
   }
  
+  getAllReceipts(): Observable<Receipt[]> {
+
+    var office="vancouver"
+    var datefrom = 0
+    var dateto = 0
+    var agent ="jai2"
+    var amtfrom =5
+    var amtto = 5
+    var role =2
+    var name:string="receipt?function=search&office="+office+"&datefrom="+datefrom+"&dateto="+dateto+"&agent="+agent
+    +"&amtfrom="+amtfrom+"&amtto="+amtto+"&role="+role
+    console.log(name)
+    let headers = new HttpHeaders();
+    let oh = headers.append('Content-Type', 'application/json');
+    let oh1 = oh.append('Authorization',  this.state.token );
+    var finalurl = this.url+'/'+name
+    return this.http.get<Receipt[]>(finalurl,{headers: oh1});
+  }
   
  
  

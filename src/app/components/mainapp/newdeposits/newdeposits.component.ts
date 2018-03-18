@@ -248,7 +248,7 @@ export class NewdepositsComponent implements OnInit {
   }
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getReceipts()
+    return this.webapi.getAllReceipts()
   }
 
   isAllSelected() {
@@ -352,11 +352,11 @@ export class ReceiptDao {
   constructor(private webapi:WebapiService) {}
 
   connect(): Observable<Receipt[]> {
-    return this.webapi.getReceipts();
+    return this.webapi.getAllReceipts();
   }
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getReceipts();
+    return this.webapi.getAllReceipts();
   }
 }
 
