@@ -40,7 +40,7 @@ export class EditreceiptComponent implements OnInit {
     paytype:'',
     remarks:''
   };
-  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date'];
+  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date','rstatus'];
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -147,7 +147,7 @@ export class EditreceiptComponent implements OnInit {
         this.rowdata.amount = this.editedForm.amount
         this.mode="EDIT"
         this.url="receipt?function=edit_receipt&paytype="+this.editedForm.paytype+"&rcvdfrom="+this.editedForm.rcvdfrom+
-    "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remarks+"&fortrip="+this.editedForm.fortrip+
+    "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remark+"&fortrip="+this.editedForm.fortrip+
     "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.state.office+"&date="+this.rowdata.date
     console.log(this.url)
     this.webapi.call('POST',this.url,this,null)
