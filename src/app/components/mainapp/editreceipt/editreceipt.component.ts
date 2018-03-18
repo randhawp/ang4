@@ -41,6 +41,10 @@ export class EditreceiptComponent implements OnInit {
     remarks:''
   };
   displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date','rstatus'];
+  showEditButton:boolean = true;
+  showVoidButton:boolean = false;
+  showPostButton:boolean = false;
+  showUnPostButton:boolean = false;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -90,6 +94,29 @@ export class EditreceiptComponent implements OnInit {
     if (this.state.access == "HADMIN" || this.state.access == "SADMIN"){
       this.role =2;
     }
+    this.setAccessLevel()
+  }
+ 
+  setAccessLevel(){
+    if( this.state.access == "AGENT" ) {
+      console.log("this is agent")
+      this.showEditButton = true
+    }else if (this.state.access =="BADMIN"){
+      console.log("this is B admin")
+      this.showEditButton = true
+      this.showVoidButton = true
+    }else if (this.state.access == "HADMIN"){
+      console.log("this is H admin")
+      this.showEditButton = true
+      this.showVoidButton = true
+      this.showPostButton = true
+      this.showUnPostButton = true
+    }else if( this.state.access == "SADMIN"){
+      
+      console.log("systed admin")
+      //this.router.navigate(['mainapp/admin']);
+    }
+
   }
 
   onSubmitSearch() {

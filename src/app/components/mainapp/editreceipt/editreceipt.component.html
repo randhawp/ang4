@@ -213,14 +213,24 @@
           
         </div>
        <div>
-          <button class="md-raised-button md-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRowToVoid()" >Void</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRowToPost()" >Post</button>    <span style="width: 10px"></span>
-          <button md-raised-button (click)="selectRowToUnPost()" >Un-Post</button>    <span style="width: 10px"></span>
+          <div *ngIf="showEditButton" >
+            <button class="md-raised-button md-primary" (click)="selectRowToEdit()" >Edit / View</button>    <span style="width: 10px"></span>
+          </div>
+          <!--button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span-->
+          <div *ngIf="showVoidButton" >  
+            <button md-raised-button (click)="selectRowToVoid()" >Void</button>    <span style="width: 10px"></span>
+          </div>
+          <div *ngIf="showPostButton" >
+            <button md-raised-button (click)="selectRowToPost()" >Post</button>    <span style="width: 10px"></span>
+          </div>
+          <div *ngIf="showUnPostButton" >
+            <button md-raised-button (click)="selectRowToUnPost()" >Un-Post</button>    <span style="width: 10px"></span>
+          </div>
                 
        </div>
-    
+       
+               
+              
         
       </mat-expansion-panel>
     </mat-accordion>
