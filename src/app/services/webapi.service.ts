@@ -112,7 +112,7 @@ export class WebapiService {
  
   getAllReceipts(): Observable<Receipt[]> {
 
-    var office="vancouver"
+    var office="surrey"
     var datefrom = 0
     var dateto = 0
     var agent ="jai2"

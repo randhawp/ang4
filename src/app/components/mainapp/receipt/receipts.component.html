@@ -11,18 +11,37 @@
             id="receipt-data"
             ngModelGroup="receiptFormData"
             #receiptFormData="ngModelGroup">
+            
             <div class="form-group">
               <label for="rcvdfrom">Received From</label>
-              <input type="text"  id="rcvdfrom"  class="form-control" (keyup)="clearMessage()"  ngModel  name="rcvdfrom"  required>
+              <input type="text"  id="rcvdfrom"  pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*"   #name="ngModel" (keyup)="clearMessage()"  ngModel  name="rcvdfrom"  required>
+              <div>
+                <div   *ngIf="name.errors?.pattern">
+                 <p class="alert alert-danger">
+                   Special characters like double quotes not allowed
+                 </p>
+             
+                </div>
+              </div>
             </div>
+           
             <div class="form-group">
               <label for="forreason">For</label>
-              <input type="text" id="forreason" class="form-control" ngModel name="forreason"  required>
+              <input type="text" id="forreason"  pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*"  #forreason="ngModel"  class="form-control" ngModel name="forreason"  required>
+              <div>
+                <div   *ngIf="forreason.errors?.pattern">
+                 <p class="alert alert-danger">
+                   Special characters like double quotes not allowed
+                 </p>
+             
+                </div>
+              </div>
             </div>
             <span>
               <div class="form-group">
                   <label for="amount">Amount</label>
-                  <input type="number" id="amount" class="form-control" ngModel name="amount" required>
+                  <input type="number" id="amount"  class="form-control" ngModel name="amount" required>
+                  
               </div>  
               <div class="form-group">
                 
@@ -32,12 +51,28 @@
             </span>
             <div class="form-group">
                 <label for="invoice">Invoice</label>
-                <input type="text" id="invoice" class="form-control" ngModel name="invoice" required>
+                <input type="text" id="invoice" #invoice="ngModel" pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" class="form-control" ngModel name="invoice" required>
+                <div>
+                  <div   *ngIf="invoice.errors?.pattern">
+                   <p class="alert alert-danger">
+                     Special characters like double quotes not allowed
+                   </p>
+               
+                  </div>
+                </div>
             </div> 
             
             <div class="form-group">
               <label for="remarks">Remarks</label>
-              <textarea name="remarks" rows="3"   cols="40" class="form-control" ngModel ></textarea>
+              <textarea name="remarks" rows="3" #remarks="ngModel" pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*"  cols="40" class="form-control" ngModel ></textarea>
+              <div>
+                <div   *ngIf="remarks.errors?.pattern">
+                 <p class="alert alert-danger">
+                   Special characters like double quotes not allowed
+                 </p>
+             
+                </div>
+              </div>
             </div>
             <div class="form-group">
                 <mat-radio-group class="paytype-radio-group" [(ngModel)]="paytypecontrol" name="paytype" >

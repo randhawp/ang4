@@ -140,14 +140,32 @@ export class EditreceiptComponent implements OnInit {
     console.log(this.role)
     console.log(this.state.user)
 
-    let office = this.receiptForm.value.receiptFormData.office
+    var office:string;
+
+    if( this.state.access == "AGENT" || this.state.access == "BADMIN" ) {
+      
+      office = this.state.office
+    }
+    if (this.state.access == "HADMIN"){
+      
+      office = this.receiptForm.value.receiptFormData.office
+    }
+    
+
+    //let 
     let amtfrom = this.receiptForm.value.receiptFormData.amountfrom
     let amtto = this.receiptForm.value.receiptFormData.amountto
-    let datefrom = t1
+    let datefrom = t1 
     let dateto = t2
     let role = this.role
     let user = this.state.user
     
+    if (amtfrom == null || amtfrom == ""){
+      amtfrom=0
+    }
+    if (amtto == null || amtto ==""){
+      amtto=0
+    }
 
     console.log("### Starting Search Phase 1 end ###")
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
@@ -368,9 +386,9 @@ export class ReceiptDao {
     this.agent = user;
   }
 
-  connect(): Observable<Receipt[]> {
-    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role);
-  }
+  //connect(): Observable<Receipt[]> {
+    //return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role);
+  //}
 
   getReceipts(): Observable<Receipt[]> {
     return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role);
