@@ -135,10 +135,17 @@ export class EditreceiptComponent implements OnInit {
     console.log(t1)
     console.log( this.receiptForm.value.receiptFormData.dateto)
     var t2 = this.receiptForm.value.receiptFormData.dateto.getTime()
+    t2 = t2 + (24*60*60*1000)
     console.log(t2)
     console.log(this.receiptForm.value.receiptFormData.office)
     console.log(this.role)
     console.log(this.state.user)
+    console.log(this.receiptForm.value.receiptFormData.receiptfrom)
+    console.log(this.receiptForm.value.receiptFormData.receiptto)
+    console.log(this.receiptForm.value.receiptFormData.for)
+    console.log(this.receiptForm.value.receiptFormData.agent)
+    console.log(this.receiptForm.value.receiptFormData.paytype)
+
 
     var office:string;
 
@@ -159,6 +166,11 @@ export class EditreceiptComponent implements OnInit {
     let dateto = t2
     let role = this.role
     let user = this.state.user
+    let receiptfrom = this.receiptForm.value.receiptFormData.receiptfrom
+    let receiptto = this.receiptForm.value.receiptFormData.receiptto
+    let forreason = this.receiptForm.value.receiptFormData.for
+    let filing_agent = this.receiptForm.value.receiptFormData.agent
+    let paytype =  this.receiptForm.value.receiptFormData.paytype
     
     if (amtfrom == null || amtfrom == ""){
       amtfrom=0
@@ -166,11 +178,26 @@ export class EditreceiptComponent implements OnInit {
     if (amtto == null || amtto ==""){
       amtto=0
     }
+    if (receiptfrom == null || receiptfrom == ""){
+      receiptfrom=0
+    }
+    if ( receiptto == null || receiptto == "" ) {
+      receiptto = 0
+    }
+    if ( forreason == null || forreason == ""){
+      forreason = "0"
+    }
+    if ( filing_agent == null || filing_agent == ""){
+      filing_agent ="0"
+    }
+    if ( paytype == null || paytype == "") {
+      paytype = "0"
+    }
 
     console.log("### Starting Search Phase 1 end ###")
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
     //console.log(this.url)
-    this.getTableData(office,amtfrom,amtto,datefrom,dateto,role,user)
+    this.getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype)
     this.receiptForm.reset();
     this.panel1.close()
     this.panel2.open()
@@ -325,7 +352,7 @@ export class EditreceiptComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  getTableData(office,amtfrom,amtto,datefrom,dateto,role,user){
+  getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype){
     this.userDb = new ReceiptDao(this.webapi);
 
     // If the user changes the sort order, reset back to the first page.
@@ -337,7 +364,7 @@ export class EditreceiptComponent implements OnInit {
         switchMap(() => {
           this.isLoadingResults = true;
           //return this.userDb!.getUsers(this.sort.active, this.sort.direction, this.paginator.pageIndex);
-          this.userDb.setData(office,amtfrom,amtto,datefrom,dateto,role,user)
+          this.userDb.setData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype)
           return this.userDb!.getReceipts()
         }),
         map(data => {
@@ -374,9 +401,16 @@ export class ReceiptDao {
   agent:string;
   amtfrom:number;
   amtto:number;
-  role:number
+  role:number;
 
-  setData(office,amtfrom,amtto,datefrom,dateto,role,user){
+  receiptfrom: number;
+  receiptto: number;
+  forreason:string;
+  filing_agent:string;
+  paytype:string;
+
+
+  setData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype){
     this.office = office
     this.amtfrom = amtfrom
     this.amtto = amtto
@@ -384,6 +418,11 @@ export class ReceiptDao {
     this.dateto = dateto
     this.role = role
     this.agent = user;
+    this.receiptfrom = receiptfrom;
+    this.receiptto = receiptto;
+    this.forreason = forreason;
+    this.filing_agent = filing_agent;
+    this.paytype = paytype
   }
 
   //connect(): Observable<Receipt[]> {
@@ -391,7 +430,7 @@ export class ReceiptDao {
   //}
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role);
+    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role,this.receiptfrom,this.receiptto,this.forreason,this.filing_agent,this.paytype);
   }
 }
 

@@ -96,9 +96,8 @@ export class WebapiService {
     var finalurl = this.url+'/'+name
     return this.http.get<User[]>(finalurl,{headers: oh1});
   }
-
   
-  getReceipts(office,datefrom,dateto,agent,amtfrom,amtto,role): Observable<Receipt[]> {
+  getReceipts(office,datefrom,dateto,agent,amtfrom,amtto,role,receiptfrom,receiptto,forreason,filing_agent,paytype): Observable<Receipt[]> {
 
     var name:string="receipt?function=search&office="+office+"&datefrom="+datefrom+"&dateto="+dateto+"&agent="+agent
     +"&amtfrom="+amtfrom+"&amtto="+amtto+"&role="+role
