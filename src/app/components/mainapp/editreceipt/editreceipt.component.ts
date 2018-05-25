@@ -46,6 +46,10 @@ export class EditreceiptComponent implements OnInit {
   showVoidButton:boolean = false;
   showPostButton:boolean = false;
   showUnPostButton:boolean = false;
+  bankdata:any;
+  selectedBank:string;
+  selectedBankName:string;
+  newBankName:string;
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -99,6 +103,7 @@ export class EditreceiptComponent implements OnInit {
       this.role =2;
     }
     this.setAccessLevel()
+    this.getBankList()
   }
  
   setAccessLevel(){
@@ -123,6 +128,15 @@ export class EditreceiptComponent implements OnInit {
 
   }
 
+  getBankList(){
+    this.url="admin?function=list_bank"
+    console.log(this.url)
+    this.mode="BANK"
+    this.webapi.call('GET',this.url,this,null)
+
+
+  }
+  
   onSubmitSearch() {
     this.submitted = true;
     this.receiptData.datefrom = this.receiptForm.value.receiptFormData.datefrom;
@@ -316,6 +330,11 @@ export class EditreceiptComponent implements OnInit {
      
     if (this.mode == "EDIT"){
       console.log("edited" + message)
+    }
+
+    if (this.mode == "BANK"){
+      this.bankdata = result
+      this.selectedBank = result[0].fullname
     }
   }
 

@@ -114,9 +114,9 @@ export class AuthService {
       const msg1 = JSON.stringify(message)
       var msg2 = JSON.parse(msg1)
       
-      console.log("auth >> "+ message)
+      console.log("auth >> "+ msg1)
      
-      var msg ="ERR, Registeration failed." + message
+      var msg ="ERR, Registeration failed." + msg2
      
       this.messageService.sendMessage(msg);
        

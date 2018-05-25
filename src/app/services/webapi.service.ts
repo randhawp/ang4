@@ -100,7 +100,8 @@ export class WebapiService {
   getReceipts(office,datefrom,dateto,agent,amtfrom,amtto,role,receiptfrom,receiptto,forreason,filing_agent,paytype): Observable<Receipt[]> {
 
     var name:string="receipt?function=search&office="+office+"&datefrom="+datefrom+"&dateto="+dateto+"&agent="+agent
-    +"&amtfrom="+amtfrom+"&amtto="+amtto+"&role="+role
+    +"&amtfrom="+amtfrom+"&amtto="+amtto+"&role="+role+"&receiptfrom="+receiptfrom+"&receiptto="+receiptto+"&fagent="+filing_agent
+    +"&paytype="+paytype
     console.log(name)
     let headers = new HttpHeaders();
     let oh = headers.append('Content-Type', 'application/json');

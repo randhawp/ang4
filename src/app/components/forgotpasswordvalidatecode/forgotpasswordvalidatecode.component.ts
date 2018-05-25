@@ -17,6 +17,7 @@ export class ForgotpasswordvalidatecodeComponent implements OnInit {
   message:string;
   header:string;
   subscription: Subscription;
+  index:number
 
   constructor(public auth:AuthService, private router:Router,private messageService: MessageService) {
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
@@ -47,11 +48,11 @@ export class ForgotpasswordvalidatecodeComponent implements OnInit {
     var fmsg:string = arr[1]
 
     if (header == 'ERR') {
-
-      this.message = fmsg;
+      this.index=1
+      this.message = "Password could not be reset";
     }
     if (header == 'PASS') {
-      
+     this.index=2 
      this.message = "Password reset"    
     }
           

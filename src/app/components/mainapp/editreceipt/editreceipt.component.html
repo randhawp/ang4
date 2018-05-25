@@ -50,6 +50,7 @@
   
               </div>
             </div>
+            <mat-divider></mat-divider>
             <div class="row">
               <div class="column" >
                 <mat-form-field  >
@@ -79,13 +80,17 @@
   
             <div class="row">
               <div class="column" >
-                <mat-form-field  >
+                <!--mat-form-field  >
                   <input matInput placeholder="For" ngModel name="for">
-                </mat-form-field>
+                </mat-form-field-->
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Agent" ngModel name="agent">
+                  <mat-select [(ngModel)]="selectedBank" placeholder="Select Agent">
+                    <mat-option *ngFor="let bank of bankdata" [value]="bank.codename" (click)="onClick(bank.fullname)">
+                      {{ bank.fullname }}
+                    </mat-option>
+                  </mat-select> 
                 </mat-form-field>
               </div>
             </div>

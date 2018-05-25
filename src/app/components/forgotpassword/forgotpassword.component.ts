@@ -25,6 +25,7 @@ export class ForgotpasswordComponent implements OnInit, OnDestroy  {
    countDown;
    counter = 60;
    subscription: Subscription;
+   index:number;
 
   constructor( public auth:AuthService, private router:Router,private messageService: MessageService) { 
     this.subscription = this.messageService.getMessage().subscribe(messagex => { this.update(messagex) });
@@ -65,8 +66,8 @@ export class ForgotpasswordComponent implements OnInit, OnDestroy  {
     var fmsg:string = arr[1]
 
     if (header == 'ERR') {
-
-      this.message = fmsg;
+      this.index = 1
+      this.message = "Request code being processed, if you do not get an email/SMS try again later";
     }
     if (header == 'PASS') {
       

@@ -158,8 +158,12 @@ export class AwsService {
 
     let userPool = new AWSCognito.CognitoUserPool(this.poolData);
     let cognitoUser = userPool.getCurrentUser();
-
-
+    cognitoUser.getSession(function (err, session) {
+      if (err) {
+          alert(err);
+          return;
+      }
+  });
     if (cognitoUser != null) {
       console.log("cog user is not null " +user)
       cognitoUser.changePassword(oldpwd, newpwd, function(err, result) {
@@ -254,8 +258,12 @@ export class AwsService {
     if (cognitoUser != null) {
      
         cognitoUser.confirmPassword(code, newpassword, { 
-          onFailure: function(err:Error) { console.log("fail") }, 
-          onSuccess: function() { console.log("pass")} 
+          onFailure: function(err:Error) { console.log("fail") 
+          callback.forgotPasswordCallback(null, "ERR");
+        }, 
+          onSuccess: function() { console.log("pass")
+          callback.forgotPasswordCallback("PASS",null);
+        } 
     });
 
   }

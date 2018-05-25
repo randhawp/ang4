@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   subscription: Subscription;
   message:string;
   user:string;
+  index:number;
  
   constructor(public auth:AuthService, private router:Router,private messageService: MessageService,private state:StateService){
    
@@ -74,8 +75,8 @@ export class LoginComponent implements OnInit {
     var fmsg:string = arr[1]
 
     if (header == 'ERR') {
-
-      this.message = fmsg;
+      this.index=1
+      this.message = "Login failed. Wrong username or password"//fmsg;
     }
     if (header == 'PASS') {
       if (this.auth.isLogged() == true){

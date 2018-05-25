@@ -16,9 +16,9 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
         <div class="col-sm-8 col-sm-offset-2">
-                <div *ngIf="message" class="alert alert-danger">{{message}}</div>
-               
-              </div>
+            <div class="alert alert-danger" *ngIf="index == 1">{{message}}</div>
+            <div class="alert alert-success"  *ngIf="index == 2">{{message}}</div>
+        </div>
         </div>
       </div> <!-- /container -->
       <div class="row">
