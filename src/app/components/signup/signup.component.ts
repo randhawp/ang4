@@ -21,9 +21,10 @@ export class SignupComponent implements OnInit {
   selectedValue: string;
 
   offices = [
+    {value: 'abbotsford', viewValue: 'Abbotsford'},
     {value: 'vancouver', viewValue: 'Vancouver'},
     {value: 'surrey', viewValue: 'Surrey'},
-    {value: 'toronto', viewValue: 'Toronto'}
+    {value: 'mississauga', viewValue: 'Mississauga'}
   ];
 
   constructor(public auth:AuthService, private router:Router,private messageService: MessageService){

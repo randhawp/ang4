@@ -21,8 +21,8 @@
                 <div class="column" >
                     <div class="show" *ngIf="role == 1">{{officeName}}</div>
                     <div class="show" *ngIf="role == 2">
-                      <mat-radio-group class="paytype-radio-group" ngModel name="office" required>
-                          <mat-radio-button class="paytype-radio-button" *ngFor="let office of offices" [value]="office.value">
+                      <mat-radio-group class="paytype-radio-group" [(ngModel)]="selectdOffice" [ngModelOptions]="{standalone:true}"  required>
+                          <mat-radio-button class="paytype-radio-button" *ngFor="let office of offices" [value]="office.value" (change)="officeChanged(office.value)">
                             {{office.viewValue}}
                           </mat-radio-button>
                         </mat-radio-group>
@@ -86,9 +86,9 @@
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <mat-select [(ngModel)]="selectedBank" placeholder="Select Agent">
-                    <mat-option *ngFor="let bank of bankdata" [value]="bank.codename" (click)="onClick(bank.fullname)">
-                      {{ bank.fullname }}
+                  <mat-select [(ngModel)]="selectedAgent" placeholder="Select Agent" [ngModelOptions]="{standalone:true}">
+                    <mat-option *ngFor="let agent of listofagents" [value]="agent.username" (click)="onClick(agent.username)">
+                      {{ agent.username }}
                     </mat-option>
                   </mat-select> 
                 </mat-form-field>

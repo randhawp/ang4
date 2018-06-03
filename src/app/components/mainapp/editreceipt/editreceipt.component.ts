@@ -46,10 +46,10 @@ export class EditreceiptComponent implements OnInit {
   showVoidButton:boolean = false;
   showPostButton:boolean = false;
   showUnPostButton:boolean = false;
-  bankdata:any;
-  selectedBank:string;
-  selectedBankName:string;
-  newBankName:string;
+  listofagents:any;
+  selectedAgent:string;
+  
+  
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -64,14 +64,16 @@ export class EditreceiptComponent implements OnInit {
   ];
 
   offices = [
+    {value: 'abbotsford', viewValue: 'Abbotsford'},
     {value: 'surrey', viewValue: 'Surrey'},
     {value: 'vancouver', viewValue: 'Vancouver'},
-    {value: 'toronto', viewValue: 'Toronto'}
+    {value: 'mississauga', viewValue: 'Mississauga'}
 
   ]
   role:number = 0;
   officeName:string='';
   url:string='';
+  selectedOffice:string='';
 
   userDb: ReceiptDao | null;
   
@@ -103,7 +105,12 @@ export class EditreceiptComponent implements OnInit {
       this.role =2;
     }
     this.setAccessLevel()
-    this.getBankList()
+    //this.getAgentList()
+  }
+
+  onClick(n){
+    this.selectedAgent = n
+    console.log(n)
   }
  
   setAccessLevel(){
@@ -128,13 +135,32 @@ export class EditreceiptComponent implements OnInit {
 
   }
 
-  getBankList(){
-    this.url="admin?function=list_bank"
+  getAgentList(){
+    var office:string;
+
+    if( this.state.access == "AGENT" || this.state.access == "BADMIN" ) {
+      
+      office = this.state.office
+    }
+    if (this.state.access == "HADMIN"){
+      
+      office = this.receiptForm.value.receiptFormData.office
+    }
+    if (office == null) {
+      office="vancouver"
+    }
+    this.url="receipt?function=list_agents&office="+this.selectedOffice
     console.log(this.url)
     this.mode="BANK"
     this.webapi.call('GET',this.url,this,null)
 
 
+  }
+
+  officeChanged(n){
+    this.selectedOffice = n
+    console.log("office changed " + (this.selectedOffice))
+    this.getAgentList()
   }
   
   onSubmitSearch() {
@@ -157,7 +183,7 @@ export class EditreceiptComponent implements OnInit {
     console.log(this.receiptForm.value.receiptFormData.receiptfrom)
     console.log(this.receiptForm.value.receiptFormData.receiptto)
     console.log(this.receiptForm.value.receiptFormData.for)
-    console.log(this.receiptForm.value.receiptFormData.agent)
+    console.log(this.selectedAgent)
     console.log(this.receiptForm.value.receiptFormData.paytype)
 
 
@@ -183,7 +209,7 @@ export class EditreceiptComponent implements OnInit {
     let receiptfrom = this.receiptForm.value.receiptFormData.receiptfrom
     let receiptto = this.receiptForm.value.receiptFormData.receiptto
     let forreason = this.receiptForm.value.receiptFormData.for
-    let filing_agent = this.receiptForm.value.receiptFormData.agent
+    let filing_agent = this.selectedAgent
     let paytype =  this.receiptForm.value.receiptFormData.paytype
     
     if (amtfrom == null || amtfrom == ""){
@@ -215,6 +241,7 @@ export class EditreceiptComponent implements OnInit {
     this.receiptForm.reset();
     this.panel1.close()
     this.panel2.open()
+    this.selectedAgent=""
   }
 
   highlight(row,i){
@@ -333,8 +360,9 @@ export class EditreceiptComponent implements OnInit {
     }
 
     if (this.mode == "BANK"){
-      this.bankdata = result
-      this.selectedBank = result[0].fullname
+      this.listofagents = null
+      this.listofagents = result
+      //this.selectedAgent = result[0].username
     }
   }
 
