@@ -128,7 +128,16 @@ export class WebapiService {
     var finalurl = this.url+'/'+name
     return this.http.get<Receipt[]>(finalurl,{headers: oh1});
   }
-  
+  getAllReceiptsForDeposit(): Observable<Receipt[]> {
+
+    var name:string="receipt?function=listdepositreceipts&depositid=0"
+    console.log(name)
+    let headers = new HttpHeaders();
+    let oh = headers.append('Content-Type', 'application/json');
+    let oh1 = oh.append('Authorization',  this.state.token );
+    var finalurl = this.url+'/'+name
+    return this.http.get<Receipt[]>(finalurl,{headers: oh1});
+  }
  
  
 }

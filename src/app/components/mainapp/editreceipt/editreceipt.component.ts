@@ -195,8 +195,14 @@ export class EditreceiptComponent implements OnInit {
     }
     if (this.state.access == "HADMIN"){
       
-      office = this.receiptForm.value.receiptFormData.office
+      office = this.selectedOffice
+      if (office == "" || office == null) {
+        console.log("office not selected")
+        return
+
+      }
     }
+    
     
 
     //let 

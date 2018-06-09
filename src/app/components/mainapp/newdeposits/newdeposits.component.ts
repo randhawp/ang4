@@ -62,12 +62,12 @@ export class NewdepositsComponent implements OnInit {
     
   ];
 
-  offices = [
-    {value: 'surrey', viewValue: 'Surrey'},
-    {value: 'vancouver', viewValue: 'Vancouver'},
-    {value: 'toronto', viewValue: 'Toronto'}
+  //offices = [
+  //  {value: 'surrey', viewValue: 'Surrey'},
+  //  {value: 'vancouver', viewValue: 'Vancouver'},
+  //  {value: 'toronto', viewValue: 'Toronto'}
 
-  ]
+  //]
   role:number = 0;
   officeName:string='';
   url:string='';
@@ -248,7 +248,7 @@ export class NewdepositsComponent implements OnInit {
   }
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getAllReceipts()
+    return this.webapi.getAllReceiptsForDeposit()
   }
 
   isAllSelected() {
@@ -352,11 +352,11 @@ export class ReceiptDao {
   constructor(private webapi:WebapiService) {}
 
   connect(): Observable<Receipt[]> {
-    return this.webapi.getAllReceipts();
+    return this.webapi.getAllReceiptsForDeposit();
   }
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getAllReceipts();
+    return this.webapi.getAllReceiptsForDeposit();
   }
 }
 
