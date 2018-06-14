@@ -23,7 +23,8 @@ export class ReceiptComponent implements OnInit {
   lastReceiptAmount:number=0;
   lastPayType:string;
   lastRcvdFrom:string;
-  
+  formattedAmount:number=0;
+
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
   constructor(public webapi: WebapiService,private state:StateService) { }
   receiptData = {
@@ -92,6 +93,7 @@ export class ReceiptComponent implements OnInit {
   clearMessage(){
     this.returnval = 0
   }
+  
 
   resetForm(){
     this.paytypecontrol='credit'

@@ -1,9 +1,9 @@
   <div class="col-sm-2 sidenav">
-    <div *ngIf = "access == 0 || access == 1">
+    <div *ngIf = "access == 0 ">
       <p>  <a  [routerLink]="['/mainapp/receipts']">New Receipts </a> </p>
       <p> <a  [routerLink]="['/mainapp/editreceipts']">Search & Edit </a></p>
     </div>
-    <div *ngIf = "access == 2">
+    <div *ngIf = "access == 2 || access == 1">
       <p>  <a  [routerLink]="['/mainapp/receipts']">New Receipts </a> </p>
       <p> <a  [routerLink]="['/mainapp/editreceipts']">Search & Edit </a></p>
       <p><a  [routerLink]="['/mainapp/newdeposits']">New Deposits </a></p>
