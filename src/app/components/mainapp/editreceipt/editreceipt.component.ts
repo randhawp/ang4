@@ -647,6 +647,15 @@ export class DialogPostReceipt  {
     this.dataSource.filter = search.toLowerCase().trim();
   }
   addRow(invoice,payment,amount) {
+    if ( Number(amount.value) == 0) {
+      return
+    }
+    if (payment.value == null ){
+      return
+    }
+    if (invoice.value == null){
+      return
+    }
     
     this.runningTotal = this.runningTotal + Number(amount.value)
     console.log("amt is " + this.payload.amount)
