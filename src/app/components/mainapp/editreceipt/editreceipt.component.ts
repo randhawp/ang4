@@ -244,7 +244,7 @@ export class EditreceiptComponent implements OnInit {
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
     //console.log(this.url)
     this.getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype)
-    this.receiptForm.reset();
+    //this.receiptForm.reset();
     this.panel1.close()
     this.panel2.open()
     this.selectedAgent=""
@@ -287,11 +287,18 @@ export class EditreceiptComponent implements OnInit {
         console.log(this.editedForm.usd)
         console.log(this.editedForm.paytype)
         console.log(this.editedForm.date)
+        console.log(this.editedForm.office)
+        console.log(this.editedForm.usd)
         this.rowdata.amount = this.editedForm.amount
+        this.rowdata.paytype = this.editedForm.paytype
+        this.rowdata.rcvdfrom = this.editedForm.rcvdfrom
+        this.rowdata.remark = this.editedForm.remark
+        this.rowdata.invoice = this.editedForm.invoice
+        this.rowdata.usd = this.editedForm.usd
         this.mode="EDIT"
         this.url="receipt?function=edit_receipt&paytype="+this.editedForm.paytype+"&rcvdfrom="+this.editedForm.rcvdfrom+
     "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remark+"&fortrip="+this.editedForm.fortrip+
-    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.state.office+"&date="+this.rowdata.date
+    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.editedForm .office+"&date="+this.rowdata.date
     console.log(this.url)
     this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
@@ -513,11 +520,16 @@ export class DialogReceiptEditor {
     public dialogRef: MatDialogRef<DialogReceiptEditor>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.payload = data.payload
+      console.log("=====usd value=========")
+      console.log("["+this.payload.usd+"]")
+      console.log("==============")
       
-      if (this.payload.usd != 'true'){
-        this.usdIsChecked = false;
-      }else{
+      if (this.payload.usd == true || this.payload.usd == "true" ){
         this.usdIsChecked = true;
+        console.log("usd is false")
+      }else{
+        this.usdIsChecked = false;
+        console.log("usd is true")
       }
       if(this.payload.paytype == "visa"){
         this.isPayType = true;
@@ -532,7 +544,8 @@ export class DialogReceiptEditor {
         usd: [this.payload.usd],
         invoice: [this.payload.invoice, Validators.required],
         remark: [this.payload.remark],
-        paytype: [this.payload.paytype]
+        paytype: [this.payload.paytype],
+        office: [this.payload.office]
 
         
     });
