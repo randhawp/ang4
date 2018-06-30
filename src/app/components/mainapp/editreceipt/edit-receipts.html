@@ -5,17 +5,17 @@
   
   <div class="row">
     <div class="column">
-      <mat-form-field>  <input matInput placeholder="Rcvd From" formControlName="rcvdfrom">  </mat-form-field>
+      <mat-form-field>  <input matInput placeholder="Rcvd From" required formControlName="rcvdfrom">  </mat-form-field>
     </div>
 
     <div class="column">
-      <mat-form-field>  <input matInput placeholder="For" formControlName="fortrip">  </mat-form-field>
+      <mat-form-field>  <input matInput placeholder="For" required formControlName="fortrip">  </mat-form-field>
     </div>
   </div>
 
   <div class="row">
     <div class="column">
-      <mat-form-field> <input matInput type="number"  ng-pattern="/^[0-9]{1,7}$/"   #amount minlength="1"
+      <mat-form-field> <input matInput type="number"  ng-pattern="\d+(\.\d{2}$)?"  required   #amount minlength="1"
         maxlength="12"  placeholder="Amount" formControlName="amount">
        
       </mat-form-field>
@@ -28,7 +28,7 @@
   
   <div class="column">
     <div class="row">
-      <mat-form-field> <input matInput placeholder="Invoice" formControlName="invoice"> </mat-form-field>
+      <mat-form-field> <input matInput placeholder="Invoice" formControlName="invoice" required> </mat-form-field>
     </div>
 
     <div class="row">
