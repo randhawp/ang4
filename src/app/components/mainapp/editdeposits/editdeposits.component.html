@@ -67,9 +67,9 @@
                   <!-- Date Column -->
                   <ng-container matColumnDef="datecreated">
                     <mat-header-cell *matHeaderCellDef class="example-header">Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.datecreated   }}</mat-cell>
+                    <mat-cell *matCellDef="let row">{{ row.datecreated | date   }}</mat-cell>
                   </ng-container>
-              
+                   
                   <!-- Deposit Column -->
                   <ng-container matColumnDef="depositamt">
                     <mat-header-cell *matHeaderCellDef class="example-header"> Amount </mat-header-cell>
