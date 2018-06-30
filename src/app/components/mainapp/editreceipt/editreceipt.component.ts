@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,Inject,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild,Inject,ElementRef,ChangeDetectorRef  } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {MatPaginator, MatSort, MatTableDataSource, MatExpansionPanel} from '@angular/material';
 import {StateService} from '../../../services/state.service'
@@ -90,7 +90,7 @@ export class EditreceiptComponent implements OnInit {
   isRateLimitReached = false;
 
 
-  constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
+  constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog,private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.officeName = this.state.office;
@@ -239,6 +239,8 @@ export class EditreceiptComponent implements OnInit {
     if ( paytype == null || paytype == "") {
       paytype = "0"
     }
+    //this.dataSource.disconnect
+    //this.dataSource.data = null
 
     console.log("### Starting Search Phase 1 end ###")
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
@@ -410,15 +412,21 @@ export class EditreceiptComponent implements OnInit {
   );    
   }
   ngAfterViewInit() {
+    this.paginator.pageIndex = 0
     this.dataSource.paginator = this.paginator;
   }
   getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype){
+    if (this.userDb != null){
+      console.log("data exists")
+    }
+
     this.userDb = new ReceiptDao(this.webapi);
-
+    
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    
+   // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange, )
       .pipe(
         startWith({}),
         switchMap(() => {
