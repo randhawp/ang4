@@ -17,6 +17,11 @@ export class StateService {
   token:string=null;
   tokenage:number=0;
   office:string=null;
+  receiptCount:number=0;
+  lastPayType:string=null;
+  lastRcvdFrom:string=null;
+  lastReceiptAmount:number=0.00;
+  
 
   getUserSecurityLevel( level):number {
     if (level == null ) return 0;

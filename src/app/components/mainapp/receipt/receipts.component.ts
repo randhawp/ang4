@@ -26,7 +26,15 @@ export class ReceiptComponent implements OnInit {
   formattedAmount:number=0;
 
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
-  constructor(public webapi: WebapiService,private state:StateService) { }
+  constructor(public webapi: WebapiService,private state:StateService) { 
+
+    this.receiptCount = this.state.receiptCount 
+    this.lastPayType = this.state.lastPayType 
+    this.lastRcvdFrom = this.state.lastRcvdFrom 
+    this.lastReceiptAmount = this.state.lastReceiptAmount 
+
+
+  }
   receiptData = {
     rcvdfrom: '',
     forreason: '',
@@ -112,6 +120,10 @@ export class ReceiptComponent implements OnInit {
       this.lastRcvdFrom = this.receiptData.rcvdfrom
       this.lastReceiptAmount = this.receiptData.amount
       
+      this.state.receiptCount = this.receiptCount
+      this.state.lastPayType = this.lastPayType
+      this.state.lastRcvdFrom = this.lastRcvdFrom
+      this.state.lastReceiptAmount = this.lastReceiptAmount
     } else {
       this.returnval = 1
       this.message="Failed to add receipt."
