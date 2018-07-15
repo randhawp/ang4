@@ -29,14 +29,14 @@
                         <span  class="font-weight-bold">Total Amount {{data.payload.amount}}</span>
                 </div>
         </div>
-   
+        
         <div class="row">
             <div class="column-narrow"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
             <div class="column-narrow"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
             <div class="column-narrow"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" > </mat-form-field> </div>
         </div>
     
-        <button (click)='addRow(invoice,payment,amount)'>Add Row</button>
+        <button (click)='addRow(invoice,payment,amount)'>Add Row</button>   Running Total: {{runningTotal}}
     <mat-card>               
         <mat-table #table [dataSource]="dataSource">
             

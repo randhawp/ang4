@@ -21,7 +21,7 @@
                 <div class="column" >
                     <div class="show" *ngIf="role == 1">{{officeName}}</div>
                     <div class="show" *ngIf="role == 2">
-                      <mat-radio-group class="paytype-radio-group" [(ngModel)]="selectdOffice" [ngModelOptions]="{standalone:true}"  required>
+                      <mat-radio-group  class="paytype-radio-group" [(ngModel)]="selectdOffice" [ngModelOptions]="{standalone:true}"  required>
                           <mat-radio-button class="paytype-radio-button" *ngFor="let office of offices" [value]="office.value" (change)="officeChanged(office.value)">
                             {{office.viewValue}}
                           </mat-radio-button>
@@ -107,6 +107,7 @@
             <div class="form-group">
               <div class="row">
                 <button class="mat-raised-button mat-primary"   [disabled]="!f.valid"> Search</button>
+                <button class="mat-raised-button mat-primary"  (click)="onSearchClear()"> Clear </button>
               </div>
                 
             </div>  

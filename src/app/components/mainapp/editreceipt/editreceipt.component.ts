@@ -108,6 +108,12 @@ export class EditreceiptComponent implements OnInit {
     //this.getAgentList()
   }
 
+  onSearchClear(){
+    console.log("SSEEAARRCCHH")
+    this.receiptForm.resetForm()
+    this.receiptForm.reset();
+  }
+
   onClick(n){
     this.selectedAgent = n
     console.log(n)
