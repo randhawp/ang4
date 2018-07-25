@@ -572,6 +572,27 @@ export class DialogReceiptEditor {
     this.dialogRef.close(this.form.value);
   }
 
+  print(){
+    console.log("print")
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=50,left=50,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print Receipt</title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+
+  }
+
   close() {
     this.dialogRef.close();
   }
