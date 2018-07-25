@@ -696,7 +696,7 @@ export class DialogPostReceipt  {
     console.log("amt is " + this.payload.amount)
     console.log("running total is " + this.runningTotal )
     if (this.runningTotal > this.payload.amount){
-      alert("total problem");
+      alert("Total is not correct");
       return;
     }
     this.dataSource.data.push({

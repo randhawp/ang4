@@ -1,7 +1,7 @@
 
 <h1 mat-dialog-title>Edit Receipt {{data.payload.id}}</h1>
  
-<mat-dialog-content [formGroup]="form" #f="ngForm" id="print-section">
+<mat-dialog-content [formGroup]="form" #f="ngForm" class="no-print">
   
   <div class="row">
     <div class="column">
@@ -53,6 +53,14 @@
   </div>
 
 </mat-dialog-content>
+
+<div id="print-section" class="print-section">
+  
+  {{data.payload.rcvdfrom}} <div style="line-height: 30px; width: 300px; border: 1px solid black;"></div> {{data.payload.id}}
+  {{data.payload.fortrip}}  {{data.payload.amount}}
+  {{data.payload.invoice}}
+  {{data.payload.paytype}}
+</div>
  
 <mat-dialog-actions>
 

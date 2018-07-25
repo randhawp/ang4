@@ -1,0 +1,7 @@
+@media screen  {
+    .print-section{display:none}
+}
+
+@media print  {
+    .no-print{display:none}
+}

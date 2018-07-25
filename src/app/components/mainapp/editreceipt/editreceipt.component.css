@@ -103,3 +103,19 @@ input.ng-invalid.ng-touched {
 .paytypeedit-radio-button {
   margin: 5px 16px;
 }
+@media screen  {
+  .print-section{display:none}
+}
+
+@page {
+  size: Letter;
+  margin: 0;
+}
+@media print  {
+  html, body { 
+    width: 215.9mm;
+    height: 279.4mm;
+  }
+  .no-print{display:none}
+   
+}
