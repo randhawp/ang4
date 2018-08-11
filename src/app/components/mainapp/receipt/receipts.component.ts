@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import {WebapiService} from '../../../services/webapi.service'
 import {StateService} from '../../../services/state.service'
+import { Alert } from '../../../../../node_modules/@types/selenium-webdriver';
 
 @Component({
   selector: 'app-receipts',
@@ -91,6 +92,10 @@ export class ReceiptComponent implements OnInit {
     console.log("2")
     console.log(this.receiptData )
     this.lastReceiptData = this.receiptData
+    if ( this.receiptData.paytype == 'directdeposit' && this.receiptData.usd == true) {
+      alert("Direct deposit for USD not accepted. Receipt not saved. Please fix the problem to continue")
+      return
+    }
     this.url="receipt?function=add_new_receipt&paytype="+this.receiptData.paytype+"&rcvdfrom="+this.receiptData.rcvdfrom+
     "&invoice="+this.receiptData.invoice+"&lock=x&remark="+this.receiptData.remarks+"&fortrip="+this.receiptData.forreason+
     "&usd="+this.receiptData.usd+"&agent="+this.state.user+"&status=na&amount="+this.receiptData.amount+"&office="+this.state.office
