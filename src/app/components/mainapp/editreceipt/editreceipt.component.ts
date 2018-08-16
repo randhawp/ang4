@@ -58,7 +58,7 @@ export class EditreceiptComponent implements OnInit {
     {value: 'cheque', viewValue: 'Cheque'},
     {value: 'directdeposit', viewValue: 'Direct Deposit'},
     {value: 'debit', viewValue: 'Debit'},
-    {value: 'credit', viewValue: 'Credit'},
+    {value: 'credit', viewValue: 'Credit Card'},
     {value: 'cash', viewValue: 'Cash'}
     
   ];
