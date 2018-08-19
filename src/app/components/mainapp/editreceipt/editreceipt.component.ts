@@ -407,7 +407,7 @@ export class EditreceiptComponent implements OnInit {
         console.log('The dialog was closed' + this.editedForm);
         console.log(this.editedForm.id)
        
-        this.mode="EDIT"
+        this.mode="DELETE"
         this.url="receipt?function=edit_receipt&paytype="+"void"+"&rcvdfrom="+"void"+
     "&invoice="+"void"+"&lockstate=x&remark="+"void"+"&fortrip="+"void"+
     "&usd="+"false"+"&agent="+this.state.user+"&status=void&amount="+0+"&office="+this.rowdata.office+"&date="+this.rowdata.date
