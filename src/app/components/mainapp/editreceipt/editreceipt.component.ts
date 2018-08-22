@@ -15,7 +15,7 @@ import {switchMap} from 'rxjs/operators/switchMap';
 import {Receipt} from '../../../models/receipt'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
-
+import {SelectionModel} from '@angular/cdk/collections'
 
 
 @Component({
@@ -41,7 +41,7 @@ export class EditreceiptComponent implements OnInit {
     paytype:'',
     remarks:''
   };
-  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date','rstatus'];
+  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date','agentname'];
   showEditButton:boolean = true;
   showVoidButton:boolean = false;
   showPostButton:boolean = false;
@@ -276,10 +276,13 @@ export class EditreceiptComponent implements OnInit {
     this.openDialogPost()
   }
 
+  //not used as function not required
   selectRowToUnPost(){
     this.selectedReceipt = this.rowdata.id
     this.openDialogUnPost()
   }
+
+  
   openDialogEdit() {
     let dialogRef = this.dialog.open(DialogReceiptEditor, {
     
@@ -342,7 +345,7 @@ export class EditreceiptComponent implements OnInit {
         
         }}
   );
-       
+
   }
 
   
@@ -659,15 +662,30 @@ export class DialogPostReceipt  {
   invoiceB:string;
   paymentB:string;
   amountB:number = 0;
-
+  tableSelectedRow:number=-1;
+  selectedRowIndex:number=-1;
+  runningBalance:number=0;
+  count=0;
   title = "app";
   displayedColumns = ["invoice", "payment", "amount"];
   dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
+  selection = new SelectionModel<Element>(true, []);
+  rowdata:any
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   
   constructor( public dialogRef: MatDialogRef<DialogPostReceipt>,  @Inject(MAT_DIALOG_DATA) public data: any) {
       this.payload = data.payload
       
+  }
+
+  deleteRow(){
+    console.log("removing row")
+    console.log(this.selectedRowIndex - 1)
+    console.log(this.tableSelectedRow)
+    this.dataSource.data.splice(this.tableSelectedRow , 1);
+    this.selection = new SelectionModel<Element>(true, []);
+    this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
+    
   }
 
   getRunningTotal(){
@@ -693,13 +711,18 @@ export class DialogPostReceipt  {
     }
     
     this.runningTotal = this.runningTotal + Number(amount.value)
+    this.runningBalance = this.payload.amount - this.runningTotal
     console.log("amt is " + this.payload.amount)
     console.log("running total is " + this.runningTotal )
     if (this.runningTotal > this.payload.amount){
-      alert("Total is not correct");
+      alert("Not allowed, total amount is greater than invoice total");
+      this.runningTotal = this.runningTotal -  Number(amount.value)
+      this.runningBalance = this.runningBalance + Number(amount.value)
       return;
     }
+    this.count+=1
     this.dataSource.data.push({
+      id: this.count,
       invoice: invoice.value,
       payment: payment.value,
       amount: amount.value
@@ -717,12 +740,26 @@ export class DialogPostReceipt  {
     this.dialogRef.close(this.dataSource.data);
    
   }
+
+  highlight(row,i){
+    console.log(i);
+    //this.tableSelectedRow = i+1
+    //this.selectedRowIndex = i+1
+    //this.rowdata = row
+
+    
+    this.tableSelectedRow = i
+    this.selectedRowIndex = row.id
+  
+  }
+       
  
 
  connect() { }
  disconnect() { }
 }
 export interface Element {
+  id:number;
   invoice: string;
   payment: string;
   amount: number;

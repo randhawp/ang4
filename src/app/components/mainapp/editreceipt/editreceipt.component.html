@@ -139,9 +139,9 @@
                 <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
               </ng-container>
 
-              <ng-container matColumnDef="agent">
+              <ng-container matColumnDef="agentname">
                   <mat-header-cell *matHeaderCellDef class="example-header">Agent</mat-header-cell>
-                  <mat-cell *matCellDef="let row">{{ row.agent }}</mat-cell>
+                  <mat-cell *matCellDef="let row">{{ row.agentname }}</mat-cell>
               </ng-container>
           
               <ng-container matColumnDef="date">
@@ -224,7 +224,7 @@
               <!--button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span-->
               <button  *ngIf="showVoidButton" class="mat-raised-button" (click)="selectRowToVoid()" >Void</button>    <span style="width: 10px"></span>
               <button  *ngIf="showPostButton" class="mat-raised-button" (click)="selectRowToPost()" >Post</button>    <span style="width: 10px"></span>
-              <button *ngIf="showUnPostButton" class="mat-raised-button " (click)="selectRowToUnPost()" >Un-Post</button>    <span style="width: 10px"></span>
+             
           </div>
         </mat-expansion-panel>
       </mat-accordion>

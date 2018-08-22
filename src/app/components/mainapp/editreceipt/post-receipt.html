@@ -8,12 +8,12 @@
 
                 </div>
                 <div class="column" >
-                        <span  class="font-weight-bold">Agent {{data.payload.agent}}</span>
+                        <span  class="font-weight-bold">Agent {{data.payload.agentname}}</span>
                 </div>
         </div>
         <div class="row">
                 <div class="column" >
-                    <span  class="font-weight-bold">Date {{data.payload.date}}</span>
+                    <span  class="font-weight-bold">Date {{data.payload.date | date}}</span>
 
                 </div>
                 <div class="column" >
@@ -36,12 +36,21 @@
             <div class="column-narrow"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" > </mat-form-field> </div>
         </div>
     
-        <button (click)='addRow(invoice,payment,amount)'>Add Row</button>   Running Total: {{runningTotal}}
-    <mat-card>               
+        <button  class="mat-raised-button mat-primary"  (click)='addRow(invoice,payment,amount)'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal}} &emsp; | &emsp; Balance: {{runningBalance}} </b>
+    <mat-card>       
+        <mat-card-header>
+            <mat-card-title>Post Details</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-header>        
         <mat-table #table [dataSource]="dataSource">
             
                 <!--- Note that these columns can be defined in any order.
                        The actual rendered columns are set as a property on the row definition" -->
+                 <!-- Invoice -->
+                 <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                  </ng-container>
               
                 <!-- Invoice -->
                 <ng-container matColumnDef="invoice">
@@ -63,7 +72,9 @@
                 </ng-container>
                 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
+                [ngClass]="{'highlight': selectedRowIndex == row.id}"
+                (click)="highlight(row,i)"> </mat-row>
               </mat-table>
 
         
@@ -83,6 +94,10 @@
         (click)="save()">
         Post Receipt
     </button>
+
+    <button class="mat-raised-button" 
+        (click)="deleteRow()" >Un-Post</button>    
+        
     
 </mat-dialog-actions>
     
