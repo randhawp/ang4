@@ -78,7 +78,7 @@
                 </div>    
                 <div class="col-sm-3 col-md-4" >
                         
-                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="coins"  [(ngModel)]="coins" #ctrl="ngModel" > 
+                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="coins" currencyMask  [(ngModel)]="coins" #ctrl="ngModel" > 
                 </div>
         </mat-form-field>            
         </div>
@@ -91,7 +91,7 @@
                         <label class="cash-label" >  Total </label>
                 </div>    
                 <div class="col-sm-3 col-md-4"  >
-                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  name="cashtotal"  [(ngModel)]="cashtotal" #ctrl="ngModel" > 
+                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  name="cashtotal" currencyMask [(ngModel)]="cashtotal" #ctrl="ngModel" > 
                 </div>
         </mat-form-field>            
         </div>
@@ -105,7 +105,7 @@
                 </div>    
                 <div class="col-sm-3 col-md-4" >
                         
-                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"   name="actualdeposit"  [(ngModel)]="actualdeposit" #ctrl="ngModel" > 
+                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"   name="actualdeposit" currencyMask [(ngModel)]="actualdeposit" #ctrl="ngModel" > 
                 </div>
         </mat-form-field>            
         </div>
