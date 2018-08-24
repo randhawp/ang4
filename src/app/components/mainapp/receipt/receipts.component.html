@@ -13,16 +13,16 @@
             #receiptFormData="ngModelGroup">
             
             <div class="form-group">
-              <label for="rcvdfrom">Received From</label>
-              <input type="text"  id="rcvdfrom"  pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" maxlength="20"   #name="ngModel" (keyup)="clearMessage()"  ngModel  name="rcvdfrom"  required>
-              <div>
-                <div   *ngIf="name.errors?.pattern">
-                 <p class="alert alert-danger">
-                   Special characters like double quotes not allowed
-                 </p>
-             
+                <label for="forreason">Received From</label>
+                <input type="text" id="rcvdfrom"  pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" maxlength="30"  #name="ngModel"  class="form-control" ngModel name="rcvdfrom"  required>
+                <div>
+                  <div   *ngIf="name.errors?.pattern">
+                   <p class="alert alert-danger">
+                     Special characters like double quotes not allowed
+                   </p>
+               
+                  </div>
                 </div>
-              </div>
             </div>
            
             <div class="form-group">
@@ -40,7 +40,8 @@
             <span>
               <div class="form-group">
                   <label for="amount">Amount</label>
-                  <input type="number" id="amount"  class="form-control" ngModel name="amount"  pattern="\d+(\.\d{2}$)?"  required>
+                  <!--input type="number" currencyMask id="amount"  class="form-control" ngModel name="amount"  pattern="\d+(\.\d{2}$)?"  required -->
+                  <input type="text" currencyMask id="amount"  class="form-control" [(ngModel)]="amount" name="amount"    required >
                   
               </div>  
               <div class="form-group">
