@@ -25,6 +25,10 @@ export class ReceiptComponent implements OnInit {
   lastPayType:string;
   lastRcvdFrom:string;
   formattedAmount:number=0;
+  lastReceiptId:string="0";
+  lastReceiptDate:string=null;
+  lastReceiptAgent:string=null  
+
 
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
   constructor(public webapi: WebapiService,private state:StateService) { 
@@ -33,6 +37,9 @@ export class ReceiptComponent implements OnInit {
     this.lastPayType = this.state.lastPayType 
     this.lastRcvdFrom = this.state.lastRcvdFrom 
     this.lastReceiptAmount = this.state.lastReceiptAmount 
+    this.lastReceiptId = this.state.lastReceiptId
+    this.lastReceiptDate = this.state.lastReceiptDate
+    this.lastReceiptAgent = this.state.lastReceiptAgent
 
 
   }
@@ -107,6 +114,26 @@ export class ReceiptComponent implements OnInit {
     this.returnval = 0
   }
   
+  print(){
+    console.log("print")
+    let printContents, popupWin;
+    printContents = document.getElementById('print-section').innerHTML;
+    popupWin = window.open('', '_blank', 'top=50,left=50,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title></title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
+
+  }
 
   resetForm(){
     this.paytypecontrol='credit'
@@ -114,12 +141,27 @@ export class ReceiptComponent implements OnInit {
   }
 
   webapiCallback(message: string, result: any){
-
+    console.log("in web call back")
     console.log(message)
-    if (message == "added"){
+    var msg:string = null
+    var res = message.split("_");
+    var l:number = res.length
+    var msg = res[0]
+
+    if (l != 4){
+      this.returnval = 1
+      this.message="Failed to add receipt, incomplete data"
+      return
+   }
+   
+    this.lastReceiptId = res[1]
+    this.lastReceiptDate = res[2]
+    this.lastReceiptAgent = res[3]
+    console.log(msg)
+    if (msg == "added"){
       this.returnval = 2
       this.receiptForm.reset()
-      this.message="Receipt successfully entered"
+      this.message="Receipt successfully entered No: " +this.lastReceiptId
       this.receiptCount += 1
       this.lastPayType = this.receiptData.paytype
       this.lastRcvdFrom = this.receiptData.rcvdfrom
@@ -129,6 +171,7 @@ export class ReceiptComponent implements OnInit {
       this.state.lastPayType = this.lastPayType
       this.state.lastRcvdFrom = this.lastRcvdFrom
       this.state.lastReceiptAmount = this.lastReceiptAmount
+      this.state.lastReceiptId = this.lastReceiptId
     } else {
       this.returnval = 1
       this.message="Failed to add receipt."

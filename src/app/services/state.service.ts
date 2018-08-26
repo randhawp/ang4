@@ -21,6 +21,9 @@ export class StateService {
   lastPayType:string=null;
   lastRcvdFrom:string=null;
   lastReceiptAmount:number=0.00;
+  lastReceiptId:string=null;
+  lastReceiptDate:string=null;
+  lastReceiptAgent:string=null;
   
 
   getUserSecurityLevel( level):number {

@@ -97,22 +97,120 @@
           
     </div>
           
-          
+    <div id="print-section" class="print-section">
+        <h2>&emsp;</h2>
+        <div class="d">
+            <!-- empty, but using spacer to prevent collapse -->
+            &emsp;
+            <div class="spacer10"></div>
+        </div>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.id
+        <p></p>
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;rcvdfrom 
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp;fortrip  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data.payload.date | date &emsp;&emsp;&emsp;&emsp;&emsp; data.payload.amount
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp;invoice
+         <p></p>
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;paytype&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.agentname
+         <p></p>
+         <p></p>
+      
+         
+        <h2>&emsp;</h2>
+        <div class="d">
+          <!-- empty, but using spacer to prevent collapse -->
+          &emsp;
+          <div class="spacer10"></div>
+      </div>
+        <div class="d">
+            <!-- empty, but using spacer to prevent collapse -->
+            &emsp;
+            <div class="spacer20"></div>
+        </div> 
+        <h2>&emsp;</h2>
+        <div class="d">
+            <!-- empty, but using spacer to prevent collapse -->
+            &emsp;
+            <div class="spacer20"></div>
+        </div> 
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.id
+        <p></p>
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;rcvdfrom
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp;fortrip  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; date &emsp;&emsp;&emsp;&emsp;&emsp; amount
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp;invoice
+         <p></p>
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;paytype&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  agentname
+         <p></p>
+         <p></p>
+      
+        <h2>&emsp;</h2>
+        <div class="d">
+            <!-- empty, but using spacer to prevent collapse -->
+            &emsp;
+            <div class="spacer20"></div>
+        </div>
+        <h2>&emsp;</h2>
+        <div class="d">
+            <!-- empty, but using spacer to prevent collapse -->
+            &emsp;
+            <div class="spacer20"></div>
+        </div> 
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.id
+        <p></p>
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;data.payload.rcvdfrom
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp;data.payload.fortrip  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data.payload.date | date &emsp;&emsp;&emsp;&emsp;&emsp; amount
+        <p></p>
+        <p></p>
+        &emsp;&emsp;&emsp;&emsp;data.payload.invoice
+         <p></p>
+         <p></p>
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data.payload.paytype &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.agentname
+         <p></p>
+         <p></p>
+      </div>
+            
 
 
 
     
     <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p><B>Last Receipt</B></p>
-        <p>    Amount: {{lastReceiptAmount}}     
-        </p>
+      <div>
+          <p><B><h3> <u>Last Receipt</u> </h3></B></p>
+          
+          <div class="row">
+              <div class="col-xs-6 col-md-5"><B>Id</B></div>
+              <div class="col-xs-6 col-md-5"><span class="pull-right">{{lastReceiptId}}</span></div>
+          </div>
+          <mat-divider [inset]="true"></mat-divider>
+          <div class="row">
+              <div class="col-xs-6 col-md-5"><B>Amount</B></div>
+              <div class="col-xs-6 col-md-5"><span class="pull-right"> {{lastReceiptAmount | currency }}</span></div>
+          </div>
+          <mat-divider [inset]="true"></mat-divider>
+          <div class="row">
+              <div class="col-xs-6 col-md-5"><B>Payment</B></div>
+              <div class="col-xs-6 col-md-5"><span class="pull-right"> {{lastPayType}}</span></div>
+          </div>
+          <mat-divider [inset]="true"></mat-divider>
+          <div class="row">
+              <div class="col-xs-6 col-md-5"><B>Rcvd</B></div>
+              <div class="col-xs-6 col-md-5"><span class="pull-right"> {{lastRcvdFrom}}</span></div>
+          </div>
+           <mat-divider [inset]="true"></mat-divider>
         <p>
-          PayType: {{lastPayType}}
+            <button class="mat-raised-button mat-primary" [disabled]="lastReceiptId==null"  
+              (click)="print()">
+                 Print
+              </button>
         </p>
-        <p>
-          From: {{lastRcvdFrom}}
-        </p>
+      
       </div>
       <div class="well">
         <p><B>Session Count</B><p>
