@@ -27,7 +27,9 @@ export class ReceiptComponent implements OnInit {
   formattedAmount:number=0;
   lastReceiptId:string="0";
   lastReceiptDate:string=null;
-  lastReceiptAgent:string=null  
+  lastReceiptAgent:string=null  ;
+  lastReceiptFor:string=null;
+  lastReceiptInvoice:string=null;
 
 
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
@@ -40,6 +42,8 @@ export class ReceiptComponent implements OnInit {
     this.lastReceiptId = this.state.lastReceiptId
     this.lastReceiptDate = this.state.lastReceiptDate
     this.lastReceiptAgent = this.state.lastReceiptAgent
+    this.lastReceiptInvoice = this.state.lastReceiptInvoice
+    this.lastReceiptFor = this.state.lastReceiptFor
 
 
   }
@@ -172,6 +176,9 @@ export class ReceiptComponent implements OnInit {
       this.state.lastRcvdFrom = this.lastRcvdFrom
       this.state.lastReceiptAmount = this.lastReceiptAmount
       this.state.lastReceiptId = this.lastReceiptId
+      this.state.lastReceiptFor = this.receiptData.forreason 
+      this.state.lastReceiptInvoice =  this.receiptData.invoice
+      console.log("setting invoice as " + this.state.lastReceiptInvoice)
     } else {
       this.returnval = 1
       this.message="Failed to add receipt."

@@ -104,16 +104,16 @@
             &emsp;
             <div class="spacer10"></div>
         </div>
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.id
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptId}}
         <p></p>
         <p></p>
-        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;rcvdfrom 
+        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; {{lastRcvdFrom }}
         <p></p>
-        &emsp;&emsp;&emsp;&emsp;fortrip  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data.payload.date | date &emsp;&emsp;&emsp;&emsp;&emsp; data.payload.amount
+        &emsp;&emsp;&emsp;&emsp; {{lastReceiptFor}}  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptDate | date}} &emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptAmount}}
         <p></p>
-        &emsp;&emsp;&emsp;&emsp;invoice
+        &emsp;&emsp;&emsp;&emsp; {{lastReceiptInvoice}}
          <p></p>
-         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;paytype&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.agentname
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{lastPayType}} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  {{lastReceiptAgent}}
          <p></p>
          <p></p>
       
@@ -135,16 +135,16 @@
             &emsp;
             <div class="spacer20"></div>
         </div> 
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.id
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  {{lastReceiptId}}
         <p></p>
         <p></p>
-        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;rcvdfrom
+        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; {{lastRcvdFrom }}
         <p></p>
-        &emsp;&emsp;&emsp;&emsp;fortrip  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; date &emsp;&emsp;&emsp;&emsp;&emsp; amount
+        &emsp;&emsp;&emsp;&emsp; {{lastReceiptFor}}  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptDate | date}} &emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptAmount}}
         <p></p>
-        &emsp;&emsp;&emsp;&emsp;invoice
+        &emsp;&emsp;&emsp;&emsp;{{lastReceiptInvoice}}
          <p></p>
-         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;paytype&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  agentname
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{lastPayType}} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  {{lastReceiptAgent}}
          <p></p>
          <p></p>
       
@@ -160,18 +160,18 @@
             &emsp;
             <div class="spacer20"></div>
         </div> 
-         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.id
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  {{lastReceiptId}}
         <p></p>
         <p></p>
-        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;data.payload.rcvdfrom
+        &emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp; {{lastRcvdFrom }}
         <p></p>
-        &emsp;&emsp;&emsp;&emsp;data.payload.fortrip  &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data.payload.date | date &emsp;&emsp;&emsp;&emsp;&emsp; amount
+        &emsp;&emsp;&emsp;&emsp;{{lastReceiptFor}} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptDate | date}} &emsp;&emsp;&emsp;&emsp;&emsp; {{lastReceiptAmount}}
         <p></p>
         <p></p>
-        &emsp;&emsp;&emsp;&emsp;data.payload.invoice
+        &emsp;&emsp;&emsp;&emsp; {{lastReceiptInvoice}}
          <p></p>
          <p></p>
-         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data.payload.paytype &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  data.payload.agentname
+         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{{lastPayType}} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  {{lastReceiptAgent}}
          <p></p>
          <p></p>
       </div>

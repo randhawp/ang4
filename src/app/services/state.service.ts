@@ -24,6 +24,8 @@ export class StateService {
   lastReceiptId:string=null;
   lastReceiptDate:string=null;
   lastReceiptAgent:string=null;
+  lastReceiptFor:string=null;
+  lastReceiptInvoice:string=null; 
   
 
   getUserSecurityLevel( level):number {
