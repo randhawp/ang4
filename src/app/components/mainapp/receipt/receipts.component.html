@@ -41,7 +41,7 @@
               <div class="form-group">
                   <label for="amount">Amount</label>
                   <!--input type="number" currencyMask id="amount"  class="form-control" ngModel name="amount"  pattern="\d+(\.\d{2}$)?"  required -->
-                  <input type="text" currencyMask id="amount"  class="form-control" [(ngModel)]="amount" name="amount"    required >
+                  <input type="text" currencyMask id="amount"  class="form-control" ngModel name="amount" #amount="ngModel"   required >
                   
               </div>  
               <div class="form-group">
