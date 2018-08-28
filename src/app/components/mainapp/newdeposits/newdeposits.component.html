@@ -107,67 +107,83 @@
           </mat-paginator>
           
         </div>
+                 
         <mat-card>
           <!--div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"-->
             <div class="row">
-              <div class="col-sm-6" style="background-color:lavender;">
-                 
-                      <div class="row">
-                        <div class="column">
-  
-                            <label class="deposit-label">Bank </label>
-                            <mat-form-field>
-                                <mat-select [(ngModel)]="selectedBank" placeholder="Select Bank">
-                                  <mat-option *ngFor="let bank of bankdata" [value]="bank.codename" (click)="onClick(bank.fullname)">
-                                    {{ bank.fullname }}
-                                  </mat-option>
-                                </mat-select>
-                              </mat-form-field>
-                        </div>
+              <div class="col-md-4">
+
+                  <div class="row">
+                      <div class="column">
+                        <label class="deposit-label">Cheque</label>
+                        <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
                       </div>
-                      <div class="row">
-                          <div class="column">
-                            <label class="deposit-label">Cheque</label>
-                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="column">
-                              <label class="deposit-label">Cash</label>
-                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" value="{{ totalcash | number : '1.2-2' }}">  
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="column">
-                              <label class="deposit-label" >Debit</label>
-                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="column">
-                              <label class="deposit-label">Credit</label>
-                             <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="column">
-                              <label class="deposit-label">Direct</label>
-                            <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="column">
-                              <label class="deposit-label" >Total</label>
-                            <input matInput type="number" class="deposit-inputbox" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
-                          </div>
-                      </div>
-              </div>
-              <div class="col-sm-4">
-                  <div class="container-fluid text-center"> 
-                      <button class="mat-raised-button mat-primary" (click)="makeDeposit()" > Deposit</button>    <span style="width: 10px"></span>
-                      <button class="mat-raised-button" (click)=" masterToggle()" > Cancel</button>    <span style="width: 10px"></span>
                   </div>
+                  <div class="row">
+                      <div class="column">
+                          <label class="deposit-label">Cash</label>
+                        <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" value="{{ totalcash | number : '1.2-2' }}">  
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="column">
+                          <label class="deposit-label" >Debit</label>
+                        <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="column">
+                          <label class="deposit-label">Credit</label>
+                         <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="column">
+                          <label class="deposit-label">Direct</label>
+                        <input matInput type="number" currency class="deposit-inputbox" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="column">
+                          <label class="deposit-label" >Total</label>
+                        <input matInput type="number" class="deposit-inputbox" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
+                      </div>
+                  </div>
+
+
+
               </div>
+              <div class="col-md-8">
+
+                <div class="col-md-2">
+                </div>    
+                
+                <div class="col-md-10">
+                    <div class="row">
+                      <h3>
+                          <mat-form-field class="extended-content ">
+                            <mat-select [(ngModel)]="selectedBank" placeholder="Select Bank">
+                              <mat-option *ngFor="let bank of bankdata" [value]="bank.codename" (click)="onClick(bank.fullname)">
+                                {{ bank.fullname }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                      </h3>
+                    </div>
+                       
+                    
+                    <div class="row">
+                          <div class="pull-right"> 
+                              <button class="mat-raised-button mat-primary" (click)="makeDeposit()" > Deposit</button>    <span style="width: 10px"></span>
+                              <button class="mat-raised-button" (click)=" masterToggle()" > Cancel</button>    <span style="width: 10px"></span>
+                          </div>
+                        
+                    </div>
+
+                </div>
+                
+              </div>
+             
             </div>
          <div>
                   
