@@ -53,3 +53,14 @@
     height: 100px;
     text-align:center;
 }
+.mat-column-amount {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 5px;
+  }
+
+  .mat-column-invoice {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+    } 

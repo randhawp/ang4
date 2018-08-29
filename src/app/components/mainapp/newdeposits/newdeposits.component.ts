@@ -180,6 +180,7 @@ export class NewdepositsComponent implements OnInit {
 
   updateTotal(){
     this.totalsum = this.totalcash*1 + this.totalcheque*1 + this.totalcredit*1 + this.totaldebit*1 + this.totaldirect*1
+    this.totalsum = Math.round(this.totalsum)
   }
 
   showCashBox(){

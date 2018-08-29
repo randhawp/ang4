@@ -71,7 +71,7 @@
             <!-- Amount Column -->
             <ng-container matColumnDef="amount">
               <mat-header-cell *matHeaderCellDef class="example-header">Amount</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
+              <mat-cell *matCellDef="let row">{{ row.amount | currency }}</mat-cell>
             </ng-container>
         
             <!-- Invoice Column -->
@@ -111,49 +111,53 @@
         <mat-card>
           <!--div class="col-xs-10 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2"-->
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-5">
 
                   <div class="row">
                       <div class="column">
                         <label class="deposit-label">Cheque</label>
-                        <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
+                        <input matInput type="text" currencyMask class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Cheque"  [(ngModel)] = "totalcheque"> 
                       </div>
                   </div>
                   <div class="row">
                       <div class="column">
                           <label class="deposit-label">Cash</label>
-                        <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" value="{{ totalcash | number : '1.2-2' }}">  
+                        <input matInput type="text" currencyMask class="deposit-inputbox" (change)=updateTotal() placeholder="Total Cash" (keydown)="showCashBox()" [(ngModel)] = "totalcash" value="{{ totalcash | number : '1.2-2' }}">  
                       </div>
                   </div>
                   <div class="row">
                       <div class="column">
                           <label class="deposit-label" >Debit</label>
-                        <input matInput type="number" class="deposit-inputbox" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
+                        <input matInput type="text" currencyMask class="deposit-inputbox" (change)=updateTotal() placeholder="Total Debit"  [(ngModel)] = "totaldebit" > 
                       </div>
                   </div>
                   <div class="row">
                       <div class="column">
-                          <label class="deposit-label">Credit</label>
-                         <input matInput type="number" class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
+                          <label class="deposit-label">Credit Card</label>
+                         <input matInput type="text" currencyMask class="deposit-inputbox" (change)=updateTotal()  placeholder="Total Credit"  [(ngModel)] = "totalcredit"> 
                       </div>
                   </div>
                   <div class="row">
                       <div class="column">
-                          <label class="deposit-label">Direct</label>
-                        <input matInput type="number" currency class="deposit-inputbox" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
+                          <label class="deposit-label">Direct Deposit</label>
+                        <input matInput type="text" currencyMask currency class="deposit-inputbox" (change)=updateTotal() placeholder="Total Direct"  [(ngModel)] = "totaldirect" > 
                       </div>
                   </div>
                   <div class="row">
                       <div class="column">
-                          <label class="deposit-label" >Total</label>
-                        <input matInput type="number" class="deposit-inputbox" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
+                        <b>
+                            <label class="deposit-label" >Total</label>
+                        <input matInput type="text" currencyMask class="deposit-inputbox" [readOnly]="true" placeholder="Total Deposit" [(ngModel)] = "totalsum" > 
+
+                        </b>
+                          
                       </div>
                   </div>
 
 
 
               </div>
-              <div class="col-md-8">
+              <div class="col-md-7">
 
                 <div class="col-md-2">
                 </div>    
