@@ -35,6 +35,7 @@ import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './components/mainapp/admin/admin.component';
 
+import {SetPayTypesPipe} from './components/mainapp/utilities/readablePayTypes'
 import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/cesarrew/ng2-currency-mask
 //import { DataTableModule } from 'angular-4-data-table';
 //import { DataFilterPipe } from './data-filter.pipe';
@@ -65,7 +66,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/ces
     NewsComponent,
     BankComponent,
     DialogCashBox,
-    
+    SetPayTypesPipe
 
   //  DataFilterPipe
    

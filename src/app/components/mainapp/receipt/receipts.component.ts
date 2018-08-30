@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/commo
 import {WebapiService} from '../../../services/webapi.service'
 import {StateService} from '../../../services/state.service'
 import { Alert } from '../../../../../node_modules/@types/selenium-webdriver';
-
+import {SetPayTypesPipe} from '../utilities/readablePayTypes'
 @Component({
   selector: 'app-receipts',
   templateUrl: './receipts.component.html',

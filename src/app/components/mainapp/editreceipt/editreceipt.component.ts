@@ -16,7 +16,7 @@ import {Receipt} from '../../../models/receipt'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {SelectionModel} from '@angular/cdk/collections'
-
+import {SetPayTypesPipe} from '../utilities/readablePayTypes'
 
 @Component({
   selector: 'app-editreceipt',
