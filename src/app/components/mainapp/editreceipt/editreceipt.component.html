@@ -54,12 +54,12 @@
             <div class="row">
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Amount From" ngModel name="amountfrom" style="text-align:right;" >
+                  <input matInput placeholder="Amount From" ngModel name="amountfrom" currencyMask style="text-align:right;" >
                 </mat-form-field>
               </div>
               <div class="column" >
                 <mat-form-field  >
-                  <input matInput placeholder="Amount To"  ngModel name="amountto" style="text-align:right;" >
+                  <input matInput placeholder="Amount To"  [(ngModel)]="amountto" name="amountto" currencyMask style="text-align:right;" >
                 </mat-form-field>
               </div>
             </div>

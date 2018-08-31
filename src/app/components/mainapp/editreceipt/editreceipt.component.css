@@ -103,6 +103,14 @@ input.ng-invalid.ng-touched {
 .paytypeedit-radio-button {
   margin: 5px 16px;
 }
+
+.mat-column-amount {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+  }
+
+
 @media screen  {
   .print-section{display:none}
 }
