@@ -82,8 +82,8 @@
         
             <!-- Paytype Column -->
             <ng-container matColumnDef="paytype">
-              <mat-header-cell *matHeaderCellDef class="example-header">Paytype</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{ row.paytype }}</mat-cell>
+              <mat-header-cell *matHeaderCellDef class="example-header">Pay Type</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ row.paytype | readablePayTypes }}</mat-cell>
             </ng-container>
         
             <!-- Rcvd Column -->
