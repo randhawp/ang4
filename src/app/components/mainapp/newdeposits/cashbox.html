@@ -6,7 +6,7 @@
         <mat-form-field class="example-full-width">
                 <div  class="col-sm-3 col-md-4">
                         
-                        <input class="aaa"  matInput type="number"  (change)=updateTotal() name="cash100"  [(ngModel)]="cash100" #ctrl="ngModel" > 
+                        <input class="aaa" (input)="inputValidator($event)" matInput type="text"  (change)=updateTotal() name="cash100"  [(ngModel)]="cash100" #ctrl="ngModel" > 
                 </div>                      
                 <div class="col-sm-3 col-md-4" >
                         <label class="cash-label" >  x 100 </label>
@@ -19,7 +19,7 @@
         <div class="row">
         <mat-form-field class="example-full-width">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="aaa"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="cash50"  [(ngModel)]="cash50" #ctrl="ngModel" > 
+                    <input class="aaa"  matInput  (input)="inputValidator($event)" type="text"  (change)=updateTotal() name="cash50"  [(ngModel)]="cash50" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label  class="cash-label">  x 50 </label>
@@ -32,7 +32,7 @@
         <div class="row">
         <mat-form-field class="example-full-width">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="aaa"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="cash20"  [(ngModel)]="cash20" #ctrl="ngModel" > 
+                    <input class="aaa"  matInput  (input)="inputValidator($event)" type="text"  (change)=updateTotal() name="cash20"  [(ngModel)]="cash20" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label class="cash-label">  x 20 </label>
@@ -45,7 +45,7 @@
         <div class="row">
         <mat-form-field class="example-full-width">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="aaa"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="cash10"  [(ngModel)]="cash10" #ctrl="ngModel" > 
+                    <input class="aaa"  matInput  (input)="inputValidator($event)" type="text"  (change)=updateTotal() name="cash10"  [(ngModel)]="cash10" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label class="cash-label" >  x 10 </label>
@@ -58,7 +58,7 @@
         <div class="row">
         <mat-form-field class="example-full-width">
                 <div  class="col-sm-3 col-md-4">
-                    <input class="aaa"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="cash5"  [(ngModel)]="cash5" #ctrl="ngModel" > 
+                    <input class="aaa"  matInput  (input)="inputValidator($event)" type="text"  (change)=updateTotal() name="cash5"  [(ngModel)]="cash5" #ctrl="ngModel" > 
                 </div>
                 <div class="col-sm-3 col-md-4" >
                         <label class="cash-label" >  x 5 </label>
@@ -78,7 +78,7 @@
                 </div>    
                 <div class="col-sm-3 col-md-4" >
                         
-                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  (change)=updateTotal() name="coins" currencyMask  [(ngModel)]="coins" #ctrl="ngModel" > 
+                        <input class="aaa"  matInput  type="text" onchange=updateTotal() name="coins" currencyMask  [(ngModel)]="coins" #ctrl="ngModel" > 
                 </div>
         </mat-form-field>            
         </div>
@@ -91,12 +91,16 @@
                         <label class="cash-label" >  Total </label>
                 </div>    
                 <div class="col-sm-3 col-md-4"  >
-                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  name="cashtotal" currencyMask [(ngModel)]="cashtotal" #ctrl="ngModel" > 
+                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  readonly name="cashtotal" currencyMask [(ngModel)]="cashtotal" #ctrl="ngModel" > 
                 </div>
         </mat-form-field>            
         </div>
-        <div class="row">
-        <mat-form-field class="example-full-width">
+        <div class="row pull-right">
+                        <button class="mat-raised-button"
+                        (click)="updateTotal()">
+                            Update Total
+                        </button>
+        <!--mat-form-field class="example-full-width">
                 <div  class="col-sm-3 col-md-4">
                                 <label class="cash-label">   </label>
                 </div>
@@ -105,24 +109,24 @@
                 </div>    
                 <div class="col-sm-3 col-md-4" >
                         
-                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"   name="actualdeposit" currencyMask [(ngModel)]="actualdeposit" #ctrl="ngModel" > 
+                        <input class="cash-label"  matInput  pattern="/^(\d*\.)?\d+$/igm"  readonly name="actualdeposit" currencyMask [(ngModel)]="actualdeposit" #ctrl="ngModel" > 
                 </div>
-        </mat-form-field>            
+        </mat-form-field-->            
         </div>
         </form>
-        Total Cash Sum should be {{ data.payload | currency}}
+        <h4>Total Cash Sum should be {{ data.payload | currency}}</h4>
 </mat-dialog-content>
  
 <mat-dialog-actions>
     
     <button class="mat-raised-button"
     (click)="onNoClick()">
-        Close
+        Cancel
     </button>
     
     <button class="mat-raised-button mat-primary" 
         (click)="save()">
-        Set Deposit
+        Continue
     </button>
     
 </mat-dialog-actions>

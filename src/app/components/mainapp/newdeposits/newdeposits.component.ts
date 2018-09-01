@@ -86,6 +86,7 @@ export class NewdepositsComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
+  canDeposit = false;
 
   totalcash:number=0;
   totaldebit:number=0;
@@ -128,6 +129,8 @@ export class NewdepositsComponent implements OnInit {
     this.getBankList()
   }
 
+  
+
   onSubmitSearch() {
     this.submitted = true;
     this.receiptData.datefrom = this.receiptForm.value.receiptFormData.datefrom;
@@ -153,7 +156,8 @@ export class NewdepositsComponent implements OnInit {
   webapiCallback(message: string, result: any){
 
     console.log("in call back web")
-   
+    this.canDeposit = false;
+    this.cashboxshown=0
     if (this.mode == "BANKDATA"){
       console.log("bank data")
       console.log(result[0])
@@ -204,8 +208,19 @@ export class NewdepositsComponent implements OnInit {
         //this.webapi.call('POST',this.url,this,null)
         console.log("in dailog return")
         console.log(data)
-        this.totalcash = data
-        this.updateSelectTotal();
+        //this.totalcash = data
+        if (data == 0) {
+          alert("cannot deposit")
+          this.cashboxshown = 0;
+          this.canDeposit = false
+          return
+        }
+
+        if (data == 1) {
+          this.cashboxshown = 1
+          this.canDeposit = true
+          this.updateSelectTotal();
+        }
         
         }}
   );
@@ -330,11 +345,16 @@ export class NewdepositsComponent implements OnInit {
       alert("Select receipts and bank account to make a deposit")
       return;
     }
+
+   
     this.receiptslist=""
-    if(this.totalcash != 0 && this.cashboxshown == 0 ){ this.showCashBox(); this.cashboxshown = 1; return;}
+    if(this.totalcash != 0 && this.cashboxshown == 0 ){ this.showCashBox();  return;}
     console.log(this.selection.selected) //details
     var data = this.selection.selected
     console.log(this.totalsum.toString()) //depositamt
+    if (this.canDeposit == false){
+      return;
+    }
     for(let e of data) {
       this.receiptslist = this.receiptslist+","+e['id']+","+e['office']+","+e['date'] //WARNING do not change this format or else change on server too
     }
@@ -395,7 +415,7 @@ export class DialogCashBox  {
 
   updateTotal():number{
 
-    console.log("here")
+    console.log("here - update total")
     this.cash100t = this.cash100 * 100
     console.log(this.cash100t)
     this.cash50t  = this.cash50 * 50
@@ -404,6 +424,8 @@ export class DialogCashBox  {
     this.cash10t = this.cash10 * 10
     this.cash5t = this.cash5 * 5
     this.coins = this.coins * 1; 
+    console.log("coins")
+    console.log(this.coins)
     this.cashtotal = this.cash100t + this.cash50t + this.cash20t + this.cash10t + this.cash5t + this.coins;
     this.actualdeposit = this.cashtotal
     return this.cashtotal   
@@ -411,8 +433,20 @@ export class DialogCashBox  {
 
   }
 
+  inputValidator(event: any) {
+    console.log(event.target.value);
+    const pattern = /^[0-9]*$/;   
+    //let inputChar = String.fromCharCode(event.charCode)
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^0-9]/g, "");
+      // invalid character, prevent input
+      console.log("invalide char")
+    }
+  }
+
   onNoClick(): void {
-    this.dialogRef.close();
+    
+    this.dialogRef.close(0);
   }
   save() {
     //this.dialogRef.close(this.payload.id);
@@ -429,7 +463,12 @@ export class DialogCashBox  {
     console.log(this.cashtotal)
 
     console.log(this.actualdeposit)
-    this.dialogRef.close(this.actualdeposit);
+    if (this.cashtotal != this.payload){
+      alert("Cash total does not match")
+      //this.dialogRef.close(0);
+      return
+    }
+    this.dialogRef.close(1);
   }
 
 
