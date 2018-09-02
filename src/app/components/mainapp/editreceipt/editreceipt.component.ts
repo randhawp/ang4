@@ -300,17 +300,27 @@ export class EditreceiptComponent implements OnInit {
         console.log(this.editedForm.date)
         console.log(this.editedForm.office)
         console.log(this.editedForm.usd)
+
+        if ( this.editedForm.paytype == 'directdeposit' && this.editedForm.usd == true) {
+          alert("Direct deposit for USD not accepted. Receipt not saved. Please fix the problem to continue")
+          return
+        }
         this.rowdata.amount = this.editedForm.amount
         this.rowdata.paytype = this.editedForm.paytype
         this.rowdata.rcvdfrom = this.editedForm.rcvdfrom
         this.rowdata.remark = this.editedForm.remark
-        this.rowdata.invoice = this.editedForm.invoice
+        this.rowdata.invoice = this.editedForm.invoice 
         this.rowdata.usd = this.editedForm.usd
+        this.rowdata.for = this.editedForm.for
         this.mode="EDIT"
+        this.editedForm.rcvdfrom = encodeURIComponent (this.editedForm.rcvdfrom)
+        this.editedForm.remark   = encodeURIComponent(this.editedForm.remark)
+        this.editedForm.invoice  = encodeURIComponent(this.editedForm.invoice)
+        this.editedForm.fortrip = encodeURIComponent(this.editedForm.fortrip)
         this.url="receipt?function=edit_receipt&paytype="+this.editedForm.paytype+"&rcvdfrom="+this.editedForm.rcvdfrom+
     "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remark+"&fortrip="+this.editedForm.fortrip+
-    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.editedForm .office+"&date="+this.rowdata.date
-    console.log(this.url)
+    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.editedForm.office+"&date="+this.rowdata.date
+    console.log("*********** " +this.url)
     this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
         }}

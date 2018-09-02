@@ -15,7 +15,7 @@
 
   <div class="row">
     <div class="column">
-      <mat-form-field> <input matInput type="number"  ng-pattern="\d+(\.\d{2}$)?"  required   #amount minlength="1"
+      <mat-form-field> <input matInput type="text" currencyMask   required   #amount minlength="1"
         maxlength="12"  placeholder="Amount" formControlName="amount">
        
       </mat-form-field>

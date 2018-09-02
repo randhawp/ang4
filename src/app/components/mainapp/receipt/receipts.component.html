@@ -65,7 +65,7 @@
             
             <div class="form-group">
               <label for="remarks">Remarks</label>
-              <textarea name="remarks" rows="3" #remarks="ngModel" pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" maxlength="100"  cols="40" class="form-control" ngModel ></textarea>
+              <textarea name="remarks" rows="3" #remarks="ngModel" pattern="[A-Za-z0-9 -_$%@{}()\[\],.?!]*" maxlength="100"  cols="40" class="form-control" ngModel ></textarea>
               <div>
                 <div   *ngIf="remarks.errors?.pattern">
                  <p class="alert alert-danger">

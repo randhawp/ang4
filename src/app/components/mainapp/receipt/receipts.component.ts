@@ -84,13 +84,13 @@ export class ReceiptComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.receiptData.rcvdfrom = this.receiptForm.value.receiptFormData.rcvdfrom;
-    this.receiptData.forreason = this.receiptForm.value.receiptFormData.forreason;
+    this.receiptData.forreason = encodeURIComponent(this.receiptForm.value.receiptFormData.forreason);
     this.receiptData.agent = this.state.user
     this.receiptData.amount = this.receiptForm.value.receiptFormData.amount;
     this.receiptData.usd = this.receiptForm.value.receiptFormData.usd;
-    this.receiptData.invoice = this.receiptForm.value.receiptFormData.invoice;
+    this.receiptData.invoice = encodeURIComponent(this.receiptForm.value.receiptFormData.invoice)
     this.receiptData.paytype = this.receiptForm.value.receiptFormData.paytype;
-    this.receiptData.remarks = this.receiptForm.value.receiptFormData.remarks;
+    this.receiptData.remarks = encodeURIComponent(this.receiptForm.value.receiptFormData.remarks);
     if ( this.receiptData.usd != true){
       this.receiptData.usd = false;
     }
@@ -143,6 +143,8 @@ export class ReceiptComponent implements OnInit {
     this.paytypecontrol='credit'
     console.log("reset...")
   }
+
+  
 
   webapiCallback(message: string, result: any){
     console.log("in web call back")
