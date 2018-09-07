@@ -352,7 +352,7 @@ export class NewdepositsComponent implements OnInit {
     console.log(this.selection.selected) //details
     var data = this.selection.selected
     console.log(this.totalsum.toString()) //depositamt
-    if (this.canDeposit == false){
+    if (this.canDeposit == false && this.totalcash != 0){
       return;
     }
     for(let e of data) {

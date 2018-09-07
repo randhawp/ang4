@@ -26,17 +26,17 @@
 
                 </div>
                 <div class="column" >
-                        <span  class="font-weight-bold">Total Amount {{data.payload.amount}}</span>
+                        <span  class="font-weight-bold">Total Amount {{data.payload.amount | currency}}</span>
                 </div>
         </div>
         
         <div class="row">
             <div class="column-narrow"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
             <div class="column-narrow"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
-            <div class="column-narrow"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" > </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" currencyMask > </mat-form-field> </div>
         </div>
     
-        <button  class="mat-raised-button mat-primary"  (click)='addRow(invoice,payment,amount)'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal}} &emsp; | &emsp; Balance: {{runningBalance}} </b>
+        <button  class="mat-raised-button mat-primary"  (click)='addRow(invoice,payment,amount)'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal | currency}} &emsp; | &emsp; Balance: {{runningBalance |currency}} </b>
     <mat-card>       
         <mat-card-header>
             <mat-card-title>Post Details</mat-card-title>
