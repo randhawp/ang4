@@ -1,20 +1,28 @@
   <div class="col-sm-2 sidenav">
     <div *ngIf = "access == 0 ">
-      <p>  <a  [routerLink]="['/mainapp/receipts']">New Receipts </a> </p>
-      <p> <a  [routerLink]="['/mainapp/editreceipts']">Search & Edit </a></p>
+        <div class="btn-group-vertical">
+          <a  [routerLink]="['/mainapp/receipts']" class="btn btn-info" role="button" >New Receipts </a> 
+          <a  [routerLink]="['/mainapp/editreceipts']" class="btn btn-info" role="button" > Search & Edit </a>
+          <a  [routerLink]="['/mainapp/passwd']" class="btn btn-info" role="button" >Reset Password </a>
+        </div>  
     </div>
     <div *ngIf = "access == 2 || access == 1">
-      <p>  <a  [routerLink]="['/mainapp/receipts']">New Receipts </a> </p>
-      <p> <a  [routerLink]="['/mainapp/editreceipts']">Search & Edit </a></p>
-      <p><a  [routerLink]="['/mainapp/newdeposits']">New Deposits </a></p>
-      <p><a  [routerLink]="['/mainapp/editdeposits']">Search & Edit </a></p>
+      <div class="btn-group-vertical">
+        <a  [routerLink]="['/mainapp/receipts']"  class="btn  btn-primary" role="button"  >New Receipts </a> 
+        <a  [routerLink]="['/mainapp/editreceipts']" class="btn btn-primary" role="button" >Search & Edit </a>
+        <a  [routerLink]="['/mainapp/newdeposits']" class="btn btn-primary" role="button" >New Deposits </a>
+        <a  [routerLink]="['/mainapp/editdeposits']" class="btn btn-primary" role="button" >Search & Edit </a>
+        <a  [routerLink]="['/mainapp/passwd']" class="btn btn-info" role="button" >Reset Password </a>
+      </div>
     </div>
     <div *ngIf = "access == 3">
-      <p><a  [routerLink]="['/mainapp/admin']">Admin </a></p>
-      <p><a  [routerLink]="['/mainapp/bank']">Bank </a></p>
+      <div class="btn-group-vertical">
+        <a  [routerLink]="['/mainapp/admin']" class="btn btn-info" role="button" >Admin </a>
+        <a  [routerLink]="['/mainapp/bank']" class="btn btn-info" role="button" >Bank </a>
+        <a  [routerLink]="['/mainapp/passwd']" class="btn btn-info" role="button" >Reset Password </a>
+      </div>
     </div>
-    <p> <a  [routerLink]="['/mainapp/passwd']">Reset Password </a></p>
-
+    
   </div>
   
 
