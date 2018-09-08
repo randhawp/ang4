@@ -202,21 +202,23 @@ export class NewdepositsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
       data =>  {
-        if (data != null) {
+        if (data.status != null) {
        // this.url="receipt?function=unpost&id="+this.rowdata.id+"&office="+this.rowdata.office+"&date="+this.rowdata.date
         //console.log(this.url)
         //this.webapi.call('POST',this.url,this,null)
         console.log("in dailog return")
         console.log(data)
         //this.totalcash = data
-        if (data == 0) {
-          alert("cannot deposit")
+        if (data.status == 0) {
+          alert("Cannot deposit, cash total does not reconcile")
           this.cashboxshown = 0;
           this.canDeposit = false
           return
         }
 
-        if (data == 1) {
+        if (data.status == 1) {
+          alert("Cash total reconciles ! Click on depoist to complete transaction")
+          console.log(data.cashdata)
           this.cashboxshown = 1
           this.canDeposit = true
           this.updateSelectTotal();
@@ -278,6 +280,8 @@ export class NewdepositsComponent implements OnInit {
   masterToggle() {
     //this.isAllSelected() ?
         this.selection.clear() //:
+        this.cashboxshown = 0
+        this.canDeposit = false
         //this.dataSource.data.forEach(row => this.selection.select(row));
         this.updateSelectTotal();
   }
@@ -405,6 +409,7 @@ export class DialogCashBox  {
   actualdeposit=0;
 
   cashtotal:number=0;
+  returnVal:any;
 
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   constructor(
@@ -468,7 +473,14 @@ export class DialogCashBox  {
       //this.dialogRef.close(0);
       return
     }
-    this.dialogRef.close(1);
+    var cashstr=this.cash100+","+this.cash50+","+this.cash20 +"," + this.cash10 +","+ this.cash5 +","+ this.coins
+    this.returnVal ={
+      status: [1],
+      cashdata: cashstr,
+         
+  };
+    console.log(this.returnVal)
+    this.dialogRef.close(this.returnVal);
   }
 
 

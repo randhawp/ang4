@@ -67,13 +67,13 @@
                   <!-- Date Column -->
                   <ng-container matColumnDef="datecreated">
                     <mat-header-cell *matHeaderCellDef class="example-header">Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.datecreated | date   }}</mat-cell>
+                    <mat-cell *matCellDef="let row">{{ row.datecreated * 1000 | date   }}</mat-cell>
                   </ng-container>
                    
                   <!-- Deposit Column -->
                   <ng-container matColumnDef="depositamt">
                     <mat-header-cell *matHeaderCellDef class="example-header"> Amount </mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.depositamt }}</mat-cell>
+                    <mat-cell *matCellDef="let row">{{ row.depositamt | currency }}</mat-cell>
                   </ng-container>
 
                    <!-- Details Column -->
@@ -131,7 +131,7 @@
                   <!-- Bank -->
                   <ng-container matColumnDef="amount">
                     <mat-header-cell *matHeaderCellDef class="example-header">Amount</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{ row.amount }}</mat-cell>
+                    <mat-cell *matCellDef="let row">{{ row.amount | currency }}</mat-cell>
                   </ng-container>
               
                   <!-- Date Column -->
