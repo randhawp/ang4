@@ -103,13 +103,14 @@ export class NewdepositsComponent implements OnInit {
   deposittotal:number=0;
 
   receiptslist:string;
+  cashdata:string;
 
 
   bankdata:any;
   selectedBank:string;
   selectedBankName:string;
   newBankName:string;
- 
+  lastDepositId:string
   cashboxshown:number=0;
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
@@ -160,7 +161,7 @@ export class NewdepositsComponent implements OnInit {
   
   webapiCallback(message: string, result: any){
 
-    console.log("in call back web")
+    console.log("in call back web : deposit")
     this.canDeposit = false;
     this.cashboxshown=0
     if (this.mode == "BANKDATA"){
@@ -171,13 +172,19 @@ export class NewdepositsComponent implements OnInit {
       this.selectedBankName = result[0].fullname
       this.selectedBank = result[0].code
     }
+    var res = message.split(",");
+    var l:number = res.length
+    var msg = res[0]
     if (this.mode == "DEPOSIT"){
-      console.log(message)
-      if (message == "deposited"){
+      console.log(res[0])
+      console.log(res[1])
+      if (res[0] == "deposited"){
         this.selection.clear() 
         this.masterToggle()
         this.getTableData()
-        alert("Deposit completed")
+        alert("Deposit completed #")
+        this.lastDepositId = res[1]
+
       } else{
         this.selection.clear()
         this.masterToggle()
@@ -188,6 +195,9 @@ export class NewdepositsComponent implements OnInit {
     
   }
 
+  printDeposit(){
+
+  }
   updateTotal(){
     this.totalsum = this.totalcash*1 + this.totalcheque*1 + this.totalcredit*1 + this.totaldebit*1 + this.totaldirect*1
     this.totalsum = Math.round(this.totalsum)
@@ -224,6 +234,7 @@ export class NewdepositsComponent implements OnInit {
         if (data.status == 1) {
           alert("Cash total reconciles ! Click on depoist to complete transaction")
           console.log(data.cashdata)
+          this.cashdata = data.cashdata
           this.cashboxshown = 1
           this.canDeposit = true
           this.updateSelectTotal();
@@ -370,7 +381,7 @@ export class NewdepositsComponent implements OnInit {
     console.log(this.receiptslist) //receiptsid
     console.log(this.selectedBank) //selected bank id
 
-    this.url="receipt?function=deposit&depositamt="+this.totalsum.toString()+"&receiptsid="+this.receiptslist+"&bankac="+this.selectedBank
+    this.url="receipt?function=deposit&depositamt="+this.totalsum.toString()+"&receiptsid="+this.receiptslist+"&bankac="+this.selectedBank+"&cashdata="+this.cashdata
     console.log(this.url)
     this.webapi.call('POST',this.url,this,this.selection.selected)
     this.mode="DEPOSIT"

@@ -197,7 +197,17 @@
             
       <!--/div-->
       </mat-card>
-      
+      <mat-card>
+        <div class="row">
+          <h3>Print last deposit receipt</h3>
+          <div class="pull-right"> 
+              <button class="mat-raised-button mat-primary" (click)="printDeposit()" > Print</button>    <span style="width: 10px"></span>
+              
+          </div>
+          Deposit Id # {{lastDepositId}}
+
+        </div>
+      </mat-card>
           
           
     
