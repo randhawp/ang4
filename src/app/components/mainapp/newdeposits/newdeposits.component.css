@@ -64,3 +64,32 @@
     justify-content: flex-end;
     padding-right: 15px;
     } 
+
+@media screen  {
+    .print-section{display:none}
+}
+@media print  {
+  
+    
+  html, body { 
+    width: 215.9mm;
+    height: 279.4mm;
+  }
+
+  
+
+  .no-print{display:none}
+
+  div.d {
+    line-height: 1cm;
+  }
+
+  div.spacer10 { height: 10mm; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+  div.spacer20 { height: 20mm; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+  div.spacer30 { height: 30mm; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+
+
+ 
+
+}
+

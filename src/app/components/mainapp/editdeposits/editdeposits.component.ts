@@ -70,7 +70,7 @@ export class EditdepositsComponent implements OnInit {
   }
   webapiCallback(message: string, result: any){
 
-    console.log("in call back web")
+    console.log("in call back web: deposit search")
    
     if (this.mode == "BANKDATA"){
       console.log("bank data")
