@@ -128,6 +128,7 @@ export class EditdepositsComponent implements OnInit {
     console.log("submit search")
     console.log(this.startdate)
     console.log(this.enddate)
+    
     console.log(this.selectedBank)
     this.url="receipt?function=search_deposit&bankac="+this.selectedBank+"&startdate="+this.startdate+"&enddate="+this.enddate
     console.log(this.url)

@@ -133,8 +133,13 @@ export class NewdepositsComponent implements OnInit {
 
   onSubmitSearch() {
     this.submitted = true;
-    this.receiptData.datefrom = this.receiptForm.value.receiptFormData.datefrom;
-    this.receiptData.dateto = this.receiptForm.value.receiptFormData.dateto;
+    var t1 =  this.receiptForm.value.receiptFormData.datefrom;
+    t1 = t1.getTime()
+    this.receiptData.datefrom =t1
+    
+    var t2 = this.receiptForm.value.receiptFormData.dateto;
+    t2 = t2.getTime() + (24*60*60*1000)
+    this.receiptData.dateto = t2
     console.log(this.receiptData.datefrom)
    
     console.log(this.panel1.id)
