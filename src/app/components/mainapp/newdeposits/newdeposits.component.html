@@ -210,8 +210,55 @@
       </mat-card>
           
           
-      <div id="print-section" class="print-section">
+      <div id="print-section" class="print-section"  ng-init="isCash=true"  >
           <h2> Deposit {{lastDepositId}}</h2>
+        
+          <table>
+            <thead>
+                <th>Item</th>
+                <th>Rcvd From</th>
+                <th>Rcpt Id</th>
+                <th>Amount</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of printReceiptList">
+                  <td>{{p.id}}</td>
+                  <td>{{p.rcvdfrom}}</td>
+                  <td>{{p.id}}</td>
+                  <td>{{p.amount | currency}}</td>
+              </tr>
+            </tbody>
+         </table>
+         <p></p>
+         <h3>Cash break down</h3>
+         <p></p>
+        <div *ngIf="isCash">
+                <table  *ngIf="isCash">
+                  <tbody>
+                  <tr>
+                    <td>{{lastReceipt100}}</td> <td>x100 =</td> <td>{{lastReceipt100 * 100 | currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{lastReceipt50}}</td> <td>x50 =</td> <td>{{lastReceipt50 * 50 | currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{lastReceipt20}}</td> <td>x20 =</td> <td>{{lastReceipt20 * 20 | currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{lastReceipt10}}</td> <td>x10 =</td> <td>{{lastReceipt10 * 10 | currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{lastReceipt5}}</td> <td>x5=</td> <td>{{lastReceipt5 * 5 | currency}}</td>
+                  </tr>
+                  <tr>
+                    <td></td> <td>Coins</td> <td>{{lastReceiptcoins|currency}}</td>
+                  </tr>
+                  <tr>
+                  <td></td> <td>Total</td> <td>{{printcash | currency}}</td>
+                  </tr>  
+                  </tbody>
+                </table>
+        </div>
       </div>
   
 

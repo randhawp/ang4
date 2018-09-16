@@ -112,6 +112,17 @@ export class NewdepositsComponent implements OnInit {
   newBankName:string;
   lastDepositId:string
   cashboxshown:number=0;
+  
+  printReceiptList=[]
+  isCash:boolean =true
+  printcash:number=0;
+
+  lastReceipt100:number=0
+  lastReceipt50:number=0
+  lastReceipt20:number=0
+  lastReceipt10:number=0
+  lastReceipt5:number=0
+  lastReceiptcoins:number=0
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
 
@@ -184,12 +195,14 @@ export class NewdepositsComponent implements OnInit {
         this.getTableData()
         alert("Deposit completed #")
         this.lastDepositId = res[1]
+        
 
       } else{
         this.selection.clear()
         this.masterToggle()
         this.getTableData()
         alert("The deposit failed. Please check or contact technical support")
+        this.isCash = false;
       }
     }
     
@@ -197,8 +210,20 @@ export class NewdepositsComponent implements OnInit {
 
   printDeposit(){
     console.log("print")
+    console.log(this.printcash)
+
+    if ( this.printcash > 0) {
+      this.isCash = true
+      console.log("cash is true")
+      console.log(this.isCash)
+    }else{
+      this.isCash = false
+      console.log("cash is false")
+    }
     let printContents, popupWin;
+    document.getElementById('print-section').innerHTML;
     printContents = document.getElementById('print-section').innerHTML;
+    console.log(printContents)
     popupWin = window.open('', '_blank', 'top=50,left=50,height=100%,width=auto');
     popupWin.document.open();
     popupWin.document.write(`
@@ -212,6 +237,7 @@ export class NewdepositsComponent implements OnInit {
     <body onload="window.print();window.close()">${printContents}</body>
       </html>`
     );
+    
     popupWin.document.close();
 
 
@@ -219,6 +245,9 @@ export class NewdepositsComponent implements OnInit {
   updateTotal(){
     this.totalsum = this.totalcash*1 + this.totalcheque*1 + this.totalcredit*1 + this.totaldebit*1 + this.totaldirect*1
     this.totalsum = Math.round(this.totalsum)
+  
+
+   
   }
 
   showCashBox(){
@@ -252,6 +281,13 @@ export class NewdepositsComponent implements OnInit {
         if (data.status == 1) {
           alert("Cash total reconciles ! Click on depoist to complete transaction")
           console.log(data.cashdata)
+          var x = data.cashdata.split(",")
+          this.lastReceipt100 = x[0]
+          this.lastReceipt50 =x[1]
+          this.lastReceipt20 =x[2]
+          this.lastReceipt10 = x[3]
+          this.lastReceipt5 = x[4]
+          this.lastReceiptcoins =x[5]
           this.cashdata = data.cashdata
           this.cashboxshown = 1
           this.canDeposit = true
@@ -379,6 +415,9 @@ export class NewdepositsComponent implements OnInit {
 
   makeDeposit(){
 
+    this.printReceiptList=[]
+    this.isCash=false;
+
     if(this.totalsum==0 || this.selectedBank == null){
       alert("Select receipts and bank account to make a deposit")
       return;
@@ -393,9 +432,16 @@ export class NewdepositsComponent implements OnInit {
     if (this.canDeposit == false && this.totalcash != 0){
       return;
     }
+    var i = 0;
     for(let e of data) {
       this.receiptslist = this.receiptslist+","+e['id']+","+e['office']+","+e['date'] //WARNING do not change this format or else change on server too
+
+      var v={"id": e["id"], "office": e['office'], "date": e['date'],"rcvdfrom": e['rcvdfrom'],"amount":e['amount']} 
+      this.printReceiptList.push(v)
+      
+      i+=1
     }
+    this.printcash = this.totalcash
     console.log(this.receiptslist) //receiptsid
     console.log(this.selectedBank) //selected bank id
 

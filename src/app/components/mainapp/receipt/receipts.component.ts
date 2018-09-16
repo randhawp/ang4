@@ -103,6 +103,10 @@ export class ReceiptComponent implements OnInit {
     console.log("2")
     console.log(this.receiptData )
     this.lastReceiptData = this.receiptData
+    if (this.receiptData.paytype == null){
+      alert("Please select paytype")
+      return;
+    }
     if ( this.receiptData.paytype == 'directdeposit' && this.receiptData.usd == true) {
       alert("Direct deposit for USD not accepted. Receipt not saved. Please fix the problem to continue")
       return
@@ -181,6 +185,7 @@ export class ReceiptComponent implements OnInit {
       this.state.lastReceiptFor = this.receiptData.forreason 
       this.state.lastReceiptInvoice =  this.receiptData.invoice
       console.log("setting invoice as " + this.state.lastReceiptInvoice)
+      this.paytypecontrol='credit'
     } else {
       this.returnval = 1
       this.message="Failed to add receipt."
