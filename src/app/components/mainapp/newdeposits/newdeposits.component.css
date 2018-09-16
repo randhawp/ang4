@@ -40,15 +40,15 @@
   
   }
   
-  .vertical-center-div {
+.vertical-center-div {
     position: absolute;
     top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
    
-  }
+}
 
-  .extended-content {
+.extended-content {
     width:100%;
     height: 100px;
     text-align:center;
@@ -57,13 +57,19 @@
   display: flex;
   justify-content: flex-end;
   padding-right: 5px;
-  }
+}
 
-  .mat-column-invoice {
+.mat-column-invoice {
     display: flex;
     justify-content: flex-end;
     padding-right: 15px;
-    } 
+} 
+
+.alnright { text-align: right; }
+
+table tr td:nth-child(3) {
+  text-align: right;
+}
 
 @media screen  {
     .print-section{display:none}
@@ -83,13 +89,13 @@
   div.d {
     line-height: 1cm;
   }
+ 
 
   div.spacer10 { height: 10mm; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
   div.spacer20 { height: 20mm; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
   div.spacer30 { height: 30mm; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 
-
- 
+  .alnright { text-align: right; }
 
 }
 

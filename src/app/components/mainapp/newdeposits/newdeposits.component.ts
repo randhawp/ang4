@@ -123,11 +123,14 @@ export class NewdepositsComponent implements OnInit {
   lastReceipt10:number=0
   lastReceipt5:number=0
   lastReceiptcoins:number=0
+  lastBank :string="";
+  datetoday:Date;
 
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.officeName = this.state.office;
+    this.datetoday = new Date();
 
     if (this.state.access == "AGENT" || this.state.access == "BADMIN"){
       this.role =1;
@@ -220,8 +223,9 @@ export class NewdepositsComponent implements OnInit {
       this.isCash = false
       console.log("cash is false")
     }
-    let printContents, popupWin;
+    let printContents, popupWin,dummy;
     document.getElementById('print-section').innerHTML;
+    dummy = document.getElementById('print-section').innerHTML;
     printContents = document.getElementById('print-section').innerHTML;
     console.log(printContents)
     popupWin = window.open('', '_blank', 'top=50,left=50,height=100%,width=auto');
@@ -444,7 +448,9 @@ export class NewdepositsComponent implements OnInit {
     this.printcash = this.totalcash
     console.log(this.receiptslist) //receiptsid
     console.log(this.selectedBank) //selected bank id
+    console.log(this.selectedBankName)
 
+    this.lastBank = this.selectedBankName
     this.url="receipt?function=deposit&depositamt="+this.totalsum.toString()+"&receiptsid="+this.receiptslist+"&bankac="+this.selectedBank+"&cashdata="+this.cashdata
     console.log(this.url)
     this.webapi.call('POST',this.url,this,this.selection.selected)
