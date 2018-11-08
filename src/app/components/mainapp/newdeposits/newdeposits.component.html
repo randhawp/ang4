@@ -210,12 +210,14 @@
       </mat-card>
           
           
-      <div id="print-section" class="print-section"  ng-init="isCash=true"  >
-          <h3> Bains Trust---- A/C No: {{lastBank}} ---- CAD ---- Date {{datetoday | date}} </h3>
-          <h3>Deposit {{lastDepositId}}</h3>
+      <div id="print-section" class="print-section"   >
+          <h3> Bains Trust- A/C No: {{lastBank}}  </h3>
+          <h3> Date: {{datetoday | date}} </h3>
+          <h3>Deposit Id: {{lastDepositId}}</h3>
           <table>
             <thead>
                 <th>Item</th>
+                <th>Type</th>
                 <th>Rcvd From</th>
                 <th>Rcpt Id</th>
                 <th>Amount</th>
@@ -223,17 +225,28 @@
             <tbody>
                 <tr *ngFor="let p of printReceiptList">
                   <td>{{p.id}}</td>
+                  <td>{{ p.paytype | readablePayTypes }}</td>
                   <td>{{p.rcvdfrom}}</td>
                   <td>{{p.id}}</td>
                   <td>{{p.amount | currency}}</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td>{{ printrcpttotal | currency}}</td>
+              </tr>
+            </tfoot>
          </table>
          <p></p>
          <h3 *ngIf="isCash" >Cash break down</h3>
+         
          <p></p>
-        <div *ngIf="isCash">
-                <table    class="alnright">
+        <ng-container *ngIf="isCash">
+                <table >
                   <tbody>
                   <tr>
                     <td>{{lastReceipt100}}</td> <td>x100 =</td> <td class="alnright">{{lastReceipt100 * 100 | currency}}</td>
@@ -258,8 +271,8 @@
                   </tr>  
                   </tbody>
                 </table>
-        </div>
-      </div>
+              </ng-container>
+            </div>
   
 
 

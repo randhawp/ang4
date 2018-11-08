@@ -33,7 +33,7 @@
               <div class="column" >
                 <div class="form-group">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="datefrom" placeholder="Choose start date" ngModel name="datefrom" required>
+                    <input matInput [matDatepicker]="datefrom" placeholder="Choose start date" [(ngModel)]="search_datefrom" name="datefrom" required>
                     <mat-datepicker-toggle matSuffix [for]="datefrom"></mat-datepicker-toggle>
                     <mat-datepicker #datefrom ></mat-datepicker>
                   </mat-form-field>
@@ -42,7 +42,7 @@
               <div class="column">
                 <div class="form-group">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="dateto" placeholder="Choose end date" ngModel name="dateto" required>
+                    <input matInput [matDatepicker]="dateto" placeholder="Choose end date" [(ngModel)]="search_dateto" name="dateto" required>
                     <mat-datepicker-toggle matSuffix [for]="dateto"></mat-datepicker-toggle>
                     <mat-datepicker #dateto></mat-datepicker>
                   </mat-form-field>

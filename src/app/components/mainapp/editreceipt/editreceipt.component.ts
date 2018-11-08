@@ -89,7 +89,14 @@ export class EditreceiptComponent implements OnInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
+  current:Date = new Date()
+  milliseconds = this.current.getTime()
+  ninetydaysago = this.milliseconds - (3600*24*90*1000)
 
+  search_datefrom:Date = new Date(this.ninetydaysago) 
+  
+  
+  search_dateto:Date = new Date();
   constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog,private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
