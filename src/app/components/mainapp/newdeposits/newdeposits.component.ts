@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild,Inject,ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {MatPaginator, MatSort, MatTableDataSource, MatExpansionPanel} from '@angular/material';
+import {MatPaginator, MatSort, MatSortModule, MatTableDataSource, MatExpansionPanel} from '@angular/material';
 import {StateService} from '../../../services/state.service'
 import {WebapiService} from '../../../services/webapi.service'
 import { MessageService} from '../../../services/message.service'
@@ -302,11 +302,13 @@ export class NewdepositsComponent implements OnInit {
   
   
   ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
   getTableData(){
-    this.userDb = new ReceiptDao(this.webapi);
-
+    if (this.isLoadingResults == true) {
+      this.userDb = new ReceiptDao(this.webapi);
+    }
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
@@ -324,6 +326,7 @@ export class NewdepositsComponent implements OnInit {
           this.isRateLimitReached = false;
           //this.resultsLength = 5;
           //this.ref.markForCheck();
+          console.log("$$$$$$$$$")
           console.log(data)
           return data;
         }),
