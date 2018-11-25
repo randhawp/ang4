@@ -165,7 +165,7 @@
 
               <ng-container matColumnDef="status">
                   <mat-header-cell *matHeaderCellDef class="example-header">Status</mat-header-cell>
-                  <mat-cell *matCellDef="let row">{{ row.status }}</mat-cell>
+                  <mat-cell *matCellDef="let row">{{ row.rstatus }}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="usd">
@@ -199,7 +199,7 @@
           
               <!-- Rcvd Column -->
               <ng-container matColumnDef="rcvdfrom">
-                <mat-header-cell *matHeaderCellDef class="example-header">Rcvd</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="example-header">Rcvd From</mat-header-cell>
                 <mat-cell *matCellDef="let row">{{ row.rcvdfrom }}</mat-cell>
               </ng-container>
           

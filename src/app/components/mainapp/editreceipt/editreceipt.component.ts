@@ -41,7 +41,7 @@ export class EditreceiptComponent implements OnInit {
     paytype:'',
     remarks:''
   };
-  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date','agentname'];
+  displayedColumns = ['id', 'office', 'amount', 'invoice','paytype','rcvdfrom','date','agentname','rstatus'];
   showEditButton:boolean = true;
   showVoidButton:boolean = false;
   showPostButton:boolean = false;
@@ -346,18 +346,20 @@ export class EditreceiptComponent implements OnInit {
         if (data != null) {
         this.editedForm = data;
         console.log("############")
+        console.log(this.rowdata.amount)
+        console.log(this.rowdata.rcptbal)
         var amount = dialogRef.componentInstance.getRunningTotal()
         var status=""
         if ( amount == this.rowdata.amount){
-          status = "FULL-POSTED"
+          status = "FP"
         }
         if ( amount < this.rowdata.amount){
-          status = "PARTIAL-POSTED"
+          status = "PP"
         }
-        this.url="receipt?function=post_details&id="+this.rowdata.id+"&amount="+amount+"&status="+status+"&office="+this.rowdata.office+"&date="+this.rowdata.date+"&orignalamt="+this.rowdata.amount
+        this.url="receipt?function=post_details&id="+this.rowdata.id+"&amount="+amount+"&status="+status+"&office="+this.rowdata.office+"&date="+this.rowdata.date+"&orignalamt="+this.rowdata.amount+"&rcptbal="+this.rowdata.rcptbal
         console.log(this.url)
         this.webapi.call('POST',this.url,this,data)
-        
+        this.mode="POST"
         console.log("############")
         
         }}
@@ -405,6 +407,9 @@ export class EditreceiptComponent implements OnInit {
       this.listofagents = result
       //this.selectedAgent = result[0].username
     }
+    if (this.mode == "POST"){
+      console.log("posted")
+    }
   }
 
   selectRowToVoid(){
@@ -442,10 +447,11 @@ export class EditreceiptComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
   getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype){
+    console.log(">>>>>>>>>> DB <<<<<<<<<<<<<<")
     if (this.userDb != null){
       console.log("data exists")
     }
-
+    
     this.userDb = new ReceiptDao(this.webapi);
     
     // If the user changes the sort order, reset back to the first page.
@@ -696,9 +702,15 @@ export class DialogPostReceipt  {
   }
 
   deleteRow(){
+    var rmvdamt=0
     console.log("removing row")
     console.log(this.selectedRowIndex - 1)
     console.log(this.tableSelectedRow)
+    console.log(this.dataSource.data[this.tableSelectedRow].amount)
+    rmvdamt = this.dataSource.data[this.tableSelectedRow].amount
+    this.runningTotal = this.runningTotal - Number(rmvdamt)
+    this.runningBalance = this.payload.amount - this.runningTotal
+
     this.dataSource.data.splice(this.tableSelectedRow , 1);
     this.selection = new SelectionModel<Element>(true, []);
     this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
@@ -716,33 +728,35 @@ export class DialogPostReceipt  {
     console.log(search);
     this.dataSource.filter = search.toLowerCase().trim();
   }
-  addRow(invoice,payment,amount) {
-    if ( Number(amount.value) == 0) {
+  addRow() {
+    console.log("amount is ")
+    console.log(this.amountB)
+    if ( Number(this.amountB) == 0) {
       return
     }
-    if (payment.value == null ){
+    if (this.paymentB == null ){
       return
     }
-    if (invoice.value == null){
+    if (this.invoiceB == null){
       return
     }
     
-    this.runningTotal = this.runningTotal + Number(amount.value)
-    this.runningBalance = this.payload.amount - this.runningTotal
-    console.log("amt is " + this.payload.amount)
+    this.runningTotal = this.runningTotal + Number(this.amountB)
+    this.runningBalance = this.payload.rcptbal - this.runningTotal
+    console.log("amt is " + this.payload.rcptbal)
     console.log("running total is " + this.runningTotal )
-    if (this.runningTotal > this.payload.amount){
+    if (this.runningTotal > this.payload.rcptbal){
       alert("Not allowed, total amount is greater than invoice total");
-      this.runningTotal = this.runningTotal -  Number(amount.value)
-      this.runningBalance = this.runningBalance + Number(amount.value)
+      this.runningTotal = this.runningTotal -  Number(this.amountB)
+      this.runningBalance = this.runningBalance + Number(this.amountB)
       return;
     }
     this.count+=1
     this.dataSource.data.push({
       id: this.count,
-      invoice: invoice.value,
-      payment: payment.value,
-      amount: amount.value
+      invoice: this.invoiceB,
+      payment: this.paymentB,
+      amount: this.amountB
     });
     this.invoiceB="";
     this.paymentB="";

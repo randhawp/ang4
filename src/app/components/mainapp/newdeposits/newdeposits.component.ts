@@ -306,13 +306,16 @@ export class NewdepositsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
   getTableData(){
-    if (this.isLoadingResults == true) {
-      this.userDb = new ReceiptDao(this.webapi);
+    if (this.userDb != null){
+      console.log("data exists")
     }
+    //if (this.isLoadingResults == true) {
+      this.userDb = new ReceiptDao(this.webapi);
+    //}
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+   // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange, )
       .pipe(
         startWith({}),
         switchMap(() => {

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Post Receipt {{data.payload.id}} ?</h1>
+<h1 mat-dialog-title>Post Receipt {{data.payload.id}} ? Original Amt: {{data.payload.amount | currency}}</h1>
 
 <mat-dialog-content >
   
@@ -26,17 +26,17 @@
 
                 </div>
                 <div class="column" >
-                        <span  class="font-weight-bold">Total Amount {{data.payload.amount | currency}}</span>
+                        <span  class="font-weight-bold">Rcpt Balance {{data.payload.rcptbal | currency}}</span>
                 </div>
         </div>
         
         <div class="row">
             <div class="column-narrow"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
             <div class="column-narrow"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
-            <div class="column-narrow"> <mat-form-field>  <input matInput #amount  placeholder="Amount"  [(ngModel)]="amountB" currencyMask > </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #rcptbal  placeholder="Amount"  [(ngModel)]="amountB" currencyMask > </mat-form-field> </div>
         </div>
     
-        <button  class="mat-raised-button mat-primary"  (click)='addRow(invoice,payment,amount)'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal | currency}} &emsp; | &emsp; Balance: {{runningBalance |currency}} </b>
+        <button  class="mat-raised-button mat-primary"  (click)='addRow()'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal | currency}} &emsp; | &emsp; Balance: {{runningBalance |currency}} </b>
     <mat-card>       
         <mat-card-header>
             <mat-card-title>Post Details</mat-card-title>
@@ -96,7 +96,7 @@
     </button>
 
     <button class="mat-raised-button" 
-        (click)="deleteRow()" >Un-Post</button>    
+        (click)="deleteRow()" >Remove Row</button>    
         
     
 </mat-dialog-actions>

@@ -1,4 +1,6 @@
 /* Create two equal columns that floats next to each other */
+
+
 .column {
     float: left;
     width: 50%;
@@ -40,8 +42,9 @@
   .example-table {
     overflow: auto;
     min-height: 300px;
+    width:100%;
   }
-  
+ 
   .example-loading-shade {
     position: absolute;
     top: 0;
@@ -63,12 +66,44 @@
   
   /* Column Widths */
   .mat-column-number,
-  .mat-column-state {
-    max-width: 64px;
+  .mat-column-id {
+    max-width: 50px;
+    padding-right: 10px;
   }
-  
-  .mat-column-created {
-    max-width: 124px;
+  .mat-column-office {
+    max-width: 80px;
+    padding-right: 10px;
+  }
+  .mat-column-amount {
+    max-width: 100px;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+  }
+  .mat-column-invoice {
+    max-width: 80px;
+    padding-right: 10px;
+  }
+  .mat-column-paytype {
+    max-width: 80px;
+    padding-right: 10px;
+  }
+  .mat-column-rcvdfrom {
+    max-width: 250px;
+    padding-right: 10px;
+  }
+  .mat-column-date {
+    max-width: 85px;
+    padding-right: 10px;
+  }
+  .mat-column-agent {
+    max-width: 80px;
+    padding-right: 10px;
+  }
+  .mat-column-status {
+    max-width: 50px;
+    align-content: center;
   }
   .highlight{
     background: rgb(104, 113, 190); /* green */
@@ -104,11 +139,6 @@ input.ng-invalid.ng-touched {
   margin: 5px 16px;
 }
 
-.mat-column-amount {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 10px;
-  }
 
 
 @media screen  {
