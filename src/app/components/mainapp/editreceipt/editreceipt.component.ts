@@ -270,6 +270,20 @@ export class EditreceiptComponent implements OnInit {
     this.tableSelectedRow = i
     this.selectedRowIndex = row.id
     this.rowdata = row
+    console.log(this.rowdata.rstatus)
+    var voidbtn = this.rowdata.rstatus
+    var postbtn = this.rowdata.rstatus
+    if  (voidbtn == "BD" || voidbtn == "PP" || voidbtn=="FP"){
+      this.showVoidButton = false
+    } else{
+      this.showVoidButton = true
+    }
+
+    if (postbtn == "BD" || postbtn == "PP"){
+      this.showPostButton = true
+    }else{
+      this.showPostButton = false
+    }
   }
   selectRowToEdit(row){
     console.log(row)
