@@ -24,6 +24,11 @@ export class ChangepasswordComponent implements OnInit {
       alert("Passwords do not match ! Not chaning password.")
       return;
     }
+    if ( this.auth.isSessionValid() == true){
+      console.log("session is valid")
+    } else {
+      console.log("session expired")
+    }
     console.log(this.oldpassword)
     console.log(this.newpassword)
     console.log(this.newpassword1)

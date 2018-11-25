@@ -42,7 +42,7 @@ export class AuthService {
     this.awsService.refresh()
   }
   
-  
+
   forgotPassword(username){
     this.awsService.forgotPassword(username,this)
   
@@ -55,7 +55,9 @@ export class AuthService {
   forgotPasswordValidate(code,newpassword){
     this.awsService.forgotPasswordValidate(code,newpassword,this);
   }
-
+  isSessionValid(){
+    return this.awsService.isSessionValid()
+  }
 
   getVerificationMsgResult():string{
     return this.message

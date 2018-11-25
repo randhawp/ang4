@@ -55,6 +55,11 @@ export class WebapiService {
     if (this.isSessionStale() == true ){
       this.auth.refreshSession();
     }
+    if(this.auth.isSessionValid() == false) {
+      alert("Session expired: Log out and log in again")
+      console.log("Session expired")
+      return
+    }
     
     let headers = new HttpHeaders();
     let oh = headers.append('Content-Type', 'application/json');
@@ -88,6 +93,14 @@ export class WebapiService {
   }
   
   getUser(): Observable<User[]> {
+    if (this.isSessionStale() == true ){
+      this.auth.refreshSession();
+    }
+    if(this.auth.isSessionValid() == false) {
+      alert("Session expired: Log out and log in again")
+      console.log("Session expired")
+      return
+    }
 
     var name:string="admin?function=list_all"
     let headers = new HttpHeaders();
@@ -98,6 +111,14 @@ export class WebapiService {
   }
   
   getReceipts(office,datefrom,dateto,agent,amtfrom,amtto,role,receiptfrom,receiptto,forreason,filing_agent,paytype): Observable<Receipt[]> {
+    if (this.isSessionStale() == true ){
+      this.auth.refreshSession();
+    }
+    if(this.auth.isSessionValid() == false) {
+      alert("Session expired: Log out and log in again")
+      console.log("Session expired")
+      return
+    }
 
     var name:string="receipt?function=search&office="+office+"&datefrom="+datefrom+"&dateto="+dateto+"&agent="+agent
     +"&amtfrom="+amtfrom+"&amtto="+amtto+"&role="+role+"&receiptfrom="+receiptfrom+"&receiptto="+receiptto+"&fagent="+filing_agent
@@ -111,6 +132,14 @@ export class WebapiService {
   }
  
   getAllReceipts(): Observable<Receipt[]> {
+    if (this.isSessionStale() == true ){
+      this.auth.refreshSession();
+    }
+    if(this.auth.isSessionValid() == false) {
+      alert("Session expired: Log out and log in again")
+      console.log("Session expired")
+      return
+    }
 
     var office="surrey"
     var datefrom = 0
@@ -129,6 +158,14 @@ export class WebapiService {
     return this.http.get<Receipt[]>(finalurl,{headers: oh1});
   }
   getAllReceiptsForDeposit(): Observable<Receipt[]> {
+    if (this.isSessionStale() == true ){
+      this.auth.refreshSession();
+    }
+    if(this.auth.isSessionValid() == false) {
+      alert("Session expired: Log out and log in again")
+      console.log("Session expired")
+      return
+    }
 
     var name:string="receipt?function=listdepositreceipts&depositid=0"
     console.log(name)
