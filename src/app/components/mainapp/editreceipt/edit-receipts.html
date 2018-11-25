@@ -140,7 +140,7 @@
         Close
     </button>
 
-    <button class="mat-raised-button mat-primary" [disabled]="!f.valid"  
+    <button class="mat-raised-button mat-primary" *ngIf="showEditSaveButton" [disabled]="!f.valid"  
             (click)="save()">
         Save
     </button>

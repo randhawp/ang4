@@ -413,7 +413,7 @@ export class EditreceiptComponent implements OnInit {
     }
      
     if (this.mode == "EDIT"){
-      console.log("edited" + message)
+      console.log("edited -- " + message)
     }
 
     if (this.mode == "BANK"){
@@ -560,6 +560,7 @@ export class DialogReceiptEditor {
   form: FormGroup;
   usdIsChecked:boolean;
   isPayType:boolean;
+  showEditSaveButton:boolean;
   paytypes = [
     {value: 'cheque', viewValue: 'Cheque'},
     {value: 'directdeposit', viewValue: 'Direct Deposit'},
@@ -577,7 +578,7 @@ export class DialogReceiptEditor {
       console.log("=====usd value=========")
       console.log("["+this.payload.usd+"]")
       console.log("==============")
-      
+      this.showEditSaveButton =true
       if (this.payload.usd == true || this.payload.usd == "true" ){
         this.usdIsChecked = true;
         console.log("usd is false")
@@ -587,6 +588,10 @@ export class DialogReceiptEditor {
       }
       if(this.payload.paytype == "visa"){
         this.isPayType = true;
+      }
+      if(this.payload.rstatus != "na"){
+        console.log("STATUS: "+this.payload.rstatus)
+        this.showEditSaveButton = false
       }
 
       console.log(this.payload.paytype)
