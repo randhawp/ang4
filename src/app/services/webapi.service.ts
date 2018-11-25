@@ -167,7 +167,7 @@ export class WebapiService {
       return
     }
 
-    var name:string="receipt?function=listdepositreceipts&depositid=0"
+    var name:string="receipt?function=listdepositreceipts&depositid=0&office="+this.state.office
     console.log(name)
     let headers = new HttpHeaders();
     let oh = headers.append('Content-Type', 'application/json');
