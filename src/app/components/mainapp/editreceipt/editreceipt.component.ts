@@ -340,7 +340,8 @@ export class EditreceiptComponent implements OnInit {
         this.editedForm.fortrip = encodeURIComponent(this.editedForm.fortrip)
         this.url="receipt?function=edit_receipt&paytype="+this.editedForm.paytype+"&rcvdfrom="+this.editedForm.rcvdfrom+
     "&invoice="+this.editedForm.invoice+"&lockstate=x&remark="+this.editedForm.remark+"&fortrip="+this.editedForm.fortrip+
-    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.editedForm.office+"&date="+this.rowdata.date
+    "&usd="+this.editedForm.usd+"&agent="+this.state.user+"&status=na&amount="+this.editedForm.amount+"&office="+this.editedForm.office+"&date="+this.rowdata.date+
+    "&updateon="+this.rowdata.updateon
     console.log("*********** " +this.url)
     this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
