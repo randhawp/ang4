@@ -214,7 +214,7 @@
                 
               </mat-table>
             
-              <mat-paginator #paginator [length]="resultsLength" [pageSize]="5">
+              <mat-paginator #paginator [length]="resultsLength" [pageSize]="pagesize"  (page)="onPaginateChange($event)">
               </mat-paginator>
               
             </div>

@@ -88,6 +88,8 @@ export class EditreceiptComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
+  pagesize=5
+  currentSearchResultPageNo = 0;
 
   current:Date = new Date()
   milliseconds = this.current.getTime()
@@ -264,22 +266,30 @@ export class EditreceiptComponent implements OnInit {
     this.panel2.open()
     this.selectedAgent=""
   }
+  onPaginateChange(event){
+    //alert(JSON.stringify("Current page index: " + event.pageIndex));
+    console.log("current page " + event.pageIndex)
+    this.currentSearchResultPageNo =  event.pageIndex
+    
+  }
 
   highlight(row,i){
     console.log(i);
+    var currentrow = this.pagesize * this.currentSearchResultPageNo + i
+    console.log("Actual row " + currentrow)
     this.tableSelectedRow = i
     this.selectedRowIndex = row.id
     this.rowdata = row
     console.log(this.rowdata.rstatus)
     var voidbtn = this.rowdata.rstatus
     var postbtn = this.rowdata.rstatus
-    if  (voidbtn == "BD" || voidbtn == "PP" || voidbtn=="FP"){
+    if  (voidbtn == "BD" || voidbtn == "PP" || voidbtn=="FP" || voidbtn=="void"){
       this.showVoidButton = false
     } else{
       this.showVoidButton = true
     }
 
-    if (postbtn == "BD" || postbtn == "PP"){
+    if (postbtn == "BD" || postbtn == "PP" || postbtn == "void"){
       this.showPostButton = true
     }else{
       this.showPostButton = false
@@ -407,15 +417,35 @@ export class EditreceiptComponent implements OnInit {
   webapiCallback(message: string, result: any){
 
     console.log(message)
+    let  arr:string[] = message.split("|")
+    var status:string = arr[0]
+    var servermsg:string = arr[1]
+    var currentrow = this.pagesize * this.currentSearchResultPageNo + this.tableSelectedRow
     if ( this.mode == "DELETE"){
       console.log("mode is delete")
       //this.dataSource.data[this.selectedRowIndex] = null
-      this.dataSource.data.splice(this.tableSelectedRow, 1);
+      console.log(currentrow)
+      this.dataSource.data.splice(currentrow, 1);
       this.dataSource.paginator = this.paginator;
+      if (status == "1"){
+        console.log("voided")
+        alert("Receipt is now void")
+      } else{
+        alert("Failed to void, please refresh and try again. "+ servermsg)
+      }
+
+    
+
     }
      
     if (this.mode == "EDIT"){
       console.log("edited -- " + message)
+      if (status == "1"){
+        console.log("edit")
+        alert("Receipt edited successfully")
+      } else{
+        alert("Failed to save, refresh and try again. "+ servermsg )
+      }
     }
 
     if (this.mode == "BANK"){
@@ -425,6 +455,14 @@ export class EditreceiptComponent implements OnInit {
     }
     if (this.mode == "POST"){
       console.log("posted")
+      this.dataSource.data.splice(currentrow, 1);
+      this.dataSource.paginator = this.paginator;
+      if (status == "1"){
+        console.log("post")
+        alert("Receipt posted successfully")
+      } else{
+        alert("Failed to post, refresh and try again." + servermsg)
+      }
     }
   }
 
@@ -451,7 +489,8 @@ export class EditreceiptComponent implements OnInit {
         this.mode="DELETE"
         this.url="receipt?function=edit_receipt&paytype="+"void"+"&rcvdfrom="+"void"+
     "&invoice="+"void"+"&lockstate=x&remark="+"void"+"&fortrip="+"void"+
-    "&usd="+"false"+"&agent="+this.state.user+"&status=void&amount="+0+"&office="+this.rowdata.office+"&date="+this.rowdata.date
+    "&usd="+"false"+"&agent="+this.state.user+"&status=void&amount="+0+"&office="+this.rowdata.office+"&date="+this.rowdata.date+
+    "&updateon="+this.rowdata.updateon
     console.log(this.url)
     this.webapi.call('POST',this.url,this,null)
     this.receiptForm.reset();
