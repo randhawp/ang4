@@ -371,7 +371,8 @@ export class EditreceiptComponent implements OnInit {
         if ( amount < this.rowdata.amount){
           status = "PP"
         }
-        this.url="receipt?function=post_details&id="+this.rowdata.id+"&amount="+amount+"&status="+status+"&office="+this.rowdata.office+"&date="+this.rowdata.date+"&orignalamt="+this.rowdata.amount+"&rcptbal="+this.rowdata.rcptbal
+        this.url="receipt?function=post_details&id="+this.rowdata.id+"&amount="+amount+"&status="+status+"&office="+this.rowdata.office+"&date="+this.rowdata.date+
+        "&orignalamt="+this.rowdata.amount+"&rcptbal="+this.rowdata.rcptbal+"&updateon="+this.rowdata.updateon
         console.log(this.url)
         this.webapi.call('POST',this.url,this,data)
         this.mode="POST"
@@ -751,7 +752,7 @@ export class DialogPostReceipt  {
   addRow() {
     console.log("amount is ")
     console.log(this.amountB)
-    if ( Number(this.amountB) == 0) {
+    if ( Number(this.amountB) <= 0) {
       return
     }
     if (this.paymentB == null ){
