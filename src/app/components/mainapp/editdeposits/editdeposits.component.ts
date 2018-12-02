@@ -82,7 +82,7 @@ export class EditdepositsComponent implements OnInit {
     }
     if (this.mode == "SEARCH"){
       console.log(result)
-      console.log(result[0])
+      //console.log(result[0])
       this.dataSource.data = result
       this.dataSource.paginator = this.paginator;
       this.panel1.close()
@@ -91,10 +91,15 @@ export class EditdepositsComponent implements OnInit {
       
     }
     if(this.mode == "UNDEPOSIT"){
-      if(message == "undeposited"){
+      console.log("undeposit")
+      let  arr:string[] = message.split("|")
+      var status:string = arr[0]
+      var servermsg:string = arr[1]
+      
+      if(status == "1"){
         alert("The deposit was rolled back")
       }else{
-        alert("Rollaback of the deposit failed")
+        alert("Rollaback of the deposit failed. Refresh and try again")
       }
      
       this.panel3.close()
