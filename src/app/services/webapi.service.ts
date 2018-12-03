@@ -110,7 +110,7 @@ export class WebapiService {
     return this.http.get<User[]>(finalurl,{headers: oh1});
   }
   
-  getReceipts(office,datefrom,dateto,agent,amtfrom,amtto,role,receiptfrom,receiptto,forreason,filing_agent,paytype): Observable<Receipt[]> {
+  getReceipts(office,datefrom,dateto,agent,amtfrom,amtto,role,receiptfrom,receiptto,forreason,filing_agent,paytype,rcvdfrom): Observable<Receipt[]> {
     if (this.isSessionStale() == true ){
       this.auth.refreshSession();
     }
@@ -122,7 +122,7 @@ export class WebapiService {
 
     var name:string="receipt?function=search&office="+office+"&datefrom="+datefrom+"&dateto="+dateto+"&agent="+agent
     +"&amtfrom="+amtfrom+"&amtto="+amtto+"&role="+role+"&receiptfrom="+receiptfrom+"&receiptto="+receiptto+"&fagent="+filing_agent
-    +"&paytype="+paytype
+    +"&paytype="+paytype+"&rcvdfrom="+rcvdfrom
     console.log(name)
     let headers = new HttpHeaders();
     let oh = headers.append('Content-Type', 'application/json');

@@ -200,6 +200,7 @@ export class EditreceiptComponent implements OnInit {
     console.log(this.receiptForm.value.receiptFormData.for)
     console.log(this.selectedAgent)
     console.log(this.receiptForm.value.receiptFormData.paytype)
+    console.log(this.receiptForm.value.receiptFormData.rcvdfrom)
 
 
     var office:string;
@@ -232,6 +233,7 @@ export class EditreceiptComponent implements OnInit {
     let forreason = this.receiptForm.value.receiptFormData.for
     let filing_agent = this.selectedAgent
     let paytype =  this.receiptForm.value.receiptFormData.paytype
+    let rcvdfrom = this.receiptForm.value.receiptFormData.rcvdfrom
     
     if (amtfrom == null || amtfrom == ""){
       amtfrom=0
@@ -254,13 +256,16 @@ export class EditreceiptComponent implements OnInit {
     if ( paytype == null || paytype == "") {
       paytype = "0"
     }
+    if (rcvdfrom == null || rcvdfrom ==""){
+      rcvdfrom=""
+    }
     //this.dataSource.disconnect
     //this.dataSource.data = null
 
     console.log("### Starting Search Phase 1 end ###")
     //this.url="receipt?function=search&datefrom=0&dateto=0&office=surrey"
     //console.log(this.url)
-    this.getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype)
+    this.getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype,rcvdfrom)
     //this.receiptForm.reset();
     this.panel1.close()
     this.panel2.open()
@@ -501,7 +506,7 @@ export class EditreceiptComponent implements OnInit {
     this.paginator.pageIndex = 0
     this.dataSource.paginator = this.paginator;
   }
-  getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype){
+  getTableData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype,rcvdfrom){
     console.log(">>>>>>>>>> DB <<<<<<<<<<<<<<")
     if (this.userDb != null){
       console.log("data exists")
@@ -519,7 +524,7 @@ export class EditreceiptComponent implements OnInit {
         switchMap(() => {
           this.isLoadingResults = true;
           //return this.userDb!.getUsers(this.sort.active, this.sort.direction, this.paginator.pageIndex);
-          this.userDb.setData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype)
+          this.userDb.setData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype,rcvdfrom)
           return this.userDb!.getReceipts()
         }),
         map(data => {
@@ -563,9 +568,10 @@ export class ReceiptDao {
   forreason:string;
   filing_agent:string;
   paytype:string;
+  rcvdfrom:string;
 
 
-  setData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype){
+  setData(office,amtfrom,amtto,datefrom,dateto,role,user,receiptfrom,receiptto,forreason,filing_agent,paytype,rcvdfrom){
     this.office = office
     this.amtfrom = amtfrom
     this.amtto = amtto
@@ -578,6 +584,7 @@ export class ReceiptDao {
     this.forreason = forreason;
     this.filing_agent = filing_agent;
     this.paytype = paytype
+    this.rcvdfrom = rcvdfrom
   }
 
   //connect(): Observable<Receipt[]> {
@@ -585,7 +592,7 @@ export class ReceiptDao {
   //}
 
   getReceipts(): Observable<Receipt[]> {
-    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role,this.receiptfrom,this.receiptto,this.forreason,this.filing_agent,this.paytype);
+    return this.webapi.getReceipts(this.office,this.datefrom,this.dateto,this.agent,this.amtfrom,this.amtto,this.role,this.receiptfrom,this.receiptto,this.forreason,this.filing_agent,this.paytype,this.rcvdfrom);
   }
 }
 
