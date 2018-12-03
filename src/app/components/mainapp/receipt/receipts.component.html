@@ -14,7 +14,7 @@
             
             <div class="form-group">
                 <label for="forreason">Received From</label>
-                <input type="text" id="rcvdfrom"  pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" maxlength="30"  #name="ngModel"  class="form-control" ngModel name="rcvdfrom"  required>
+                <input type="text" id="rcvdfrom"  pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" maxlength="36"  #name="ngModel"  class="form-control" ngModel name="rcvdfrom"  required>
                 <div>
                   <div   *ngIf="name.errors?.pattern">
                    <p class="alert alert-danger">
