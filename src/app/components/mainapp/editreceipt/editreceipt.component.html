@@ -224,7 +224,7 @@
               <!--button md-raised-button (click)="selectRow()" >Print</button>    <span style="width: 10px"></span-->
               <button  *ngIf="showVoidButton" class="mat-raised-button" (click)="selectRowToVoid()" >Void</button>    <span style="width: 10px"></span>
               <button  *ngIf="showPostButton" class="mat-raised-button" (click)="selectRowToPost()" >Post</button>    <span style="width: 10px"></span>
-             
+              <button  *ngIf="showEditPostButton" class="mat-raised-button" (click)="selectRowToEditPost()" >Edit Posted</button>    <span style="width: 10px"></span>
           </div>
         </mat-expansion-panel>
       </mat-accordion>

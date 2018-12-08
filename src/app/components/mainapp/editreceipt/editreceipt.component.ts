@@ -46,6 +46,7 @@ export class EditreceiptComponent implements OnInit {
   showVoidButton:boolean = false;
   showPostButton:boolean = false;
   showUnPostButton:boolean = false;
+  showEditPostButton:boolean = false;
   listofagents:any;
   selectedAgent:string;
   
@@ -142,6 +143,7 @@ export class EditreceiptComponent implements OnInit {
       this.showVoidButton = true
       this.showPostButton = true
       this.showUnPostButton = true
+      this.showEditPostButton = true
     }else if( this.state.access == "SADMIN"){
       
       console.log("systed admin")
@@ -298,6 +300,11 @@ export class EditreceiptComponent implements OnInit {
       this.showPostButton = true
     }else{
       this.showPostButton = false
+    }
+    if(postbtn == "PP" || postbtn == "FP"){
+      this.showEditPostButton = true
+    } else {
+      this.showEditPostButton = false
     }
   }
   selectRowToEdit(row){
