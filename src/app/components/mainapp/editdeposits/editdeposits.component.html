@@ -173,6 +173,7 @@
               </div>
               <div class="row">
                   <button class="mat-raised-button mat-primary" (click)="unPost()" > Void Deposit </button>
+                  <button class="mat-raised-button mat-primary" (click)="printDeposit()" > Print </button>
                 </div>
           </mat-expansion-panel>
         </mat-accordion>
@@ -180,6 +181,72 @@
            
           
     </div>
+
+           
+    <div id="print-section" class="print-section"   >
+      <h3> Bains Trust- A/C No: {{lastBank}}  </h3>
+      <h3> Date: {{selectedDate *1000 | date}} </h3>
+      <h3>Deposit Id: {{selectedDepositId }}</h3>
+      <table table-layout="auto" width="80%">
+        <thead  font-weight="bold" >
+            <th text-align="left">Item</th>
+            <th text-align="left">Type</th>
+            <th text-align="left">Rcvd From</th>
+            <th text-align="left">Rcpt Id</th>
+            <th text-align="left">Amount</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of printReceiptList">
+              <td text-align="left">{{p.id}}</td>
+              <td text-align="left">{{ p.paytype | readablePayTypes }}</td>
+              <td text-align="left">{{p.rcvdfrom}}</td>
+              <td text-align="left">{{p.id}}</td>
+              <td align="right">{{p.amount | currency}}</td>
+          </tr>
+        </tbody>
+        <tfoot  border-top="2px solid #444444" >
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="right">Total</td>
+            <td align="right" >{{ printrcpttotal | currency}}</td>
+          </tr>
+        </tfoot>
+     </table>
+     <p></p>
+     <h3 *ngIf="isCash" >Cash break down</h3>
+     
+     <p></p>
+    <ng-container *ngIf="isCash">
+            <table >
+              <tbody>
+              <tr>
+                <td>{{lastReceipt100}}</td> <td>x100 =</td> <td align="right">{{lastReceipt100 * 100 | currency}}</td>
+              </tr>
+              <tr>
+                <td>{{lastReceipt50}}</td> <td>x50 =</td> <td  align="right">{{lastReceipt50 * 50 | currency}}</td>
+              </tr>
+              <tr>
+                <td>{{lastReceipt20}}</td> <td>x20 =</td> <td  align="right">{{lastReceipt20 * 20 | currency}}</td>
+              </tr>
+              <tr>
+                <td>{{lastReceipt10}}</td> <td>x10 =</td> <td  align="right">{{lastReceipt10 * 10 | currency}}</td>
+              </tr>
+              <tr>
+                <td>{{lastReceipt5}}</td> <td>x5=</td> <td  align="right">{{lastReceipt5 * 5 | currency}}</td>
+              </tr>
+              <tr>
+                <td></td> <td>Coins</td> <td  align="right">{{lastReceiptcoins|currency}}</td>
+              </tr>
+              <tr>
+              <td></td> <td>Total</td> <td  align="right">{{printcash | currency}}</td>
+              </tr>  
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+
           
           
     

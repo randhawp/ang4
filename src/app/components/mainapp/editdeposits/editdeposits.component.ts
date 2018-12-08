@@ -25,6 +25,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 export class EditdepositsComponent implements OnInit {
   selectedBank:string;
   selectedBankName:string;
+  lastBank:string;
   mode:string="";
   url:string;
   rowdata: any;
@@ -40,7 +41,9 @@ export class EditdepositsComponent implements OnInit {
   selectedBankAc:string
   selectedDate:number
   panelOpenState:boolean;
-
+  printReceiptList=[]
+  receiptslist:string=""
+  printrcpttotal:number=0;
   displayedColumns = ['depositid', 'datecreated', 'depositamt','actions'];
   displayedColumnsDetail = ['date', 'amount', 'agentname','invoice','rcvdfrom','fortrip'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -79,6 +82,7 @@ export class EditdepositsComponent implements OnInit {
       this.bankdata = result
       this.selectedBankName = result[0].fullname
       this.selectedBank = result[0].code
+      this.lastBank = this.selectedBankName
     }
     if (this.mode == "SEARCH"){
       console.log(result)
@@ -88,6 +92,7 @@ export class EditdepositsComponent implements OnInit {
       this.panel1.close()
       console.log("closing panel1")
       this.panel2.open()
+    
       
     }
     if(this.mode == "UNDEPOSIT"){
@@ -108,6 +113,7 @@ export class EditdepositsComponent implements OnInit {
     
   }
   selectRow(row){
+    let amt:number
     this.rowdata = row
     console.log(row)
     console.log(row.details)
@@ -120,6 +126,24 @@ export class EditdepositsComponent implements OnInit {
       //this.dataSource.paginator = this.paginator;
     this.panel2.close()
     this.panel3.open()
+    var data = arr
+    console.log("########")
+    console.log(data)
+    this.printReceiptList=[]
+    this.receiptslist=""
+    this.printrcpttotal=0
+    var i = 0;
+  for(let e of data) {
+    this.receiptslist = this.receiptslist+","+e['id']+","+e['office']+","+e['date'] //WARNING do not change this format or else change on server too
+
+    var v={"id": e["id"], "office": e['office'], "date": e['date'],"rcvdfrom": e['rcvdfrom'],"amount":e['amount'],"paytype":e['paytype']} 
+    this.printReceiptList.push(v)
+    amt = parseFloat(e['amount'] )
+    console.log(amt)
+    this.printrcpttotal = this.printrcpttotal + amt
+    console.log(this.printrcpttotal)
+    i+=1
+  }
    
   }
   highlight(row,i){
@@ -153,6 +177,34 @@ export class EditdepositsComponent implements OnInit {
     console.log(this.url)
     this.webapi.call('POST',this.url,this,null)
     this.mode="UNDEPOSIT"
+  }
+
+  printDeposit(){
+    console.log("print")
+    //console.log(this.printcah)
+    let printContents, popupWin;
+    //document.getElementById('print-section').innerHTML;
+    //dummy = document.getElementById('print-section').innerHTML;
+    printContents = document.getElementById('print-section').innerHTML;
+    
+    console.log(printContents)
+    popupWin = window.open('', '_blank', 'top=50,left=50,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title></title>
+          <style>
+          //........Customized style.......
+          </style>
+        </head>
+    <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    
+    popupWin.document.close();
+    
+
   }
 
 
