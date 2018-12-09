@@ -1,0 +1,103 @@
+<h1 mat-dialog-title> Edit Posted Receipt {{data.payload.id}} ? Original Amt: {{data.payload.amount | currency}}</h1>
+
+<mat-dialog-content >
+  
+        <div class="row">
+                <div class="column" >
+                    <span  class="font-weight-bold">Receipt No {{data.payload.id}}</span>
+
+                </div>
+                <div class="column" >
+                        <span  class="font-weight-bold">Agent {{data.payload.agentname}}</span>
+                </div>
+        </div>
+        <div class="row">
+                <div class="column" >
+                    <span  class="font-weight-bold">Date {{data.payload.date | date}}</span>
+
+                </div>
+                <div class="column" >
+                        <span  class="font-weight-bold">Invoice No. {{data.payload.invoice}}</span>
+                </div>
+        </div>
+        <div class="row">
+                <div class="column" >
+                    <span  class="font-weight-bold">Received From {{data.payload.rcvdfrom}}</span>
+
+                </div>
+                <div class="column" >
+                        <span  class="font-weight-bold">Rcpt Balance {{data.payload.rcptbal | currency}}</span>
+                </div>
+        </div>
+        
+        <div class="row">
+            <div class="column-narrow"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
+            <div class="column-narrow"> <mat-form-field>  <input matInput #rcptbal  placeholder="Amount"  [(ngModel)]="amountB" currencyMask > </mat-form-field> </div>
+        </div>
+    
+        <button  class="mat-raised-button mat-primary"  (click)='addRow()'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal | currency}} &emsp; | &emsp; Balance: {{runningBalance |currency}} </b>
+    <mat-card>       
+        <mat-card-header>
+            <mat-card-title>Post Details</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-header>        
+        <mat-table #table [dataSource]="dataSource">
+            
+                <!--- Note that these columns can be defined in any order.
+                       The actual rendered columns are set as a property on the row definition" -->
+                 <!-- Invoice -->
+                 <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                  </ng-container>
+              
+                <!-- Invoice -->
+                <ng-container matColumnDef="invoice">
+                  <mat-header-cell *matHeaderCellDef> Invoice </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.invoice}} </mat-cell>
+                </ng-container>
+              
+                <!-- Payment -->
+                <ng-container matColumnDef="payment">
+                  <mat-header-cell *matHeaderCellDef> Payment# </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.payment}} </mat-cell>
+                </ng-container>
+              
+                <!-- Amount -->
+                <ng-container matColumnDef="amount">
+                  <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+              
+                </ng-container>
+                
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
+                [ngClass]="{'highlight': selectedRowIndex == row.id}"
+                (click)="highlight(row,i)"> </mat-row>
+              </mat-table>
+
+        
+    </mat-card>
+
+        
+</mat-dialog-content>
+ 
+<mat-dialog-actions>
+    
+    <button class="mat-raised-button"
+    (click)="onNoClick()">
+        Cancel
+    </button>
+    
+    <button class="mat-raised-button mat-primary" 
+        (click)="save()">
+        Post Receipt
+    </button>
+
+    <button class="mat-raised-button" 
+        (click)="deleteRow()" >Remove Row</button>    
+        
+    
+</mat-dialog-actions>
+    

@@ -13,7 +13,7 @@ import { ChangepasswordComponent} from './components/mainapp/changepassword/chan
 import { NewsComponent} from './components/mainapp/news/news.component';
 import { BankComponent } from './components/mainapp/bank/bank.component';
 
-import { EditreceiptComponent,DialogReceiptEditor,DialogVoidReceipt, DialogPostReceipt, DialogUnPostReceipt } from './components/mainapp/editreceipt/editreceipt.component'
+import { EditreceiptComponent,DialogReceiptEditor,DialogVoidReceipt, DialogPostReceipt, DialogUnPostReceipt,DialogEditPostReceipt } from './components/mainapp/editreceipt/editreceipt.component'
 
 import {CdkTableModule} from '@angular/cdk/table';
 import { AppMaterialModules } from './material.module';
@@ -49,6 +49,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/ces
     MenuComponent,
     ReceiptComponent,
     EditreceiptComponent,
+    DialogEditPostReceipt,
     SignupComponent,
     ForgotpasswordComponent,
     ForgotpasswordvalidatecodeComponent,
@@ -87,7 +88,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/ces
     
    
   ],
-  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor,DialogVoidReceipt,DialogPostReceipt,DialogUnPostReceipt,DialogCashBox ],
+  entryComponents: [DialogEditUser,DialogDeleteUser,DialogReceiptEditor,DialogVoidReceipt,DialogPostReceipt,DialogUnPostReceipt,DialogCashBox,DialogEditPostReceipt ],
   providers: [StateService,MessageService,WebapiService,AwsService,AuthService,AuthGuard,],
   bootstrap: [AppComponent]
 })
