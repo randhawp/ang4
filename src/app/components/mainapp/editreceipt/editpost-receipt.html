@@ -29,54 +29,52 @@
                         <span  class="font-weight-bold">Rcpt Balance {{data.payload.rcptbal | currency}}</span>
                 </div>
         </div>
-        
-        <div class="row">
-            <div class="column-narrow"> <mat-form-field>  <input matInput #invoice  placeholder="Invoice"  [(ngModel)]="invoiceB"> </mat-form-field> </div>
-            <div class="column-narrow"> <mat-form-field>  <input matInput #payment placeholder="Payment"  [(ngModel)]="paymentB" > </mat-form-field> </div>
-            <div class="column-narrow"> <mat-form-field>  <input matInput #rcptbal  placeholder="Amount"  [(ngModel)]="amountB" currencyMask > </mat-form-field> </div>
-        </div>
-    
-        <button  class="mat-raised-button mat-primary"  (click)='addRow()'>Add Row</button> <b> &emsp;&emsp; Running Total: {{runningTotal | currency}} &emsp; | &emsp; Balance: {{runningBalance |currency}} </b>
+       
     <mat-card>       
         <mat-card-header>
             <mat-card-title>Post Details</mat-card-title>
             <mat-card-subtitle></mat-card-subtitle>
         </mat-card-header>        
-        <mat-table #table [dataSource]="dataSource">
-            
-                <!--- Note that these columns can be defined in any order.
-                       The actual rendered columns are set as a property on the row definition" -->
-                 <!-- Invoice -->
-                 <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-                  </ng-container>
-              
-                <!-- Invoice -->
+   
+            <mat-table #table [dataSource]="dataSource">
+        
+                <!-- Invoice Column -->
                 <ng-container matColumnDef="invoice">
-                  <mat-header-cell *matHeaderCellDef> Invoice </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.invoice}} </mat-cell>
+                    <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                    <mat-cell *matCellDef="let e"> {{e.invoice}} </mat-cell>
                 </ng-container>
-              
-                <!-- Payment -->
+        
+                <!-- Payment Column -->
                 <ng-container matColumnDef="payment">
-                  <mat-header-cell *matHeaderCellDef> Payment# </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.payment}} </mat-cell>
+                    <mat-header-cell *matHeaderCellDef> Payment </mat-header-cell>
+                    <mat-cell *matCellDef="let e">
+                        <mat-form-field floatLabel="never">
+                            <input matInput placeholder="Payment" [value]="e.payment" [(ngModel)]="e.payment">
+                        </mat-form-field>
+                    </mat-cell>
                 </ng-container>
-              
-                <!-- Amount -->
-                <ng-container matColumnDef="amount">
-                  <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
-              
-                </ng-container>
+        
                 
+                <!-- Amount Column -->
+                <ng-container matColumnDef="amount">
+                    <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+                    <mat-cell *matCellDef="let e">
+                        <mat-form-field floatLabel="never">
+                            <input matInput placeholder="Amount" [value]="e.amount" [(ngModel)]="e.amount">
+                        </mat-form-field>
+                    </mat-cell>
+                </ng-container>
+        
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell  *matHeaderCellDef > Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                         <button mat-button >Edit</button>
+                    </mat-cell>
+                  </ng-container>
+        
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns;  let i = index;"  
-                [ngClass]="{'highlight': selectedRowIndex == row.id}"
-                (click)="highlight(row,i)"> </mat-row>
-              </mat-table>
-
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
         
     </mat-card>
 

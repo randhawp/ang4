@@ -420,23 +420,8 @@ export class EditreceiptComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       data =>  {
         if (data != null) {
-        this.editedForm = data;
-        console.log("############")
-        console.log(this.rowdata.amount)
-        console.log(this.rowdata.rcptbal)
-        var amount = dialogRef.componentInstance.getRunningTotal()
-        var status=""
-        if ( amount == this.rowdata.amount){
-          status = "FP"
-        }
-        if ( amount < this.rowdata.amount){
-          status = "PP"
-        }
-        this.url="receipt?function=post_details&id="+this.rowdata.id+"&amount="+amount+"&status="+status+"&office="+this.rowdata.office+"&date="+this.rowdata.date+
-        "&orignalamt="+this.rowdata.amount+"&rcptbal="+this.rowdata.rcptbal+"&updateon="+this.rowdata.updateon
-        console.log(this.url)
-        this.webapi.call('POST',this.url,this,data)
-        this.mode="POST"
+      
+        
         console.log("############")
         
         }}
@@ -920,83 +905,40 @@ export class DialogEditPostReceipt  {
   runningBalance:number=0;
   count=0;
   title = "app";
-  displayedColumns = ["invoice", "payment", "amount"];
+  displayedColumns = ["invoice", "payment", "amount","actions"];
   dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
   selection = new SelectionModel<Element>(true, []);
   rowdata:any
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   
-  constructor( public dialogRef: MatDialogRef<DialogPostReceipt>,  @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor( public dialogRef: MatDialogRef<DialogPostReceipt>,  @Inject(MAT_DIALOG_DATA) public data: any,
+              private webapi:WebapiService) {
       this.payload = data.payload
       
   }
 
-  deleteRow(){
-    var rmvdamt=0
-    console.log("removing row")
-    console.log(this.selectedRowIndex - 1)
-    console.log(this.tableSelectedRow)
-    console.log(this.dataSource.data[this.tableSelectedRow].amount)
-    rmvdamt = this.dataSource.data[this.tableSelectedRow].amount
-    this.runningTotal = this.runningTotal - Number(rmvdamt)
-    this.runningBalance = this.payload.amount - this.runningTotal
-
-    this.dataSource.data.splice(this.tableSelectedRow , 1);
-    this.selection = new SelectionModel<Element>(true, []);
-    this.dataSource = new MatTableDataSource<Element>(this.dataSource.data);
-    
-  }
-
-  getRunningTotal(){
-    return this.runningTotal;
-  }
-
+ 
   ngOnInit() {
-   this.runningTotal=0;
-  }
-  searchElements(search: string = "") {
-    console.log(search);
-    this.dataSource.filter = search.toLowerCase().trim();
-  }
-  addRow() {
-    console.log("amount is ")
-    console.log(this.amountB)
-    if ( Number(this.amountB) <= 0) {
-      return
-    }
-    if (this.paymentB == null ){
-      return
-    }
-    if (this.invoiceB == null){
-      return
-    }
     
-    this.runningTotal = this.runningTotal + Number(this.amountB)
-    this.runningBalance = this.payload.rcptbal - this.runningTotal
-    console.log("amt is " + this.payload.rcptbal)
-    console.log("running total is " + this.runningTotal )
-    if (this.runningTotal > this.payload.rcptbal){
-      alert("Not allowed, total amount is greater than invoice total");
-      this.runningTotal = this.runningTotal -  Number(this.amountB)
-      this.runningBalance = this.runningBalance + Number(this.amountB)
-      return;
-    }
-    this.count+=1
-    this.dataSource.data.push({
-      id: this.count,
-      invoice: this.invoiceB,
-      payment: this.paymentB,
-      amount: this.amountB
-    });
-    this.invoiceB="";
-    this.paymentB="";
-    this.amountB=0;
-    this.dataSource.filter = "";
+    this.runningTotal=0;
+    var data;
+    var url="receipt?function=listposting&id="+this.payload.id
+    console.log(url)
+    this.webapi.call('POST',url,this,this.data)
+        
+    console.log("init called ..." + this.payload.id)
   }
-
+  
+  webapiCallback(message: string, result: any){
+     
+    const msg2 = JSON.stringify(result)
+    var msg = JSON.parse(msg2)
+    console.log(msg)
+  }
   onNoClick(): void {
     this.dialogRef.close();
   }
+ 
   save() {
     this.dialogRef.close(this.dataSource.data);
    
@@ -1004,18 +946,9 @@ export class DialogEditPostReceipt  {
 
   highlight(row,i){
     console.log(i);
-    //this.tableSelectedRow = i+1
-    //this.selectedRowIndex = i+1
-    //this.rowdata = row
-
-    
     this.tableSelectedRow = i
     this.selectedRowIndex = row.id
-  
   }
-       
- 
-
  connect() { }
  disconnect() { }
 }
