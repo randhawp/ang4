@@ -4,8 +4,8 @@ import { MessageService} from './message.service'
 import { StateService } from './state.service';
 import {AuthService} from './auth.service'
 import {  CognitoUser, CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, CognitoUserSession } from 'amazon-cognito-identity-js';
-import { Observable }   from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable }   from 'rxjs';
+
 import {User} from '../models/users'
 import {Receipt} from '../models/receipt'
 export interface Callback {

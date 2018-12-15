@@ -3,8 +3,7 @@ import {NgForm} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Callback } from '../../services/aws.service';
 import {Router} from '@angular/router'
-import {Observable} from 'rxjs/Observable'
-import { Subscription } from 'rxjs/Subscription';
+import {Observable,  Subscription } from 'rxjs'
 import { MessageService} from '../../services/message.service'
 
 @Component({

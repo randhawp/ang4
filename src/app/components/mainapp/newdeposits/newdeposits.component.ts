@@ -5,13 +5,8 @@ import {StateService} from '../../../services/state.service'
 import {WebapiService} from '../../../services/webapi.service'
 import { MessageService} from '../../../services/message.service'
 
-import {Observable} from 'rxjs/Observable';
-import {merge} from 'rxjs/observable/merge';
-import {of as observableOf} from 'rxjs/observable/of';
-import {catchError} from 'rxjs/operators/catchError';
-import {map} from 'rxjs/operators/map';
-import {startWith} from 'rxjs/operators/startWith';
-import {switchMap} from 'rxjs/operators/switchMap';
+import {Observable, merge, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {Receipt} from '../../../models/receipt'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";

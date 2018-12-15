@@ -1,13 +1,8 @@
 import {Component, OnInit, ViewChild,Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
-import {merge} from 'rxjs/observable/merge';
-import {of as observableOf} from 'rxjs/observable/of';
-import {catchError} from 'rxjs/operators/catchError';
-import {map} from 'rxjs/operators/map';
-import {startWith} from 'rxjs/operators/startWith';
-import {switchMap} from 'rxjs/operators/switchMap';
+import {Observable, merge, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {User} from '../../../models/users'
 import {WebapiService} from '../../../services/webapi.service'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';

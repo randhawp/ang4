@@ -1,8 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+
+
 import * as AWS from "aws-sdk";
 import * as awsservice from "aws-sdk/lib/service";
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
@@ -396,7 +397,7 @@ export class AwsService {
       }
     });
   }
-
+/*
   getInfoApiUserPools(token):Observable<any>{
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -405,8 +406,8 @@ export class AwsService {
         .map(res => res.json().Items[0])
         .catch(this._serverError);
 
-  }
-
+  } */
+/*
   postInfoApiUserPools(token):Observable<any>{ 
     let headers = new Headers();
     let body = {};
@@ -415,7 +416,7 @@ export class AwsService {
     return this._http.post(this.apiURL+"/test",JSON.stringify(body), {headers: headers})
             .map(res => res.json())
             .catch(this._serverError);
-  }
+  }*/
 
   authenticateIdentityPool(user,password,region,callback){
     let authenticationData = {
@@ -563,10 +564,10 @@ export class AwsService {
   private _serverError(err: any) {
         console.log('sever error:', JSON.stringify(err));  // debug
         if(err.status === 0){
-            return Observable.throw(err.json().error || 'UNAUTHORIZED!!!');
+            return observableThrowError(err.json().error || 'UNAUTHORIZED!!!');
         }
         if(err instanceof Response) {
-          return Observable.throw(err.json().error || 'Backend Server Error');
+          return observableThrowError(err.json().error || 'Backend Server Error');
         }
         // return Observable.throw(err || 'Backend Server Error');
     }

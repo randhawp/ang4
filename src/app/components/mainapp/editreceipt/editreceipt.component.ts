@@ -5,13 +5,8 @@ import {StateService} from '../../../services/state.service'
 import {WebapiService} from '../../../services/webapi.service'
 import { MessageService} from '../../../services/message.service'
 
-import {Observable} from 'rxjs/Observable';
-import {merge} from 'rxjs/observable/merge';
-import {of as observableOf} from 'rxjs/observable/of';
-import {catchError} from 'rxjs/operators/catchError';
-import {map} from 'rxjs/operators/map';
-import {startWith} from 'rxjs/operators/startWith';
-import {switchMap} from 'rxjs/operators/switchMap';
+import {Observable, merge, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {Receipt} from '../../../models/receipt'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
@@ -905,9 +900,10 @@ export class DialogEditPostReceipt  {
   runningBalance:number=0;
   count=0;
   title = "app";
-  displayedColumns = ["invoice", "payment", "amount","actions"];
-  dataSource = new MatTableDataSource<Element>(this.ELEMENT_DATA);
-  selection = new SelectionModel<Element>(true, []);
+  INVOICE_DATA=[{"balance":3650,"payment":"AAA","amountedit":"200","id":1,"invoice":"111"},{"balance":3650,"payment":"BBB","amountedit":"150","id":2,"invoice":"222"}]
+  displayedColumns = ["id","invoice", "payment", "amountedit","action"];
+  dataSource = new MatTableDataSource<Invoice>(this.INVOICE_DATA);
+  selection = new SelectionModel<Invoice>(true, []);
   rowdata:any
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   
@@ -928,12 +924,41 @@ export class DialogEditPostReceipt  {
         
     console.log("init called ..." + this.payload.id)
   }
+
+  getTotalCost() {
+    return this.INVOICE_DATA.map(t => parseFloat(t.amountedit)).reduce((acc, value) => acc + (value), 0);
+  }
   
   webapiCallback(message: string, result: any){
      
     const msg2 = JSON.stringify(result)
-    var msg = JSON.parse(msg2)
-    console.log(msg)
+    var json = JSON.parse(msg2)
+   
+    var objf={}
+    var Details=[]
+    for(var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        console.log(obj.details.length)
+        for(var k = 0; k < obj.details.length; k++) {
+            console.log(obj.details[k]['payment'])
+            var payment = obj.details[k]['payment']
+            var amountx = obj.details[k]['amount']
+            var id = obj.details[k]['id']
+            var invoice = obj.details[k]['invoice']
+
+            objf = Object.assign({balance:obj.rcptbal}, {payment: payment},{amountedit:amountx},{id:id},{invoice:invoice});
+            console.log(objf)
+            Details.push(objf)
+        }
+   
+    }
+    console.log(Details.length)
+
+    var j = JSON.stringify(Details)
+    //j = j.replace(new RegExp(`[$\\[\\]]`, 'g'), '');
+    console.log(j)
+    this.INVOICE_DATA=JSON.parse(j)
+    this.dataSource = new MatTableDataSource<Invoice>(this.INVOICE_DATA);
   }
   onNoClick(): void {
     this.dialogRef.close();
@@ -954,8 +979,20 @@ export class DialogEditPostReceipt  {
 }
 
 export interface Element {
-  id:number;
-  invoice: string;
+
   payment: string;
   amount: number;
+  id:number;
+  invoice: string;
+ 
+ 
+}
+export interface Invoice {
+  balance:number;
+  payment: string;
+  amountedit: string;
+  id:number;
+  invoice: string;
+ 
+ 
 }
