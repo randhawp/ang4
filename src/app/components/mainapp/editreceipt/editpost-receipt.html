@@ -39,18 +39,18 @@
         <table mat-table [dataSource]="INVOICE_DATA">
       
             <!-- Item Column -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> Id </th>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> Date </th>
               
-              <td mat-cell *matCellDef="let e"> <input matInput placeholder="Id" [value]="e.id" [(ngModel)]="e.id" > </td>
+              <td mat-cell *matCellDef="let e"> {{e.date | date}} </td>
              
-              <td mat-footer-cell *matFooterCellDef> Total </td>
+              <td mat-footer-cell *matFooterCellDef>Total:</td>
             </ng-container>
         
              <ng-container matColumnDef="invoice">
               <th mat-header-cell *matHeaderCellDef> Invoice </th>
               
-              <td mat-cell *matCellDef="let e"> <input matInput placeholder="Invoice" [value]="e.invoice" [(ngModel)]="e.invoice" > </td>
+              <td mat-cell *matCellDef="let e"> <input matInput placeholder="Invoice" (change)="invoiceChange()" [value]="e.invoice" [(ngModel)]="e.invoice" maxlength="30" required pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*" > </td>
              
               <td mat-footer-cell *matFooterCellDef>  </td>
             </ng-container>
@@ -58,7 +58,7 @@
             <ng-container matColumnDef="payment">
               <th mat-header-cell *matHeaderCellDef> Payment </th>
               
-              <td mat-cell *matCellDef="let e"> <input matInput placeholder="Payment" [value]="e.payment" [(ngModel)]="e.payment" > </td>
+              <td mat-cell *matCellDef="let e"> <input matInput placeholder="Payment" (change)="paymentChange()"  [value]="e.payment" [(ngModel)]="e.payment" maxlength="30" required pattern="[A-Za-z0-9 #-_$%@{}()\[\],.?!]*"> </td>
              
               <td mat-footer-cell *matFooterCellDef>  </td>
             </ng-container>
@@ -66,28 +66,22 @@
             <ng-container matColumnDef="amountedit">
               <th mat-header-cell *matHeaderCellDef> Amount </th>
               
-              <td mat-cell *matCellDef="let e"  > <input matInput placeholder="Amount" [value]="e.amountedit" [(ngModel)]="e.amountedit" style="text-align:right;" > </td>
+              <td mat-cell *matCellDef="let e"  > <input matInput placeholder="Amount" (change)="amtChange()" pattern="^[0-9]+(\.[0-9]{1,2})?$"   [value]="e.amountedit" [(ngModel)]="e.amountedit"  min="1.00" max="1000000.00"  required style="text-align:right;" > </td>
              
              <td mat-footer-cell *matFooterCellDef style="text-align:right; padding:10" > {{getTotalCost() | currency}} </td>
             </ng-container>
         
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef> Action </th>
-              
-              <td mat-cell *matCellDef="let e"> <button mat-button-primary> Save </button></td>
-             
-              <td mat-footer-cell *matFooterCellDef>  </td>
-            </ng-container>
+           
         
            
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"  (click)="highlight(row,i)"></tr>
             <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
           </table>
         
     </mat-card>
-
+   
         
 </mat-dialog-content>
  
@@ -97,7 +91,11 @@
     (click)="onNoClick()">
         Cancel
     </button>
-    
+    <div class="alert alert-danger" *ngIf="error == 1">{{ errmsg }}</div>
+    <div *ngIf="error == 0">
+        <button class="mat-raised-button" (click)="saveChanges()"> Save Changes </button>
+      
+   </div>
     
    
     

@@ -6,7 +6,7 @@ import {WebapiService} from '../../../services/webapi.service'
 import { MessageService} from '../../../services/message.service'
 
 import {Observable, merge, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {catchError, map, startWith, switchMap, isEmpty} from 'rxjs/operators';
 import {Receipt} from '../../../models/receipt'
 import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
@@ -898,10 +898,22 @@ export class DialogEditPostReceipt  {
   tableSelectedRow:number=-1;
   selectedRowIndex:number=-1;
   runningBalance:number=0;
+  originalamt:number=0;
+  newbalance:number=0;
+  selectedrow:any;
   count=0;
+  error=0;
+  excess=0;
+  temptotal=0;
+  errmsg:String=""
   title = "app";
-  INVOICE_DATA=[{"balance":3650,"payment":"AAA","amountedit":"200","id":1,"invoice":"111"},{"balance":3650,"payment":"BBB","amountedit":"150","id":2,"invoice":"222"}]
-  displayedColumns = ["id","invoice", "payment", "amountedit","action"];
+  url:string=""
+  mode:string=""
+  postdata=[]
+  Details=[]
+  changedRows={}
+  INVOICE_DATA=[]//{"balance":3650,"payment":"AAA","amountedit":"200","id":1,"invoice":"111"},{"balance":3650,"payment":"BBB","amountedit":"150","id":2,"invoice":"222"}]
+  displayedColumns = ["date","invoice", "payment", "amountedit"];
   dataSource = new MatTableDataSource<Invoice>(this.INVOICE_DATA);
   selection = new SelectionModel<Invoice>(true, []);
   rowdata:any
@@ -910,6 +922,7 @@ export class DialogEditPostReceipt  {
   constructor( public dialogRef: MatDialogRef<DialogPostReceipt>,  @Inject(MAT_DIALOG_DATA) public data: any,
               private webapi:WebapiService) {
       this.payload = data.payload
+      this.error=0;
       
   }
 
@@ -926,35 +939,41 @@ export class DialogEditPostReceipt  {
   }
 
   getTotalCost() {
-    return this.INVOICE_DATA.map(t => parseFloat(t.amountedit)).reduce((acc, value) => acc + (value), 0);
+  
+    this.temptotal = this.INVOICE_DATA.map(t => parseFloat(t.amountedit)).reduce((acc, value) => acc + (value), 0);
+  
+    return this.temptotal
   }
   
   webapiCallback(message: string, result: any){
      
     const msg2 = JSON.stringify(result)
     var json = JSON.parse(msg2)
-   
+   console.log(json)
     var objf={}
-    var Details=[]
+   
     for(var i = 0; i < json.length; i++) {
         var obj = json[i];
+        this.originalamt = obj.orignalamt
+        console.log("original amt is ")
+        console.log(this.originalamt)
         console.log(obj.details.length)
         for(var k = 0; k < obj.details.length; k++) {
             console.log(obj.details[k]['payment'])
             var payment = obj.details[k]['payment']
-            var amountx = obj.details[k]['amount']
+            var amountx = parseFloat(obj.details[k]['amount'])
             var id = obj.details[k]['id']
             var invoice = obj.details[k]['invoice']
 
-            objf = Object.assign({balance:obj.rcptbal}, {payment: payment},{amountedit:amountx},{id:id},{invoice:invoice});
+            objf = Object.assign({date:( obj.updateon * 1000)},{balance:obj.rcptbal}, {payment: payment},{amountedit:amountx},{id:id},{invoice:invoice});
             console.log(objf)
-            Details.push(objf)
+            this.Details.push(objf)
         }
    
     }
-    console.log(Details.length)
+    console.log(this.Details.length)
 
-    var j = JSON.stringify(Details)
+    var j = JSON.stringify(this.Details)
     //j = j.replace(new RegExp(`[$\\[\\]]`, 'g'), '');
     console.log(j)
     this.INVOICE_DATA=JSON.parse(j)
@@ -963,16 +982,66 @@ export class DialogEditPostReceipt  {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  invoiceChange(){
+    if ( (this.selectedrow.invoice.length == 0)){
+      this.error=1
+      console.log("empty invoice")
+      this.errmsg = " Error: invoice details cannot be empty"
+      return
+    }
+
+  }
  
-  save() {
-    this.dialogRef.close(this.dataSource.data);
-   
+
+  paymentChange(){
+    if ( (this.selectedrow.payment.length == 0)){
+      this.error=1
+      console.log("empty payment")
+      this.errmsg = " Error: payment details cannot be empty"
+      return
+    }
+
+  }
+ 
+  
+  amtChange(){
+    console.log(this.selectedrow)
+    if ( isNaN(this.selectedrow.amountedit)){
+      this.error=1
+      console.log("not a number")
+      this.errmsg = " Error: Not a valid currency amount"
+      return
+    }
+    if (this.temptotal > this.originalamt){
+      this.excess = this.temptotal - this.originalamt
+      this.error=1
+      this.errmsg = " Error: Total exceeds receipt total"
+      return 0;
+    } else{
+      this.error=0
+    }
+    this.newbalance = this.originalamt - this.temptotal
+  }
+ 
+  
+  saveChanges(){
+  
+    console.log(this.INVOICE_DATA)
+    let status="PP"
+    let office="xx"
+    this.url="receipt?function=editpost_details&id="+this.payload.id+"&amount="+this.payload.amount+"&status="+status+"&office="+office+"&date="+this.payload.date+
+        "&orignalamt="+this.payload.amount+"&rcptbal="+this.payload.rcptbal+"&updateon="+this.payload.date
+        console.log(this.url)
+        this.webapi.call('POST',this.url,this,this.INVOICE_DATA)
+        this.mode="POST"
+  
   }
 
   highlight(row,i){
     console.log(i);
     this.tableSelectedRow = i
     this.selectedRowIndex = row.id
+    this.selectedrow=row
   }
  connect() { }
  disconnect() { }
@@ -988,6 +1057,8 @@ export interface Element {
  
 }
 export interface Invoice {
+
+  date:string;
   balance:number;
   payment: string;
   amountedit: string;
