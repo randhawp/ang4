@@ -63,10 +63,10 @@
               <td mat-footer-cell *matFooterCellDef>  </td>
             </ng-container>
            
-            <ng-container matColumnDef="amountedit">
+            <ng-container matColumnDef="amount">
               <th mat-header-cell *matHeaderCellDef> Amount </th>
               
-              <td mat-cell *matCellDef="let e"  > <input matInput placeholder="Amount" (change)="amtChange()" pattern="^[0-9]+(\.[0-9]{1,2})?$"   [value]="e.amountedit" [(ngModel)]="e.amountedit"  min="1.00" max="1000000.00"  required style="text-align:right;" > </td>
+              <td mat-cell *matCellDef="let e"  > <input matInput placeholder="Amount" (change)="amtChange()" pattern="^[0-9]+(\.[0-9]{1,2})?$"   [value]="e.amount" [(ngModel)]="e.amount"  min="1.00" max="1000000.00"  required style="text-align:right;" > </td>
              
              <td mat-footer-cell *matFooterCellDef style="text-align:right; padding:10" > {{getTotalCost() | currency}} </td>
             </ng-container>

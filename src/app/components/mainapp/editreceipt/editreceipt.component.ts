@@ -913,14 +913,14 @@ export class DialogEditPostReceipt  {
   Details=[]
   changedRows={}
   INVOICE_DATA=[]//{"balance":3650,"payment":"AAA","amountedit":"200","id":1,"invoice":"111"},{"balance":3650,"payment":"BBB","amountedit":"150","id":2,"invoice":"222"}]
-  displayedColumns = ["date","invoice", "payment", "amountedit"];
+  displayedColumns = ["date","invoice", "payment", "amount"];
   dataSource = new MatTableDataSource<Invoice>(this.INVOICE_DATA);
   selection = new SelectionModel<Invoice>(true, []);
   rowdata:any
   //constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
   
   constructor( public dialogRef: MatDialogRef<DialogPostReceipt>,  @Inject(MAT_DIALOG_DATA) public data: any,
-              private webapi:WebapiService) {
+              private webapi:WebapiService, public state:StateService) {
       this.payload = data.payload
       this.error=0;
       
@@ -940,12 +940,23 @@ export class DialogEditPostReceipt  {
 
   getTotalCost() {
   
-    this.temptotal = this.INVOICE_DATA.map(t => parseFloat(t.amountedit)).reduce((acc, value) => acc + (value), 0);
+    this.temptotal = this.INVOICE_DATA.map(t => parseFloat(t.amount)).reduce((acc, value) => acc + (value), 0);
   
     return this.temptotal
   }
   
   webapiCallback(message: string, result: any){
+
+    if (this.mode == "POST"){
+      console.log(result)
+      let  arr:string[] = message.split("|")
+      var status:string = arr[0]
+      var servermsg:string = arr[1]
+      alert(servermsg)
+      
+      this.dialogRef.close();
+      return
+    }
      
     const msg2 = JSON.stringify(result)
     var json = JSON.parse(msg2)
@@ -965,7 +976,7 @@ export class DialogEditPostReceipt  {
             var id = obj.details[k]['id']
             var invoice = obj.details[k]['invoice']
 
-            objf = Object.assign({date:( obj.updateon * 1000)},{balance:obj.rcptbal}, {payment: payment},{amountedit:amountx},{id:id},{invoice:invoice});
+            objf = Object.assign({date:( obj.updateon * 1000)},{balance:obj.rcptbal}, {payment: payment},{amount:amountx},{id:id},{invoice:invoice});
             console.log(objf)
             this.Details.push(objf)
         }
@@ -1006,7 +1017,7 @@ export class DialogEditPostReceipt  {
   
   amtChange(){
     console.log(this.selectedrow)
-    if ( isNaN(this.selectedrow.amountedit)){
+    if ( isNaN(this.selectedrow.amount)){
       this.error=1
       console.log("not a number")
       this.errmsg = " Error: Not a valid currency amount"
@@ -1028,9 +1039,9 @@ export class DialogEditPostReceipt  {
   
     console.log(this.INVOICE_DATA)
     let status="PP"
-    let office="xx"
-    this.url="receipt?function=editpost_details&id="+this.payload.id+"&amount="+this.payload.amount+"&status="+status+"&office="+office+"&date="+this.payload.date+
-        "&orignalamt="+this.payload.amount+"&rcptbal="+this.payload.rcptbal+"&updateon="+this.payload.date
+    let office= this.state.office
+    this.url="receipt?function=editpost_details&id="+this.payload.id+"&amount="+this.temptotal+"&status="+status+"&office="+office+"&date="+this.payload.date+
+        "&orignalamt="+this.payload.amount+"&rcptbal="+this.payload.rcptbal+"&updateon="+this.payload.updateon
         console.log(this.url)
         this.webapi.call('POST',this.url,this,this.INVOICE_DATA)
         this.mode="POST"
@@ -1061,7 +1072,7 @@ export interface Invoice {
   date:string;
   balance:number;
   payment: string;
-  amountedit: string;
+  amount: string;
   id:number;
   invoice: string;
  
