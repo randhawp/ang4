@@ -39,6 +39,7 @@ export class EditdepositsComponent implements OnInit {
   printReceiptList=[]
   receiptslist:string=""
   printrcpttotal:number=0;
+  isCash:boolean=false;
   displayedColumns = ['depositid', 'datecreated', 'depositamt','actions'];
   displayedColumnsDetail = ['date', 'amount', 'agentname','invoice','rcvdfrom','fortrip'];
   @ViewChild(MatPaginator) paginator: MatPaginator;

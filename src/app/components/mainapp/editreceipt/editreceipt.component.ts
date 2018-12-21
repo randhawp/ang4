@@ -414,10 +414,16 @@ export class EditreceiptComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(
       data =>  {
+        console.log("Closed edit post 0")
+        var currentrow = this.pagesize * this.currentSearchResultPageNo + this.tableSelectedRow
+        console.log(currentrow)
+        this.dataSource.data.splice(currentrow, 1);
+        this.dataSource.paginator = this.paginator;
+        
         if (data != null) {
       
         
-        console.log("############")
+        console.log("Closed edit post")
         
         }}
   );
