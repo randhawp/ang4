@@ -176,7 +176,8 @@ export class ReceiptComponent implements OnInit {
       this.lastPayType = this.receiptData.paytype
       this.lastRcvdFrom = this.receiptData.rcvdfrom
       this.lastReceiptAmount = this.receiptData.amount
-      
+      this.lastReceiptFor = this.receiptData.forreason
+
       this.state.receiptCount = this.receiptCount
       this.state.lastPayType = this.lastPayType
       this.state.lastRcvdFrom = this.lastRcvdFrom
@@ -185,6 +186,7 @@ export class ReceiptComponent implements OnInit {
       this.state.lastReceiptFor = this.receiptData.forreason 
       this.state.lastReceiptInvoice =  this.receiptData.invoice
       console.log("setting invoice as " + this.state.lastReceiptInvoice)
+      console.log("LAST RCPT FOR " + this.state.lastReceiptFor )
       this.paytypecontrol='credit'
     } else {
       this.returnval = 1
