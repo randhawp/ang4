@@ -13,6 +13,8 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {SelectionModel} from '@angular/cdk/collections';
 import {SetPayTypesPipe} from '../utilities/readablePayTypes'
 
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-newdeposits',
   templateUrl: './newdeposits.component.html',
@@ -122,11 +124,16 @@ export class NewdepositsComponent implements OnInit {
   lastBank :string="";
   datetoday:Date;
 
-  constructor(public webapi: WebapiService ,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
+  constructor(public webapi: WebapiService ,public auth:AuthService,private router:Router,public state:StateService,private messageService: MessageService,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.officeName = this.state.office;
     this.datetoday = new Date();
+
+    if (this.auth.isLogged() == false  ){
+      console.log("user not logged in")
+      this.router.navigate(['login']);
+    }
 
     if (this.state.access == "AGENT" || this.state.access == "BADMIN"){
       this.role =1;
@@ -416,6 +423,11 @@ export class NewdepositsComponent implements OnInit {
   }
 
   makeDeposit(){
+
+    if (this.auth.isLogged() == false  ){
+      console.log("user not logged in")
+      this.router.navigate(['login']);
+    }
 
     this.printReceiptList=[]
     //this.isCash=false;
