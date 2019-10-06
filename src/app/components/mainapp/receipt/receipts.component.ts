@@ -50,6 +50,7 @@ export class ReceiptComponent implements OnInit {
   receiptData = {
     rcvdfrom: '',
     forreason: '',
+    forreasonnonuri:'',
     agent: '',
     amount: 0,
     usd: false,
@@ -85,6 +86,7 @@ export class ReceiptComponent implements OnInit {
     this.submitted = true;
     this.receiptData.rcvdfrom = this.receiptForm.value.receiptFormData.rcvdfrom;
     this.receiptData.forreason = encodeURIComponent(this.receiptForm.value.receiptFormData.forreason);
+    this.receiptData.forreasonnonuri = this.receiptForm.value.receiptFormData.forreason;
     this.receiptData.agent = this.state.user
     this.receiptData.amount = this.receiptForm.value.receiptFormData.amount;
     this.receiptData.usd = this.receiptForm.value.receiptFormData.usd;
@@ -176,14 +178,14 @@ export class ReceiptComponent implements OnInit {
       this.lastPayType = this.receiptData.paytype
       this.lastRcvdFrom = this.receiptData.rcvdfrom
       this.lastReceiptAmount = this.receiptData.amount
-      this.lastReceiptFor = this.receiptData.forreason
+      this.lastReceiptFor = this.receiptData.forreasonnonuri
 
       this.state.receiptCount = this.receiptCount
       this.state.lastPayType = this.lastPayType
       this.state.lastRcvdFrom = this.lastRcvdFrom
       this.state.lastReceiptAmount = this.lastReceiptAmount
       this.state.lastReceiptId = this.lastReceiptId
-      this.state.lastReceiptFor = this.receiptData.forreason 
+      this.state.lastReceiptFor = this.receiptData.forreasonnonuri; 
       this.state.lastReceiptInvoice =  this.receiptData.invoice
       console.log("setting invoice as " + this.state.lastReceiptInvoice)
       console.log("LAST RCPT FOR " + this.state.lastReceiptFor )
