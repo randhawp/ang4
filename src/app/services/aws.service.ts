@@ -8,7 +8,7 @@ import * as AWS from "aws-sdk";
 import * as awsservice from "aws-sdk/lib/service";
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
 import * as AWSCognito from 'amazon-cognito-identity-js';
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, CognitoIdentityServiceProvider,
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser, 
   CognitoAccessToken,CognitoIdToken,CognitoRefreshToken, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { stringType } from 'aws-sdk/clients/iam';
 
