@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild,Inject,ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {MatPaginator, MatSort, MatTableDataSource, MatExpansionPanel} from '@angular/material';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {StateService} from '../../../services/state.service'
 import {WebapiService} from '../../../services/webapi.service'
 import { MessageService} from '../../../services/message.service'
@@ -8,7 +11,7 @@ import { MessageService} from '../../../services/message.service'
 import {Observable, merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {Receipt} from '../../../models/receipt'
-import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import {SelectionModel} from '@angular/cdk/collections';
 

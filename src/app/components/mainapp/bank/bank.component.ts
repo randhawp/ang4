@@ -1,11 +1,13 @@
 import {Component, OnInit, ViewChild,Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import {Observable, merge, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {User} from '../../../models/users'
 import {WebapiService} from '../../../services/webapi.service'
-import {MatDialog,MatDialogRef,MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Pipe, PipeTransform } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import {Router} from '@angular/router';
