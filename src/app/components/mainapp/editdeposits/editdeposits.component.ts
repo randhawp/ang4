@@ -45,10 +45,10 @@ export class EditdepositsComponent implements OnInit {
   isCash:boolean=false;
   displayedColumns = ['depositid', 'datecreated', 'depositamt','actions'];
   displayedColumnsDetail = ['date', 'amount', 'agentname','invoice','rcvdfrom','fortrip'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('panel1') panel1: MatExpansionPanel;
-  @ViewChild('panel2') panel2: MatExpansionPanel;
-  @ViewChild('panel3') panel3: MatExpansionPanel;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('panel1', { static: true }) panel1: MatExpansionPanel;
+  @ViewChild('panel2', { static: true }) panel2: MatExpansionPanel;
+  @ViewChild('panel3', { static: true }) panel3: MatExpansionPanel;
   
   resultsLength = 0;
 

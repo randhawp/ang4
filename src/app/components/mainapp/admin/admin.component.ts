@@ -35,8 +35,8 @@ export class AdminComponent  implements OnInit {
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private http: HttpClient, private webapi:WebapiService,public dialog: MatDialog,private ref: ChangeDetectorRef,public auth:AuthService,private router:Router) {}
 

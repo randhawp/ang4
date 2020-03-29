@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
   message:string;
   user:string;
   index:number = 0;
-  @ViewChild('f') receiptForm: NgForm;
+  @ViewChild('f', { static: true }) receiptForm: NgForm;
   selectedValue: string;
 
   offices = [

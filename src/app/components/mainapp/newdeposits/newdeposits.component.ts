@@ -51,8 +51,8 @@ export class NewdepositsComponent implements OnInit {
   ];
 
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   paytypes = [
     {value: 'cheque', viewValue: 'Cheque'},

@@ -35,8 +35,10 @@ import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './components/mainapp/admin/admin.component';
 
-import {SetPayTypesPipe} from './components/mainapp/utilities/readablePayTypes'
-import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/cesarrew/ng2-currency-mask
+import { SetPayTypesPipe } from './components/mainapp/utilities/readablePayTypes'
+import { NgxCurrencyModule } from "ngx-currency"; //https://github.com/nbfontana/ngx-currency
+//import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/cesarrew/ng2-currency-mask (not ivy compatible)
+
 //import { DataTableModule } from 'angular-4-data-table';
 //import { DataFilterPipe } from './data-filter.pipe';
 
@@ -75,7 +77,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/ces
   ],
   imports: [
     BrowserModule,
-   // BrowserAnimationsModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
@@ -84,7 +86,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/ces
     CdkTableModule, 
     AppMaterialModules,
     ReactiveFormsModule,
-    CurrencyMaskModule
+    NgxCurrencyModule
+    //CurrencyMaskModule
     
    
   ],

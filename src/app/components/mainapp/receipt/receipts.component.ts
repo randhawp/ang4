@@ -12,7 +12,7 @@ import {SetPayTypesPipe} from '../utilities/readablePayTypes'
   styleUrls: ['./receipts.component.css']
 })
 export class ReceiptComponent implements OnInit {
-  @ViewChild('f') receiptForm: NgForm;
+  @ViewChild('f', { static: true }) receiptForm: NgForm;
   submitted = false;
   url:string;
   paytypecontrol:string='credit'

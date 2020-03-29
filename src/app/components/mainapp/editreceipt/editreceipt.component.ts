@@ -22,9 +22,9 @@ import {SetPayTypesPipe} from '../utilities/readablePayTypes'
   styleUrls: ['./editreceipt.component.css']
 })
 export class EditreceiptComponent implements OnInit {
-  @ViewChild('f') receiptForm: NgForm;
-  @ViewChild('panel1') panel1: MatExpansionPanel;
-  @ViewChild('panel2') panel2: MatExpansionPanel;
+  @ViewChild('f', { static: true }) receiptForm: NgForm;
+  @ViewChild('panel1', { static: true }) panel1: MatExpansionPanel;
+  @ViewChild('panel2', { static: true }) panel2: MatExpansionPanel;
   panelOpenState: boolean = false;
   submitted = false;
   receiptData = {
@@ -50,8 +50,8 @@ export class EditreceiptComponent implements OnInit {
   
   
   
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   paytypes = [
     {value: 'cheque', viewValue: 'Cheque'},
