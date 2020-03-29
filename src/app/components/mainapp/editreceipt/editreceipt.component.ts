@@ -13,9 +13,9 @@ import {catchError, map, startWith, switchMap, isEmpty} from 'rxjs/operators';
 import {Receipt} from '../../../models/receipt'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
-import {SelectionModel} from '@angular/cdk/collections'
-import {SetPayTypesPipe} from '../utilities/readablePayTypes'
-
+import { SelectionModel } from '@angular/cdk/collections';
+import { SetPayTypesPipe } from '../utilities/readablePayTypes';
+import { PrintCurrencyType } from '../utilities/printCurrencyType';
 @Component({
   selector: 'app-editreceipt',
   templateUrl: './editreceipt.component.html',
@@ -662,10 +662,10 @@ export class DialogReceiptEditor {
       this.showEditSaveButton =true
       if (this.payload.usd == true || this.payload.usd == "true" ){
         this.usdIsChecked = true;
-        console.log("usd is false")
+        console.log("usd is true")
       }else{
         this.usdIsChecked = false;
-        console.log("usd is true")
+        console.log("usd is false")
       }
       if(this.payload.paytype == "visa"){
         this.isPayType = true;
@@ -897,7 +897,7 @@ export class DialogPostReceipt  {
 })
 export class DialogEditPostReceipt  {
      
-  payload
+  payload: any;
   ELEMENT_DATA: Element[] = [];
   runningTotal:number = 0;
   @ViewChild('f') receiptForm: NgForm;

@@ -35,7 +35,9 @@ import {WebapiService} from './services/webapi.service'
 import { ForgotpasswordvalidatecodeComponent } from './components/forgotpasswordvalidatecode/forgotpasswordvalidatecode.component';
 import { AdminComponent,DialogEditUser,SetRolePipe,DialogDeleteUser } from './components/mainapp/admin/admin.component';
 
-import { SetPayTypesPipe } from './components/mainapp/utilities/readablePayTypes'
+import { SetPayTypesPipe } from './components/mainapp/utilities/readablePayTypes';
+import { PrintCurrencyType } from './components/mainapp/utilities/printCurrencyType';
+
 import { NgxCurrencyModule } from "ngx-currency"; //https://github.com/nbfontana/ngx-currency
 //import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/cesarrew/ng2-currency-mask (not ivy compatible)
 
@@ -69,7 +71,8 @@ import { NgxCurrencyModule } from "ngx-currency"; //https://github.com/nbfontana
     NewsComponent,
     BankComponent,
     DialogCashBox,
-    SetPayTypesPipe
+    SetPayTypesPipe,
+    PrintCurrencyType
 
   //  DataFilterPipe
    
