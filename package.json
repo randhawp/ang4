@@ -28,11 +28,11 @@
     "angular-4-data-table": "^0.4.6",
     "angular2-datatable": "^0.6.0",
     "aws-sdk": "^2.377.0",
-    "core-js": "^2.6.0",
+    "core-js": "^2.6.11",
     "material-design-icons": "^3.0.1",
     "ng-recaptcha": "^3.0.5",
     "ng2-currency-mask": "^5.3.1",
-    "rxjs": "^6.3.3",
+    "rxjs": "^6.5.4",
     "tslib": "^1.9.0",
     "upgrade": "^1.1.0",
     "zone.js": "^0.10.3"
@@ -44,7 +44,7 @@
     "@angular/language-service": "9.1.0",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "^2.0.6",
-    "@types/node": "^6.0.118",
+    "@types/node": "^6.14.9",
     "codelyzer": "~3.1.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
@@ -57,6 +57,6 @@
     "protractor": "^5.4.1",
     "ts-node": "^8.8.1",
     "tslint": "^6.1.0",
-    "typescript": "3.1.6"
+    "typescript": "~3.8.3"
   }
 }

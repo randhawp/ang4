@@ -75,7 +75,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask"; //https://github.com/ces
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
+   // BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
