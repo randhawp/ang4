@@ -1,6 +1,6 @@
 # Ang4
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) initial version 1.4.1 and now 9.1.0
 
 ## Development server
 
