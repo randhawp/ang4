@@ -5,7 +5,8 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/commo
 import {WebapiService} from '../../../services/webapi.service'
 import {StateService} from '../../../services/state.service'
 import { Alert } from '../../../../../node_modules/@types/selenium-webdriver';
-import {SetPayTypesPipe} from '../utilities/readablePayTypes'
+import { SetPayTypesPipe } from '../utilities/readablePayTypes'
+import { PrintCurrencyType } from '../utilities/printCurrencyType'
 @Component({
   selector: 'app-receipts',
   templateUrl: './receipts.component.html',
@@ -29,7 +30,8 @@ export class ReceiptComponent implements OnInit {
   lastReceiptDate:string=null;
   lastReceiptAgent:string=null  ;
   lastReceiptFor:string=null;
-  lastReceiptInvoice:string=null;
+  lastReceiptInvoice: string = null;
+  lastReceiptUSD: boolean;
 
 
   PayTypes = ['Debit', 'Visa', 'American','Cash'];
@@ -44,7 +46,7 @@ export class ReceiptComponent implements OnInit {
     this.lastReceiptAgent = this.state.lastReceiptAgent
     this.lastReceiptInvoice = this.state.lastReceiptInvoice
     this.lastReceiptFor = this.state.lastReceiptFor
-
+    this.lastReceiptUSD = this.state.lastReceiptUSD
 
   }
   receiptData = {
@@ -179,7 +181,7 @@ export class ReceiptComponent implements OnInit {
       this.lastRcvdFrom = this.receiptData.rcvdfrom
       this.lastReceiptAmount = this.receiptData.amount
       this.lastReceiptFor = this.receiptData.forreasonnonuri
-
+      this.lastReceiptUSD = this.receiptData.usd
       this.state.receiptCount = this.receiptCount
       this.state.lastPayType = this.lastPayType
       this.state.lastRcvdFrom = this.lastRcvdFrom
@@ -188,7 +190,8 @@ export class ReceiptComponent implements OnInit {
       this.state.lastReceiptFor = this.receiptData.forreasonnonuri; 
       this.state.lastReceiptInvoice =  this.receiptData.invoice
       console.log("setting invoice as " + this.state.lastReceiptInvoice)
-      console.log("LAST RCPT FOR " + this.state.lastReceiptFor )
+      console.log("LAST RCPT FOR " + this.state.lastReceiptFor)
+      console.log("LAST RCPT ysd " + this.lastReceiptUSD)
       this.paytypecontrol='credit'
     } else {
       this.returnval = 1
