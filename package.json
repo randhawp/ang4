@@ -26,7 +26,7 @@
     "@angular/router": "9.1.0",
     "amazon-cognito-identity-js": "^3.2.6",
     "angular-datatables": "^9.0.1",
-    "aws-sdk": "^2.377.0",
+    "aws-sdk": "^2.814.0",
     "core-js": "^3.6.4",
     "datatables.net": "^1.10.20",
     "material-design-icons": "^3.0.1",
